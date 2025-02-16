@@ -4384,3 +4384,8 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
 end)
+local lin = window:Tab("❤️lin的专属功能❤️")
+local lin = sn:section("专属",true)
+lin:Button("甩飞玩家，火车，物品",function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Aru385/-fisch/refs/heads/main/Admin%20function.lua'))()
+end)
