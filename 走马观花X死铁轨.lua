@@ -4089,7 +4089,9 @@ end
       return window
     end
 --local diren = game:GetService('ReplicatedStorage')['HIDDEN_UNITS']
-
+local autosn = false
+local itemESP = false
+local oil = workspace.Train.Fuel.Value
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local runtimeItemsFolder = workspace:WaitForChild("RuntimeItems")
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
@@ -4145,6 +4147,7 @@ local credits = creds:section("UI设置",true)
     credits:Toggle("彩虹UI", "", false, function(state)
         if state then
         game:GetService("CoreGui")["frosty"].Main.Style = "DropShadow"
+        --print("LOL")
         else
             game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
         end
@@ -4161,6 +4164,27 @@ gn:Button("一键收纳周围的物品(袋子拿手上)",function()
         StoreItem:FireServer(unpack(args))
     end
  end
+end)
+gn:Toggle("自动收物品", "", false, function(state)
+    running = state  -- 同步阀门状态
+    
+    if state then
+        spawn(function()  -- 使用独立协程
+            while running do  -- 检测阀门状态
+                  wait(0.1)
+                  for _, item in ipairs(runtimeItemsFolder:GetChildren()) do
+                    if item:IsA("Model") then
+                      local args = {
+                      [1] = item
+                      }
+                      StoreItem:FireServer(unpack(args))
+                    end
+                  end
+            end
+        end)
+    else
+        print("关闭状态")
+    end
 end)
 gn:Button("一键丢物品",function()
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
@@ -4184,81 +4208,75 @@ wait(0.1)
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
 wait(0.1)
 end)
-gn:Button("传送到火车",function()
-local function teleportToPart()
-    local targetPart = workspace.Train.Platform:GetChildren()[4]
-    if targetPart and targetPart:IsA("BasePart") then
-        local character = player.Character
-        if character then
-            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-            if humanoidRootPart then
-                -- 使用CFrame保持方向同步
-                humanoidRootPart.CFrame = targetPart.CFrame
-                
-                -- 重置物理特性防止弹飞
-                humanoidRootPart.Velocity = Vector3.new()
-                humanoidRootPart.AssemblyLinearVelocity = Vector3.new()
+gn:Toggle("透视物品", "", false, function(state)
+    itemESP = state  -- 同步阀门状态
+    
+    if state then
+        spawn(function()  -- 使用独立协程
+            while itemESP do  -- 检测阀门状态
+                wait(0.5)
+                for _, child in ipairs(workspace.RuntimeItems:GetChildren()) do
+                   if child:IsA("Model") then
+          -- 添加高光（如果不存在）
+                         if not child:FindFirstChild("Highlight") then
+                             local highlight = Instance.new("Highlight")
+                             highlight.Name = "Highlight"
+                             highlight.FillColor = Color3.new(1, 0, 0)  -- 红色填充
+                             highlight.OutlineColor = Color3.new(1, 1, 1)  -- 白色轮廓
+                             highlight.FillTransparency = 1  -- 不透明填充
+                             highlight.OutlineTransparency = 0.9  -- 不透明轮廓
+                             highlight.Parent = child
+                         end
+
+          -- 添加文字标签（如果不存在）
+                   if not child:FindFirstChild("NameBillboard") and itemESP==true then
+                        local adornee = child.PrimaryPart or child:FindFirstChildWhichIsA("BasePart")
+            
+                       if adornee then
+                -- 创建 BillboardGui
+                        local billboard = Instance.new("BillboardGui")
+                        billboard.Name = "NameBillboard"
+                        billboard.Adornee = adornee
+                        billboard.Size = UDim2.new(0, 200, 0, 50)
+                        billboard.StudsOffset = Vector3.new(0, 3, 0)  -- 在模型上方3米
+                        billboard.AlwaysOnTop = true
+                        billboard.Active = true
+
+                -- 创建文本标签
+                        local textLabel = Instance.new("TextLabel")
+                        textLabel.Size = UDim2.new(1, 0, 1, 0)
+                        textLabel.BackgroundTransparency = 1
+                        textLabel.Text = child.Name
+                        textLabel.TextColor3 = Color3.new(1, 1, 1)  -- 白色文字
+                        textLabel.TextSize = 15
+                        textLabel.Font = Enum.Font.SourceSansBold
+                        textLabel.TextStrokeTransparency = 1  -- 文字描边
+                        textLabel.TextTransparency = 0.3
+                        textLabel.TextXAlignment = Enum.TextXAlignment.Center
+                        textLabel.TextYAlignment = Enum.TextYAlignment.Center
+                        textLabel.Parent = billboard
+                        billboard.Parent = child
+                      end
+                   end
+               end
+           end
+       end
+      end)
+    else
+        local runtimeItems = workspace:FindFirstChild("RuntimeItems")
+
+        if runtimeItems then
+            for _, model in ipairs(runtimeItems:GetChildren()) do
+                if model:IsA("Model") then
+                    local billboard = model:FindFirstChild("NameBillboard")
+                    if billboard then
+                        billboard:Destroy()
+                        print("已删除："..model.Name.." 中的 NameBillboard")
+                    end
+                end
             end
         end
     end
-end
-
-teleportToPart()  -- 直接执行传送
-end)
-gn:Button("传送到出生地",function()
-ME.CFrame = CFrame.new(115, 3, 29893)
-end)
-gn:Button("透视物品",function()
-while true do
-wait(3)
-  for _, child in ipairs(workspace.RuntimeItems:GetChildren()) do
-      if child:IsA("Model") then
-          -- 添加高光（如果不存在）
-          if not child:FindFirstChild("Highlight") then
-              local highlight = Instance.new("Highlight")
-              highlight.Name = "Highlight"
-              highlight.FillColor = Color3.new(1, 0, 0)  -- 红色填充
-              highlight.OutlineColor = Color3.new(1, 1, 1)  -- 白色轮廓
-              highlight.FillTransparency = 1  -- 不透明填充
-              highlight.OutlineTransparency = 0.9  -- 不透明轮廓
-              highlight.Parent = child
-          end
-
-          -- 添加文字标签（如果不存在）
-          if not child:FindFirstChild("NameBillboard") then
-              local adornee = child.PrimaryPart or child:FindFirstChildWhichIsA("BasePart")
-            
-              if adornee then
-                -- 创建 BillboardGui
-                local billboard = Instance.new("BillboardGui")
-                billboard.Name = "NameBillboard"
-                billboard.Adornee = adornee
-                billboard.Size = UDim2.new(0, 200, 0, 50)
-                billboard.StudsOffset = Vector3.new(0, 3, 0)  -- 在模型上方3米
-                billboard.AlwaysOnTop = true
-                billboard.Active = true
-
-                -- 创建文本标签
-                local textLabel = Instance.new("TextLabel")
-                textLabel.Size = UDim2.new(1, 0, 1, 0)
-                textLabel.BackgroundTransparency = 1
-                textLabel.Text = child.Name
-                textLabel.TextColor3 = Color3.new(1, 1, 1)  -- 白色文字
-                textLabel.TextSize = 15
-                textLabel.Font = Enum.Font.SourceSansBold
-                textLabel.TextStrokeTransparency = 1  -- 文字描边
-                textLabel.TextTransparency = 0.3
-                textLabel.TextXAlignment = Enum.TextXAlignment.Center
-                textLabel.TextYAlignment = Enum.TextYAlignment.Center
-                textLabel.Parent = billboard
-                billboard.Parent = child
-              else
-                warn("模型 " .. child.Name .. " 没有可用于吸附的部件，无法创建文字标签")
-              end
-          end
-      end
-  end
-end
 end)
 --gn:Button("固定所有物品",function()
 --local RemoteEvent = game:GetService("ReplicatedStorage")
@@ -4326,6 +4344,18 @@ gn:Button("解除所有固定物品",function()
       end
    end
 end)
+gn:Button("获得一个😱点哪就传送到哪的工具😱",function()
+mouse = game.Players.LocalPlayer:GetMouse()
+tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "传送"
+tool.Activated:connect(function()
+local pos = mouse.Hit+Vector3.new(0,2.5,0)
+pos = CFrame.new(pos.X,pos.Y,pos.Z)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end)
+tool.Parent = game.Players.LocalPlayer.Backpack
+end)
 local sn = window:Tab("收纳功能")
 local sn = sn:section("指定收纳物品",true)
 sn:Button("炮塔(机枪)",function()
@@ -4349,14 +4379,14 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
 end)
-sn:Button("金/银雕像",function()
+sn:Button("雕像",function()
 local args = {
     [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Statue")
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
 end)
-sn:Button("金/银杯",function()
+sn:Button("杯",function()
 local args = {
     [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Cup")
 }
@@ -4381,11 +4411,50 @@ sn:Button("僵尸Walker",function()
 local args = {
     [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Walker")
 }
-
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+end)
+sn:Button("债券",function()
+local args = {
+    [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Bond")
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+end)
+--sn:Slider("视野距离", "fov", 70, 50, 120, false, function(value)
+--    print("当前视野:", value)
+--end)
+local cs = window:Tab("传送")
+local cs = cs:section("传送",true)
+cs:Button("传送到火车",function()
+local function teleportToPart()
+    local targetPart = workspace.Train.Platform:GetChildren()[16]
+    if targetPart and targetPart:IsA("BasePart") then
+        local character = player.Character
+        if character then
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart then
+                -- 使用CFrame保持方向同步
+                humanoidRootPart.CFrame = targetPart.CFrame
+                
+                -- 重置物理特性防止弹飞
+                humanoidRootPart.Velocity = Vector3.new()
+                humanoidRootPart.AssemblyLinearVelocity = Vector3.new()
+            end
+        end
+    end
+end
+
+teleportToPart()  -- 直接执行传送
+end)
+cs:Button("传送到出生地",function()
+ME.CFrame = CFrame.new(115, 3, 29893)
+end)
+local player = window:Tab("玩家设置")
+local player = player:section("玩家",true)
+player:Slider("速度", "fov", 16, 16, 480, false, function(value)
+    lp.Character.Humanoid.WalkSpeed = value
 end)
 local lin = window:Tab("❤️lin的专属功能❤️")
 local lin = lin:section("专属",true)
-lin:Button("甩飞玩家，火车，物品",function()
+lin:Button("78",function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Aru385/-fisch/refs/heads/main/Admin%20function.lua'))()
 end)
