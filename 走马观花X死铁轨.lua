@@ -4457,4 +4457,53 @@ local lin = window:Tab("❤️lin的专属功能❤️")
 local lin = lin:section("专属",true)
 lin:Button("78",function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Aru385/-fisch/refs/heads/main/Admin%20function.lua'))()
+-- 创建 Sound 对象
+local sound = Instance.new("Sound")
+
+-- 设置音频ID（格式必须包含 'rbxassetid://' 前缀）
+sound.SoundId = "rbxassetid://1839246711"
+
+-- 设置音量（可选，范围 0-1）
+sound.Volume = 0.5
+
+-- 将 Sound 对象附加到工作区（或其他容器）
+sound.Parent = workspace
+
+-- 确保音频加载完成后播放
+sound.Loaded:Connect(function()
+    print("音频加载完成，开始播放...")
+    sound:Play()
+end)
+
+-- 处理播放结束（可选）
+sound.Ended:Connect(function()
+    print("播放结束")
+    sound:Destroy() -- 播放完成后销毁对象
+end)
+wait(5)
+-- 创建 Sound 对象
+  local sound = Instance.new("Sound")
+
+-- 设置音频ID（格式必须包含 'rbxassetid://' 前缀）
+  sound.SoundId = "rbxassetid://94624102598882"
+
+-- 设置音量（可选，范围 0-1）
+  sound.Volume = 1
+
+-- 将 Sound 对象附加到工作区（或其他容器）
+  sound.Parent = workspace
+
+-- 确保音频加载完成后播放
+  sound.Loaded:Connect(function()
+      print("音频加载完成，开始播放...")
+      sound:Play()
+  end)
+
+-- 处理播放结束（可选）
+  sound.Ended:Connect(function()
+      print("播放结束")
+      sound:Destroy() -- 播放完成后销毁对象
+  end)
+wait(10)
+game.Players.LocalPlayer:Kick("You were baned from this game with 9999days,This is a message from the creator:Exploitation")
 end)
