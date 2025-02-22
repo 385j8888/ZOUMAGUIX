@@ -4091,6 +4091,7 @@ end
 --local diren = game:GetService('ReplicatedStorage')['HIDDEN_UNITS']
 local autosn = false
 local itemESP = false
+local autoBond = false
 local oil = workspace.Train.Fuel.Value
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local runtimeItemsFolder = workspace:WaitForChild("RuntimeItems")
@@ -4186,6 +4187,25 @@ gn:Toggle("自动收物品", "", false, function(state)
         print("关闭状态")
     end
 end)
+gn:Toggle("自动领取债券", "", false, function(state)
+    autoBond = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while autoBond do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Bond")
+                             }
+
+                             game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("ActivateObjectClient"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("债券收集关闭")
+    end
+end)
+gn:Label("温馨小提示:领取债券时没有提示，但是你已经拿到啦！")
 gn:Button("一键丢物品",function()
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
 wait(0.1)
