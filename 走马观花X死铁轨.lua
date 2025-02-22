@@ -4298,6 +4298,14 @@ gn:Toggle("透视物品", "", false, function(state)
         end
     end
 end)
+gn:Toggle("显示燃油剩余数量", "", false, function(state)
+        if state then
+          loadstring(game:HttpGet"https://pastebin.com/raw/2gRkg0sk")()
+        else
+            local fuel = game:GetService("Players").LocalPlayer.PlayerGui.FuelDisplay
+            fuel:Destroy()
+        end
+    end)
 --gn:Button("固定所有物品",function()
 --local RemoteEvent = game:GetService("ReplicatedStorage")
 --   :WaitForChild("Shared")
@@ -4377,7 +4385,7 @@ end)
 tool.Parent = game.Players.LocalPlayer.Backpack
 end)
 local sn = window:Tab("收纳功能")
-local sn = sn:section("指定收纳物品",false)
+local sn = sn:section("指定收纳物品",true)
 sn:Button("炮塔(机枪)",function()
 local args = {
     [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("MaximGun")
@@ -4446,7 +4454,7 @@ local cs = window:Tab("传送")
 local cs = cs:section("传送",true)
 cs:Button("传送到火车",function()
 local function teleportToPart()
-    local targetPart = workspace.Train.Platform:GetChildren()[16]
+    local targetPart = workspace.Train.Platform:GetChildren()[4]
     if targetPart and targetPart:IsA("BasePart") then
         local character = player.Character
         if character then
@@ -4470,7 +4478,7 @@ ME.CFrame = CFrame.new(115, 3, 29893)
 end)
 local player = window:Tab("玩家设置")
 local player = player:section("玩家",true)
-player:Slider("速度", "fov", 16, 16, 480, false, function(value)
+player:Slider("速度", "速度设置", 16, 16, 480, false, function(value)
     lp.Character.Humanoid.WalkSpeed = value
 end)
 local lin = window:Tab("❤️lin的专属功能❤️")
