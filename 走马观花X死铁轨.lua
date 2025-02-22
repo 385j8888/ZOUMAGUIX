@@ -4089,6 +4089,8 @@ end
       return window
     end
 --local diren = game:GetService('ReplicatedStorage')['HIDDEN_UNITS']
+local alwaysnight = false
+local alwaysunday = false
 local autosn = false
 local itemESP = false
 local autoBond = false
@@ -4482,6 +4484,38 @@ local player = player:section("玩家",true)
 player:Slider("速度", "速度设置", 16, 16, 480, false, function(value)
     lp.Character.Humanoid.WalkSpeed = value
 end)
+local hj = window:Tab("世界环境")
+local hj = hj:section("环境",true)
+hj:Toggle("永远白天", "", false, function(state)
+    alwaysunday = state  -- 同步阀门状态
+    
+    if state then
+        spawn(function()  -- 使用独立协程
+            while alwaysunday do  -- 检测阀门状态
+                  wait(0.1)
+                  local sunday = game:GetService("Lighting")
+                  sunday.TimeOfDay = 14
+            end
+        end)
+    else
+        print("关闭状态")
+    end
+end)
+hj:Toggle("永远黑夜", "", false, function(state)
+    alwaysnight = state  -- 同步阀门状态
+    
+    if state then
+        spawn(function()  -- 使用独立协程
+            while alwaysnight do  -- 检测阀门状态
+                  wait(0.1)
+                  local sunday = game:GetService("Lighting")
+                  sunday.TimeOfDay = 20
+            end
+        end)
+    else
+        print("关闭状态")
+    end
+end)
 local lin = window:Tab("❤️lin的专属功能❤️")
 local lin = lin:section("专属",true)
 lin:Button("78",function()
@@ -4550,7 +4584,7 @@ local dropdown = cs:Dropdown("选择要传送的玩家", "player_selector", {}, 
     if not targetPlayer then return end
     
     -- 等待目标角色加载（最多5秒）
-    local maxWait = 2
+    local maxWait = 1
     repeat
         maxWait = maxWait - 1
         wait(1)
