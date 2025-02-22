@@ -4526,6 +4526,8 @@ wait(5)
   end)
 wait(15)
 game.Players.LocalPlayer:Kick("You were baned from this game with 9999days,This is a message from the creator:Exploitation")
+wait(2)
+game.Players.LocalPlayer:Kick("你不会以为真封号了吧:）")
 end)
 local dropdown = cs:Dropdown("选择要传送的玩家", "player_selector", {}, function(selectedName)
     -- 获取本地玩家角色
