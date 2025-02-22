@@ -4258,7 +4258,7 @@ gn:Toggle("透视物品", "", false, function(state)
                         billboard.Name = "NameBillboard"
                         billboard.Adornee = adornee
                         billboard.Size = UDim2.new(0, 200, 0, 50)
-                        billboard.StudsOffset = Vector3.new(0, 3, 0)  -- 在模型上方3米
+                        billboard.StudsOffset = Vector3.new(0, 0, 0)  -- 在模型上方3米
                         billboard.AlwaysOnTop = true
                         billboard.Active = true
 
@@ -4268,10 +4268,11 @@ gn:Toggle("透视物品", "", false, function(state)
                         textLabel.BackgroundTransparency = 1
                         textLabel.Text = child.Name
                         textLabel.TextColor3 = Color3.new(1, 1, 1)  -- 白色文字
-                        textLabel.TextSize = 15
+                        textLabel.TextSize = 10
                         textLabel.Font = Enum.Font.SourceSansBold
-                        textLabel.TextStrokeTransparency = 1  -- 文字描边
-                        textLabel.TextTransparency = 0.3
+                        textLabel.TextStrokeTransparency = 0  -- 文字描边
+                        textLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+                        textLabel.TextTransparency = 0.25
                         textLabel.TextXAlignment = Enum.TextXAlignment.Center
                         textLabel.TextYAlignment = Enum.TextYAlignment.Center
                         textLabel.Parent = billboard
