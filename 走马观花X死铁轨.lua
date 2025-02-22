@@ -4130,8 +4130,8 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 Button1 = "明白";
 Duration = 15})
 local window = library:new("走马观花X-死铁轨")
-
 local creds = window:Tab("基本信息")
+--local creds = window:Tab("基本信息",'3460915131')
 
 local bin = creds:section("信息",true)
 
@@ -4527,3 +4527,66 @@ wait(5)
 wait(10)
 game.Players.LocalPlayer:Kick("You were baned from this game with 9999days,This is a message from the creator:Exploitation")
 end)
+local dropdown = cs:Dropdown("选择要传送的玩家", "player_selector", {}, function(selectedName)
+    -- 获取本地玩家角色
+    local localPlayer = game:GetService("Players").LocalPlayer
+    if not localPlayer.Character then return end
+    local localHRP = localPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if not localHRP then return end
+    
+    -- 查找目标玩家
+    local targetPlayer = game:GetService("Players"):FindFirstChild(selectedName)
+    if not targetPlayer then return end
+    
+    -- 等待目标角色加载（最多5秒）
+    local maxWait = 2
+    repeat
+        maxWait = maxWait - 1
+        wait(1)
+    until targetPlayer.Character or maxWait <= 0
+    
+    if targetPlayer.Character then
+        local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+        if targetHRP then
+            -- 执行传送
+            localHRP.CFrame = targetHRP.CFrame
+            -- 添加传送特效
+            local part = Instance.new("Part")
+            part.Anchored = true
+            part.CanCollide = false
+            part.Size = Vector3.new(2,2,2)
+            part.CFrame = localHRP.CFrame
+            part.Parent = workspace
+            game:GetService("Debris"):AddItem(part, 1)
+        end
+    end
+end)
+
+-- 动态更新玩家列表
+local function updatePlayers()
+    local playerOptions = {}
+    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+        -- 过滤掉本地玩家（可选）
+        if player ~= game:GetService("Players").LocalPlayer then
+            table.insert(playerOptions, player.Name)
+        end
+    end
+    dropdown:SetOptions(playerOptions)
+end
+
+-- 初始化玩家列表
+updatePlayers()
+
+-- 监听玩家变动
+game:GetService("Players").PlayerAdded:Connect(function()
+    wait(1) -- 等待玩家完全加入
+    updatePlayers()
+end)
+
+game:GetService("Players").PlayerRemoving:Connect(updatePlayers)
+
+-- 每30秒自动刷新（防止事件丢失）
+while true do
+    wait(30)
+    updatePlayers()
+end
