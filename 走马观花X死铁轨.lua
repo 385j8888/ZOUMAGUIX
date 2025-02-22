@@ -4377,7 +4377,7 @@ end)
 tool.Parent = game.Players.LocalPlayer.Backpack
 end)
 local sn = window:Tab("收纳功能")
-local sn = sn:section("指定收纳物品",true)
+local sn = sn:section("指定收纳物品",false)
 sn:Button("炮塔(机枪)",function()
 local args = {
     [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("MaximGun")
@@ -4524,7 +4524,7 @@ wait(5)
       print("播放结束")
       sound:Destroy() -- 播放完成后销毁对象
   end)
-wait(10)
+wait(15)
 game.Players.LocalPlayer:Kick("You were baned from this game with 9999days,This is a message from the creator:Exploitation")
 end)
 local dropdown = cs:Dropdown("选择要传送的玩家", "player_selector", {}, function(selectedName)
@@ -4562,6 +4562,73 @@ local dropdown = cs:Dropdown("选择要传送的玩家", "player_selector", {}, 
     end
 end)
 
+
+-- 创建下拉菜单
+local snn = window:Tab("收纳功能2.0")
+local snn = snn:section("指定收纳物品2.0",true)
+local dropdownn = snn:Dropdown("选择想要收纳的物品", "item_selector", {}, function(selectedName)
+    -- 获取远程事件引用
+    local remotes = game:GetService("ReplicatedStorage"):WaitForChild("Remotes")
+    local storeEvent = remotes:WaitForChild("StoreItem")
+    
+    -- 构造参数
+    local runtimeItems = workspace:WaitForChild("RuntimeItems")
+    local targetItem = runtimeItems:FindFirstChild(selectedName)
+    
+    if targetItem and targetItem:IsA("Model") then
+        local args = {
+            [1] = targetItem
+        }
+        storeEvent:FireServer(unpack(args))
+        print("已发送物品:", selectedName)
+    else
+        warn("找不到目标物品或物品不是Model:", selectedName)
+    end
+end)
+
+-- 刷新物品列表函数
+local function refreshItemList()
+    local items = {}
+    local runtimeItems = workspace:WaitForChild("RuntimeItems")
+    
+    -- 递归查找所有Model
+    local function scanFolder(folder)
+        for _, item in ipairs(folder:GetChildren()) do
+            if item:IsA("Model") then
+                table.insert(items, item.Name)
+            elseif item:IsA("Folder") then
+                scanFolder(item)  -- 递归扫描子文件夹
+            end
+        end
+    end
+    
+    scanFolder(runtimeItems)
+    dropdownn:SetOptions(items)
+end
+
+-- 初始化刷新
+refreshItemList()
+
+-- 添加自动刷新机制
+local debounce = false
+workspace.ChildAdded:Connect(function(child)
+    if child.Name == "RuntimeItems" then
+        wait(1)  -- 等待文件夹完全加载
+        if not debounce then
+            debounce = true
+            refreshItemList()
+            debounce = false
+        end
+    end
+end)
+
+-- 每1秒自动刷新（防止事件丢失）
+spawn(function()
+    while true do
+        wait(1)
+        refreshItemList()
+    end
+end)
 -- 动态更新玩家列表
 local function updatePlayers()
     local playerOptions = {}
@@ -4587,6 +4654,6 @@ game:GetService("Players").PlayerRemoving:Connect(updatePlayers)
 
 -- 每30秒自动刷新（防止事件丢失）
 while true do
-    wait(30)
+    wait(5)
     updatePlayers()
 end
