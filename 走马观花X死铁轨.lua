@@ -4094,6 +4094,14 @@ local alwaysunday = false
 local autosn = false
 local itemESP = false
 local autoBond = false
+local autoCoal = false
+local autoGoldBar = false
+local xxgd = false
+local bondd = false
+local TurretAmmo = false
+local Cross = false
+local Walker = false
+local dujiaoshou = false
 local oil = workspace.Train.Fuel.Value
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local runtimeItemsFolder = workspace:WaitForChild("RuntimeItems")
@@ -4150,7 +4158,6 @@ local credits = creds:section("UI设置",true)
     credits:Toggle("彩虹UI", "", false, function(state)
         if state then
         game:GetService("CoreGui")["frosty"].Main.Style = "DropShadow"
-        --print("LOL")
         else
             game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
         end
@@ -4208,6 +4215,47 @@ gn:Toggle("自动领取债券", "", false, function(state)
     end
 end)
 gn:Label("温馨小提示:领取债券时没有提示，但是你已经拿到啦！")
+gn:Toggle("持续检测独角兽", "", false, function(state)
+    dujiaoshou = state  -- 同步阀门状态
+    
+if state then
+local hasNotified = false -- 通知状态标记
+
+  local function deepSearch(object)
+    -- 深度优先搜索函数
+    if object.Name == "Unicorn" and object:IsA("Model") then
+        return true
+    end
+    
+    for _, child in ipairs(object:GetChildren()) do
+        if deepSearch(child) then
+            return true
+        end
+    end
+    return false
+  end
+
+  while dujiaoshou do
+    task.wait(0.1) -- 每1秒检测一次，优化性能
+    
+    local baseplates = workspace:FindFirstChild("Baseplates")
+    if baseplates and not hasNotified then
+        -- 当找到Baseplates且未发送通知时进行检测
+        if deepSearch(baseplates) then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "走马观花X",
+                Text = "发现独角兽！请留意四周！",
+                Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150",
+                Duration = 10
+            })
+            hasNotified = true -- 标记已发送通知
+        end
+    end
+  end
+else
+        print("关闭状态")
+end
+end)
 gn:Button("一键丢物品",function()
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
 wait(0.1)
@@ -4341,7 +4389,7 @@ for _, item in ipairs(RuntimeItems:GetChildren()) do
         if itemPart then
             -- 计算与玩家的距离（单位：Roblox studs）
             local distance = (humanoidRootPart.Position - itemPart.Position).magnitude
-            if distance <= 150 then
+            if distance <= 100 then
                 local args = {
                     [1] = item,
                     [2] = workspace:WaitForChild("Train"):WaitForChild("Platform"):WaitForChild("Part")
@@ -4354,7 +4402,7 @@ for _, item in ipairs(RuntimeItems:GetChildren()) do
     end
 end
 end)
-gn:Label("温馨小提示:固定距离为150米内的所有物品")
+gn:Label("温馨小提示:固定距离为100米内的所有物品")
 gn:Button("解除所有固定物品",function()
 -- 获取 RuntimeItems 文件夹中的所有子项
 -- 遍历所有子项，筛选出 Model 类型
@@ -4387,8 +4435,8 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
 end)
 tool.Parent = game.Players.LocalPlayer.Backpack
 end)
-local sn = window:Tab("收纳功能")
-local sn = sn:section("指定收纳物品",true)
+local sn = window:Tab("自动收纳功能")
+local sn = sn:section("自动收纳物品",true)
 sn:Button("炮塔(机枪)",function()
 local args = {
     [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("MaximGun")
@@ -4396,19 +4444,96 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
 end)
-sn:Button("炮塔子弹",function()
-local args = {
-    [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("TurretAmmo")
-}
+sn:Toggle("机枪子弹", "", false, function(state)
+    TurretAmmo = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while TurretAmmo do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("TurretAmmo")
+                             }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
 end)
-sn:Button("煤",function()
-local args = {
-    [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Coal")
-}
 
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+sn:Toggle("煤块", "", false, function(state)
+    autoCoal = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while autoCoal do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Coal")
+                             }
+
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
+end)
+sn:Toggle("金条", "", false, function(state)
+    autoGoldBar = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while autoGoldBar do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("GoldBar")
+                             }
+
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
+end)
+sn:Toggle("吸血鬼刀", "", false, function(state)
+    xxgd = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while xxgd do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Vampire Knife")
+                             }
+
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
+end)
+sn:Toggle("十字架", "", false, function(state)
+    Cross = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while Cross do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Cross")
+                             }
+
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
 end)
 sn:Button("雕像",function()
 local args = {
@@ -4424,13 +4549,6 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
 end)
-sn:Button("金条",function()
-local args = {
-    [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Goldbar")
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
-end)
 sn:Button("僵尸Runners",function()
 local args = {
     [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Runner")
@@ -4438,17 +4556,41 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
 end)
-sn:Button("僵尸Walker",function()
-local args = {
-    [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Walker")
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+sn:Toggle("僵尸Walker", "", false, function(state)
+    Walker = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while Walker do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Walker")
+                             }
+
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
 end)
-sn:Button("债券",function()
-local args = {
-    [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Bond")
-}
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+sn:Toggle("债券", "", false, function(state)
+    bondd = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while bondd do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Bond")
+                             }
+
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
 end)
 --sn:Slider("视野距离", "fov", 70, 50, 120, false, function(value)
 --    print("当前视野:", value)
@@ -4572,43 +4714,98 @@ game.Players.LocalPlayer:Kick("You were baned from this game with 9999days,This 
 wait(2)
 game.Players.LocalPlayer:Kick("你不会以为真封号了吧:）")
 end)
-local dropdown = cs:Dropdown("选择要传送的玩家", "player_selector", {}, function(selectedName)
-    -- 获取本地玩家角色
-    local localPlayer = game:GetService("Players").LocalPlayer
-    if not localPlayer.Character then return end
-    local localHRP = localPlayer.Character:FindFirstChild("HumanoidRootPart")
-    if not localHRP then return end
-    
-    -- 查找目标玩家
+
+
+
+-- 创建下拉菜单
+local eg = window:Tab("恶搞")
+local eg = eg:section("恶搞",true)
+local dropdown = eg:Dropdown("固定玩家", "player_selector", {}, function(selectedName)
+    -- 安全获取各个组件
     local targetPlayer = game:GetService("Players"):FindFirstChild(selectedName)
-    if not targetPlayer then return end
+    local trainPart = workspace:FindFirstChild("Train") and 
+                     workspace.Train:FindFirstChild("Train") and 
+                     workspace.Train.Train:FindFirstChild("Part")
     
-    -- 等待目标角色加载（最多5秒）
-    local maxWait = 1
-    repeat
-        maxWait = maxWait - 1
-        wait(1)
-    until targetPlayer.Character or maxWait <= 0
-    
-    if targetPlayer.Character then
-        local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-        if targetHRP then
-            -- 执行传送
-            localHRP.CFrame = targetHRP.CFrame
-            -- 添加传送特效
-            local part = Instance.new("Part")
-            part.Anchored = true
-            part.CanCollide = false
-            part.Size = Vector3.new(2,2,2)
-            part.CFrame = localHRP.CFrame
-            part.Parent = workspace
-            game:GetService("Debris"):AddItem(part, 1)
+    -- 验证有效性
+    if not targetPlayer or not trainPart then
+        warn("无效目标: "..(not targetPlayer and "玩家不存在" or "火车部件缺失"))
+        return
+    end
+
+    -- 构造参数表
+    local args = {
+        [1] = workspace:FindFirstChild(selectedName),  -- 根据名称查找实例
+        [2] = trainPart
+    }
+
+    -- 带错误处理的远程调用
+    pcall(function()
+        game:GetService("ReplicatedStorage").Shared.Remotes.Weld.RequestWeld:FireServer(unpack(args))
+    end)
+end)
+
+-- 实时更新玩家列表
+local function updatePlayerList()
+    local players = {}
+    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
+        if player ~= game.Players.LocalPlayer then  -- 排除自己
+            table.insert(players, player.Name)
+        end
+    end
+    dropdown:SetOptions(players)
+end
+
+-- 初始化列表
+updatePlayerList()
+
+-- 监听玩家变动
+game:GetService("Players").PlayerAdded:Connect(updatePlayerList)
+game:GetService("Players").PlayerRemoving:Connect(updatePlayerList)
+
+-- 添加自动刷新保护
+spawn(function()
+    while true do
+        wait(15)
+        if #dropdown.Options ~= #game:GetService("Players"):GetPlayers() -1 then
+            updatePlayerList()
         end
     end
 end)
 
+-- 添加火车部件监控
+workspace.DescendantAdded:Connect(function(child)
+    if child:IsDescendantOf(workspace.Train) then
+        updatePlayerList()
+    end
+end)
+eg:Button("解除固定的玩家",function()
+local Players = game:GetService("Players")
+local Remote = game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("Weld"):WaitForChild("RequestUnweld")
 
--- 创建下拉菜单
+local function ProcessPlayer(player)
+    -- 等待玩家角色加载
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    -- 创建参数表
+    local args = {
+        [1] = character  -- 使用玩家角色代替名称
+    }
+    
+    -- 触发远程事件
+    Remote:FireServer(unpack(args))
+end
+
+-- 处理现有玩家
+for _, player in ipairs(Players:GetPlayers()) do
+    coroutine.wrap(ProcessPlayer)(player)
+end
+
+-- 处理新加入玩家
+Players.PlayerAdded:Connect(function(player)
+    coroutine.wrap(ProcessPlayer)(player)
+end)
+end)
 local snn = window:Tab("收纳功能2.0")
 local snn = snn:section("指定收纳物品2.0",true)
 local dropdownn = snn:Dropdown("选择想要收纳的物品", "item_selector", {}, function(selectedName)
@@ -4658,7 +4855,7 @@ refreshItemList()
 local debounce = false
 workspace.ChildAdded:Connect(function(child)
     if child.Name == "RuntimeItems" then
-        wait(1)  -- 等待文件夹完全加载
+        --wait(1)  -- 等待文件夹完全加载
         if not debounce then
             debounce = true
             refreshItemList()
@@ -4691,7 +4888,7 @@ updatePlayers()
 
 -- 监听玩家变动
 game:GetService("Players").PlayerAdded:Connect(function()
-    wait(1) -- 等待玩家完全加入
+    --wait(1) -- 等待玩家完全加入
     updatePlayers()
 end)
 
