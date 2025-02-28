@@ -4102,7 +4102,9 @@ local TurretAmmo = false
 local Cross = false
 local Walker = false
 local dujiaoshou = false
-local oil = workspace.Train.Fuel.Value
+local antigd = false
+local autodorp = false
+local bd = false
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local runtimeItemsFolder = workspace:WaitForChild("RuntimeItems")
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
@@ -4174,6 +4176,10 @@ gn:Button("一键收纳周围的物品(袋子拿手上)",function()
         StoreItem:FireServer(unpack(args))
     end
  end
+end)
+gn:Button("自由切换视角",function()
+game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
+game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
 end)
 gn:Toggle("自动收物品", "", false, function(state)
     running = state  -- 同步阀门状态
@@ -4277,6 +4283,20 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropI
 wait(0.1)
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
 wait(0.1)
+end)
+gn:Toggle("自动丢物品", "", false, function(state)
+    autodorp = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while autodorp do  -- 检测阀门状态
+                             wait(0.00001)
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
+           end
+      --   end)
+    else
+        print("关闭")
+    end
 end)
 gn:Toggle("透视物品", "", false, function(state)
     itemESP = state  -- 同步阀门状态
@@ -4462,7 +4482,24 @@ sn:Toggle("机枪子弹", "", false, function(state)
         print("关闭")
     end
 end)
+sn:Toggle("绷带", "", false, function(state)
+    bd = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while bd do  -- 检测阀门状态
+                             wait(0.001)
+                             local args = {
+                                 [1] = workspace:WaitForChild("RuntimeItems"):WaitForChild("Bandage")
+                             }
 
+                             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StoreItem"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
+end)
 sn:Toggle("煤块", "", false, function(state)
     autoCoal = state  -- 同步阀门状态
     
@@ -4805,6 +4842,27 @@ end
 Players.PlayerAdded:Connect(function(player)
     coroutine.wrap(ProcessPlayer)(player)
 end)
+end)
+eg:Toggle("防固定", "", false, function(state)
+    antigd = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while antigd do  -- 检测阀门状态
+                             wait(0.0000001)
+                               local Players = game:GetService("Players")
+                               local player = Players.LocalPlayer -- 获取本地玩家
+                               local character = player.Character or player.CharacterAdded:Wait() -- 等待角色加载完成
+
+                               local args = {
+                                     [1] = character -- 直接使用玩家角色对象
+                               }
+                             game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("Weld"):WaitForChild("RequestUnweld"):FireServer(unpack(args))
+           end
+      --   end)
+    else
+        print("关闭")
+    end
 end)
 local snn = window:Tab("收纳功能2.0")
 local snn = snn:section("指定收纳物品2.0",true)
