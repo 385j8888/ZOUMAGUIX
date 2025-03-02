@@ -4209,7 +4209,7 @@ gn:Toggle("无限战斗耐力", "", false, function(state)
     if state then
        --  pawn(function()  -- 使用独立协程
            while nailizd do  -- 检测阀门状态
-              wait(1)
+              wait(0.5)
               -- 服务器脚本初始化玩家数据
               zdzd.Value = 100
            end
@@ -4286,7 +4286,7 @@ gn:Toggle("透视电锯人", "", false, function(state)
     -- 创建文本标签
                          local textLabel = Instance.new("TextLabel")
                          textLabel.Size = UDim2.new(1, 0, 1, 0)
-                         textLabel.Text = "电锯人"
+                         textLabel.Text = "CHAIN"
                          textLabel.TextScaled = true
                          textLabel.TextColor3 = Color3.new(1, 0, 0)  -- 红色文字
                          textLabel.Font = Enum.Font.GothamBlack
@@ -4307,4 +4307,60 @@ gn:Toggle("透视电锯人", "", false, function(state)
              end
         end
     end
+end)
+local hj = window:Tab("世界环境")
+local hj = hj:section("环境设置",true)
+hj:Button("去除黑暗",function()
+local lighting = game:GetService("Lighting")
+
+-- 基础光照强化
+lighting.Ambient = Color3.new(1, 1, 1)  -- 全白环境光
+lighting.OutdoorAmbient = Color3.new(0.8, 0.8, 0.8)
+lighting.Brightness = 2  -- 双倍亮度
+
+-- 日光系统强化
+lighting.ClockTime = 12  -- 锁定正午时间
+lighting.GeographicLatitude = 0  -- 赤道位置日照最强
+
+if lighting:FindFirstChildOfClass("DirectionalLight") then
+    lighting:FindFirstClass("DirectionalLight").Intensity = 1.2  -- 强化阳光强度
+end
+
+-- 阴影系统调整
+lighting.GlobalShadows = false  -- 禁用全局阴影
+lighting.ShadowSoftness = 0.1   -- 最小化残留阴影
+
+-- 后期处理增强
+local bloom = Instance.new("BloomEffect")
+bloom.Intensity = 0.5
+bloom.Threshold = 0
+bloom.Size = 32
+bloom.Parent = lighting
+
+local exposure = Instance.new("ExposureEffect")
+exposure.Exposure = 1.2  -- 提高曝光值
+exposure.Parent = lighting
+
+-- 雾效清除
+lighting.FogEnd = 9e9  -- 禁用雾效
+lighting.FogStart = 9e9
+
+-- 材质清洁（可选，针对深色表面）
+game.Workspace.DescendantAdded:Connect(function(child)
+    if child:IsA("BasePart") then
+        child.Material = Enum.Material.Neon  -- 自动霓虹材质替换
+        child.Color = Color3.new(1, 1, 1)    -- 纯白着色
+    end
+end)
+
+-- 现存物体处理
+for _, child in ipairs(game.Workspace:GetDescendants()) do
+    if child:IsA("BasePart") then
+        child.Material = Enum.Material.Neon
+        child.Color = Color3.new(1, 1, 1)
+    end
+end
+
+-- 天空系统净化
+lighting.Sky:Destroy()  -- 移除默认天空盒
 end)
