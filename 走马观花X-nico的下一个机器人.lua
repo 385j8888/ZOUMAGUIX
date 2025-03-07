@@ -4248,37 +4248,66 @@ gn:Toggle("透视怪", "", false, function(state)
     end
 end)
 gn:Button("传送到安全平台",function()
--- 获取玩家角色
-local player = game:GetService("Players").LocalPlayer
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 -- 创建平台参数
-local platformOffset = Vector3.new(0, 65, 0) -- Y 轴上方 200 米（studs）
-local platformSize = Vector3.new(2500, 5, 2500) -- 平台尺寸（长×高×宽）
+local platformOffset = Vector3.new(0, 80, 0)
+local platformSize = Vector3.new(2500, 20, 2500)  -- 加厚平台高度到20
 
--- 计算平台位置（角色头顶）
-local platformPosition = humanoidRootPart.Position + platformOffset
-
--- 创建平台
+-- 创建平台并确保物理加载
 local platform = Instance.new("Part")
 platform.Size = platformSize
-platform.Position = platformPosition
-platform.Anchored = true     -- 防止掉落
-platform.CanCollide = true   -- 允许碰撞
-platform.Color = Color3.new(0.8, 0.8, 0.8) -- 灰色平台
-platform.Transparency = 0.3
+platform.Anchored = true
+platform.CanCollide = true
+platform.Color = Color3.new(0.8, 0.8, 0.8)
+platform.Transparency = 0.75
+platform.Position = humanoidRootPart.Position + platformOffset
 platform.Parent = workspace
 
--- 计算传送位置（平台表面中心）
-local teleportCFrame = CFrame.new(
-    platformPosition.X,
-    platformPosition.Y + platformSize.Y/2, -- 移动到平台表面
-    platformPosition.Z
-)
+-- 关键修正：等待平台完成物理加载
+for _ = 1, 3 do  -- 通过三次心跳循环确保加载
+    RunService.Heartbeat:Wait()
+end
 
--- 传送玩家
-humanoidRootPart.CFrame = teleportCFrame
+-- 精确计算平台顶部表面坐标
+local platformTopSurfaceY = platform.Position.Y + (platform.Size.Y/2)
+
+-- 新的传送坐标计算系统
+local function GetSafeTeleportPosition()
+    -- 获取角色物理参数
+    local hipHeight = humanoid.HipHeight
+    local bodyHeight = 2  -- 角色身体高度补偿
+    
+    -- 计算最终坐标
+    return Vector3.new(
+        platform.Position.X,
+        platformTopSurfaceY + hipHeight + bodyHeight,  -- 确保在平台上方
+        platform.Position.Z
+    )
+end
+
+-- 强制解除碰撞状态
+humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+task.wait(0.2)
+
+-- 精确传送（直接操作RootPart）
+humanoidRootPart.CFrame = CFrame.new(GetSafeTeleportPosition())
+
+-- 二次位置确认（防止物理回弹）
+task.wait(0.5)
+humanoidRootPart.CFrame = CFrame.new(GetSafeTeleportPosition())
+
+print("传送坐标验证：", humanoidRootPart.Position)
+end)
+gn:Button("删掉一个安全平台",function()
+local pt = workspace.Part
+pt:Destroy()
 end)
 gn:Toggle("自动跳跃(刷钱)", "", false, function(state)
     jump = state  -- 同步阀门状态
