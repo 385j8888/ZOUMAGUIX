@@ -4181,6 +4181,13 @@ gn:Toggle("无限奔跑耐力", "", false, function(state)
            while naili do  -- 检测阀门状态
               wait(1)
               -- 服务器脚本初始化玩家数据
+              local player = Players.LocalPlayer  -- 直接获取当前玩家对象
+              local playerName = player.Name      -- 玩家名称字符串
+
+-- 动态访问 Workspace 中的玩家文件夹
+              local playerFolder = workspace:WaitForChild(playerName)
+              local stats = playerFolder:WaitForChild("Stats")
+              local stamina = stats:WaitForChild("Stamina")
               stamina.Value = 100
            end
       --   end)
@@ -4196,6 +4203,13 @@ gn:Toggle("无限理智值(不知道有啥用)", "", false, function(state)
            while lizhi do  -- 检测阀门状态
               wait(1)
               -- 服务器脚本初始化玩家数据
+              local player = Players.LocalPlayer  -- 直接获取当前玩家对象
+              local playerName = player.Name      -- 玩家名称字符串
+
+-- 动态访问 Workspace 中的玩家文件夹
+              local playerFolder = workspace:WaitForChild(playerName)
+              local stats = playerFolder:WaitForChild("Stats")
+              local lizhi = stats:WaitForChild("Sanity")
               lizhi.Value = 100
            end
       --   end)
@@ -4209,24 +4223,16 @@ gn:Toggle("无限战斗耐力", "", false, function(state)
     if state then
        --  pawn(function()  -- 使用独立协程
            while nailizd do  -- 检测阀门状态
-              wait(0.5)
+              wait(0.1)
               -- 服务器脚本初始化玩家数据
+              local player = Players.LocalPlayer  -- 直接获取当前玩家对象
+              local playerName = player.Name      -- 玩家名称字符串
+
+-- 动态访问 Workspace 中的玩家文件夹
+              local playerFolder = workspace:WaitForChild(playerName)
+              local stats = playerFolder:WaitForChild("Stats")
+              local zdzd = stats:WaitForChild("CombatStamina")
               zdzd.Value = 100
-           end
-      --   end)
-    else
-        print("关闭")
-    end
-end)
-gn:Toggle("一直处于可奔跑状态", "", false, function(state)
-    run = state  -- 同步阀门状态
-    
-    if state then
-       --  pawn(function()  -- 使用独立协程
-           while run do  -- 检测阀门状态
-              wait(0.01)
-              -- 服务器脚本初始化玩家数据
-              runn.Value = true
            end
       --   end)
     else
@@ -4251,11 +4257,11 @@ gn:Button("透视玩家",function()
         end
     end
 end)
-gn:Toggle("透视电锯人", "", false, function(state)
+gn:Toggle("透视CHAIN", "", false, function(state)
     bott = state  -- 同步阀门状态
     
     if state then
-        spawn(function()  -- 使用独立协程
+        --spawn(function()  -- 使用独立协程
             while bott do  -- 检测阀门状态
                      wait(1)
                      local targetModel = workspace:WaitForChild("Misc"):WaitForChild("AI"):WaitForChild("CHAIN")
@@ -4277,7 +4283,7 @@ gn:Toggle("透视电锯人", "", false, function(state)
     -- 创建BillboardGui
                          local billboard = Instance.new("BillboardGui")
                          billboard.Name = "TextLabel3D"
-                         billboard.Size = UDim2.new(0, 30, 0, 10)
+                         billboard.Size = UDim2.new(0, 30, 0, 20)
                          billboard.StudsOffset = Vector3.new(0, 0, 0)  -- 文字在模型上方3格位置
                          billboard.AlwaysOnTop = true
                          billboard.Adornee = targetModel.PrimaryPart or targetModel:FindFirstChildWhichIsA("BasePart")
@@ -4296,13 +4302,11 @@ gn:Toggle("透视电锯人", "", false, function(state)
                          textLabel.Parent = billboard
                      end
             end
-        end)
+        --end)
     else
         for _, descendant in ipairs(AI:GetDescendants()) do
         -- 精确匹配BillboardGui类
              if descendant:IsA("BillboardGui") then
-               descendant:Destroy()
-               wait(1)
                descendant:Destroy()
              end
         end
@@ -4316,14 +4320,14 @@ local lighting = game:GetService("Lighting")
 -- 基础光照强化
 lighting.Ambient = Color3.new(1, 1, 1)  -- 全白环境光
 lighting.OutdoorAmbient = Color3.new(0.8, 0.8, 0.8)
-lighting.Brightness = 2  -- 双倍亮度
+lighting.Brightness = 1 -- 双倍亮度
 
 -- 日光系统强化
 lighting.ClockTime = 12  -- 锁定正午时间
 lighting.GeographicLatitude = 0  -- 赤道位置日照最强
 
 if lighting:FindFirstChildOfClass("DirectionalLight") then
-    lighting:FindFirstClass("DirectionalLight").Intensity = 1.2  -- 强化阳光强度
+    lighting:FindFirstClass("DirectionalLight").Intensity = 1 -- 强化阳光强度
 end
 
 -- 阴影系统调整
@@ -4338,20 +4342,11 @@ bloom.Size = 32
 bloom.Parent = lighting
 
 local exposure = Instance.new("ExposureEffect")
-exposure.Exposure = 1.2  -- 提高曝光值
+exposure.Exposure = 1 -- 提高曝光值
 exposure.Parent = lighting
 
 -- 雾效清除
-lighting.FogEnd = 9e9  -- 禁用雾效
-lighting.FogStart = 9e9
 
--- 材质清洁（可选，针对深色表面）
-game.Workspace.DescendantAdded:Connect(function(child)
-    if child:IsA("BasePart") then
-        child.Material = Enum.Material.Neon  -- 自动霓虹材质替换
-        child.Color = Color3.new(1, 1, 1)    -- 纯白着色
-    end
-end)
 
 -- 现存物体处理
 for _, child in ipairs(game.Workspace:GetDescendants()) do
@@ -4362,5 +4357,9 @@ for _, child in ipairs(game.Workspace:GetDescendants()) do
 end
 
 -- 天空系统净化
-lighting.Sky:Destroy()  -- 移除默认天空盒
+--lighting.Sky:Destroy()  -- 移除默认天空盒
+end)
+hj:Button("除雾",function()
+lighting.FogEnd = 9e9  -- 禁用雾效
+lighting.FogStart = 9e9
 end)
