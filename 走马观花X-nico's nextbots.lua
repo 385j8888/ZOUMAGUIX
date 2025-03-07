@@ -4267,6 +4267,7 @@ platform.Position = platformPosition
 platform.Anchored = true     -- 防止掉落
 platform.CanCollide = true   -- 允许碰撞
 platform.Color = Color3.new(0.8, 0.8, 0.8) -- 灰色平台
+platform.Transparency = 0.3
 platform.Parent = workspace
 
 -- 计算传送位置（平台表面中心）
