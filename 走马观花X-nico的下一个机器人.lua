@@ -4092,6 +4092,7 @@ local skip = false
 local bott = false
 local gg = false
 local jump = false
+local jumpp = false
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local botsFolder = workspace:FindFirstChild("bots")
@@ -4258,7 +4259,7 @@ local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 -- 创建平台参数
 local platformOffset = Vector3.new(0, 80, 0)
-local platformSize = Vector3.new(2500, 20, 2500)  -- 加厚平台高度到20
+local platformSize = Vector3.new(10000, 20, 10000)  -- 加厚平台高度到20
 
 -- 创建平台并确保物理加载
 local platform = Instance.new("Part")
@@ -4302,14 +4303,15 @@ humanoidRootPart.CFrame = CFrame.new(GetSafeTeleportPosition())
 -- 二次位置确认（防止物理回弹）
 task.wait(0.5)
 humanoidRootPart.CFrame = CFrame.new(GetSafeTeleportPosition())
-
-print("传送坐标验证：", humanoidRootPart.Position)
 end)
 gn:Button("删掉一个安全平台",function()
 local pt = workspace.Part
 pt:Destroy()
 end)
-gn:Toggle("自动跳跃(刷钱)", "", false, function(state)
+gn:Button("安全重生",function()
+game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("player"):WaitForChild("char"):WaitForChild("respawnchar"):FireServer()
+end)
+gn:Toggle("自动跳跃", "", false, function(state)
     jump = state  -- 同步阀门状态
     
     if state then
@@ -4339,4 +4341,32 @@ gn:Toggle("自动跳跃(刷钱)", "", false, function(state)
     else
         print("关闭")
     end
+end)
+gn:Button("传送到每个玩家(一遍)",function()
+                      -- 获取游戏服务
+              local Players = game:GetService("Players")
+
+-- 获取自身玩家
+              local localPlayer = Players.LocalPlayer
+              local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+
+-- 存储所有其他玩家的列表
+              local otherPlayers = {}
+              for _, player in pairs(Players:GetPlayers()) do
+                  if player ~= localPlayer then
+                      table.insert(otherPlayers, player)
+                  end
+              end
+
+-- 依次传送到每个其他玩家的位置
+              for _, targetPlayer in pairs(otherPlayers) do
+                  local targetCharacter = targetPlayer.Character or targetPlayer.CharacterAdded:Wait()
+                  local targetPosition = targetCharacter.PrimaryPart.Position  -- 假设主部件为PrimaryPart
+
+    -- 传送自身角色到目标位置
+                  character:PivotTo(CFrame.new(targetPosition))
+
+    -- 可以在这里添加一些等待时间，以便有时间观察传送效果
+                  wait(0.01)
+              end
 end)
