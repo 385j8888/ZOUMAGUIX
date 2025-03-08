@@ -4365,8 +4365,58 @@ gn:Button("传送到每个玩家(一遍)",function()
 
     -- 传送自身角色到目标位置
                   character:PivotTo(CFrame.new(targetPosition))
+                  character:PivotTo(CFrame.new(targetPosition))
 
     -- 可以在这里添加一些等待时间，以便有时间观察传送效果
                   wait(0.01)
               end
 end)
+gn:Button("跟踪每个玩家(3秒)",function()
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+
+
+local function trackPlayer(targetPlayer)
+    local targetCharacter = targetPlayer.Character or targetPlayer.CharacterAdded:Wait()
+    local humanoidRootPart = targetCharacter:FindFirstChild("HumanoidRootPart")
+    if humanoidRootPart then
+        local startTime = os.time()
+        while os.time() - startTime < 3 do
+            local newCFrame = humanoidRootPart.CFrame
+            character:PivotTo(CFrame.new(newCFrame.Position))
+            task.wait()
+        end
+    end
+end
+
+
+local function loopThroughAllPlayers()
+    local allPlayers = Players:GetPlayers()
+    for _, otherPlayer in ipairs(allPlayers) do
+        if otherPlayer ~= localPlayer then
+            trackPlayer(otherPlayer)
+        end
+    end
+end
+
+
+loopThroughAllPlayers()
+end)
+while true do
+   local botsFolder = workspace:FindFirstChild("bots")
+
+   if botsFolder then
+    -- 获取所有后代对象
+    local descendants = botsFolder:GetDescendants()
+    
+    for _, obj in ipairs(descendants) do
+        -- 检查对象是否为 ImageLabel
+        if obj:IsA("ImageLabel") then
+            -- 修改图片属性
+            obj.Image = "rbxthumb://type=Asset&id=17366451283&w=150&h=150"
+        end
+    end
+   end
+wait(5)
+end
