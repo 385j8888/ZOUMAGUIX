@@ -4168,6 +4168,9 @@ end)
 gn:Button("Spy",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/SimpleSpyV3/main.lua"))()
 end)
+gn:Button("IY指令",function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
 gn:Button("f3x工具",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/f3x.lua"))()
 end)
@@ -4176,9 +4179,15 @@ local playerr = playerr:section("玩家功能",true)
 playerr:Button("爬墙走",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/wallwalker.lua"))()
 end)
-playerr:Slider("速度", "速度设置", 16, 16, 1000, false, function(value)
-   lp.Character.Humanoid.WalkSpeed = value
+--playerr:Slider("速度", "速度设置", 16, 16, 1000, false, function(value)
+--   lp.Character.Humanoid.WalkSpeed = value
+--end)
+--playerr:Slider("跳高", "跳高设置", 50, 50, 1000, false, function(value)
+--    lp.Character.Humanoid.JumpPower = value
+--end)
+playerr:Textbox("速度", "速度", "请输入速度", function(value)
+    lp.Character.Humanoid.WalkSpeed = value
 end)
-playerr:Slider("跳高", "跳高设置", 50, 50, 1000, false, function(value)
+section:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
     lp.Character.Humanoid.JumpPower = value
 end)
