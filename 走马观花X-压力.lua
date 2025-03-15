@@ -4198,34 +4198,7 @@ local credits = creds:section("UI设置",true)
 local gn = window:Tab("主要功能")
 local gn = gn:section("主要",true)
 gn:Button("47怪物通知",function()
-local TweenService = game:GetService("TweenService")
-
-local DeathFolder = ReplicatedStorage:WaitForChild("DeathFolder")
-local monsterNames = {}
-
-for _, folder in ipairs(DeathFolder:GetChildren()) do
-    if folder:IsA("Folder") then
-        table.insert(monsterNames, folder.Name)
-    end
-end
-
-local function notifyAllPlayers(message)
-    for _, player in ipairs(Players:GetPlayers()) do
-        createNotification(player, message)
-    end
-end
-
-game.Workspace.ChildAdded:Connect(function(child)
-    if table.find(monsterNames, child.Name) then
-        notifyAllPlayers(child.Name .. " 出现")
-        
-        child.AncestryChanged:Connect(function(_, parent)
-            if not parent then
-                notifyAllPlayers(child.Name .. " 消失")
-            end
-        end)
-    end
-end)
+loadstring(game:HttpGet"https://pastebin.com/raw/nbgzZaZs")()
 end)
 local playerr = window:Tab("玩家")
 local playerr = playerr:section("玩家功能",true)
