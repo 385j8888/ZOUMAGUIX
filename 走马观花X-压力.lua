@@ -4138,45 +4138,6 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
 Button1 = "明白";
 Duration = 15})
-local window = library:new("走马观花X-压力")
-local creds = window:Tab("基本信息")
---local creds = window:Tab("基本信息",'3460915131')
-
-local bin = creds:section("信息",true)
-
-    bin:Label("你的注入器:"..identifyexecutor())
-    bin:Label("作者:小爱同学")
-    bin:Label("走马观花X交流群:530634599")
-
-local credits = creds:section("UI设置",true)
-
-    credits:Button("摧毁UI",function()
-        game:GetService("CoreGui")["frosty"]:Destroy()
-    end)
-
-    credits:Toggle("彩虹UI", "", false, function(state)
-        if state then
-        game:GetService("CoreGui")["frosty"].Main.Style = "DropShadow"
-        else
-            game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
-        end
-    end)
-local gn = window:Tab("主要功能")
-local gn = gn:section("主要",true)
-gn:Button("47怪物通知",function()
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-
-local DeathFolder = ReplicatedStorage:WaitForChild("DeathFolder")
-local monsterNames = {}
-
-for _, folder in ipairs(DeathFolder:GetChildren()) do
-    if folder:IsA("Folder") then
-        table.insert(monsterNames, folder.Name)
-    end
-end
-
 local function createNotification(player, message)
     local playerGui = player:WaitForChild("PlayerGui")
     local notificationGui = Instance.new("ScreenGui")
@@ -4211,6 +4172,42 @@ local function createNotification(player, message)
             notificationGui:Destroy()
         end)
     end)
+end
+local window = library:new("走马观花X-压力")
+local creds = window:Tab("基本信息")
+--local creds = window:Tab("基本信息",'3460915131')
+
+local bin = creds:section("信息",true)
+
+    bin:Label("你的注入器:"..identifyexecutor())
+    bin:Label("作者:小爱同学")
+    bin:Label("走马观花X交流群:530634599")
+
+local credits = creds:section("UI设置",true)
+
+    credits:Button("摧毁UI",function()
+        game:GetService("CoreGui")["frosty"]:Destroy()
+    end)
+
+    credits:Toggle("彩虹UI", "", false, function(state)
+        if state then
+        game:GetService("CoreGui")["frosty"].Main.Style = "DropShadow"
+        else
+            game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
+        end
+    end)
+local gn = window:Tab("主要功能")
+local gn = gn:section("主要",true)
+gn:Button("47怪物通知",function()
+local TweenService = game:GetService("TweenService")
+
+local DeathFolder = ReplicatedStorage:WaitForChild("DeathFolder")
+local monsterNames = {}
+
+for _, folder in ipairs(DeathFolder:GetChildren()) do
+    if folder:IsA("Folder") then
+        table.insert(monsterNames, folder.Name)
+    end
 end
 
 local function notifyAllPlayers(message)
