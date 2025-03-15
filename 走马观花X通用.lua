@@ -4188,6 +4188,6 @@ end)
 playerr:Textbox("速度", "速度", "请输入速度", function(value)
     lp.Character.Humanoid.WalkSpeed = value
 end)
-section:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
+playerr:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
     lp.Character.Humanoid.JumpPower = value
 end)
