@@ -4466,7 +4466,7 @@ ts:Toggle("透视电机", "", false, function(state)
         -- 检查是否已存在包含"电机"文本的 BillboardGui
                                   local hasTextGui = false
                                   for _, gui in ipairs(model:GetChildren()) do
-                                      if gui:IsA("BillboardGui") and then
+                                      if gui:IsA("BillboardGui") then
                                           local label = gui:FindFirstChild("TextLabel")
                                           if label and label.Text == "电机" then
                                               hasTextGui = true
