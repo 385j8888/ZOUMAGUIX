@@ -4229,6 +4229,76 @@ gm:Toggle("快速修机", "", false, function(state)
         print("停止")
     end
 end)
+local mxj = false
+gm:Toggle("秒修机", "", false, function(state)
+    mxj = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while mxj do  -- 检测阀门状态
+                 -- 在游戏启动后或玩家加入时运行此脚本
+                                   --  local a = game:GetService("CoreGui").frosty.Main.TabMain:GetChildren()[2].Section.Objs.TextboxModule.TextboxBack.BoxBG.TextBox.Text
+                                     wait(0.5)
+                          	         local FartNapFolder = workspace:FindFirstChild("Map")
+				                          and workspace.Map:FindFirstChild("Ingame")
+				                          and workspace.Map.Ingame:FindFirstChild("Map")
+			                         if FartNapFolder then
+				                          local closestGenerator, closestDistance = nil, math.huge
+				                          local playerPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+				                          for _, g in ipairs(FartNapFolder:GetChildren()) do
+					                          if g.Name == "Generator" and g.Progress.Value < 100 then
+						                          local distance = (g.Main.Position - playerPosition).Magnitude
+						                          if distance < closestDistance then
+							                          closestDistance = distance
+							                          closestGenerator = g
+						                          end
+					                          end
+				                          end
+				                          if closestGenerator then
+					                          closestGenerator.Remotes.RE:FireServer()
+				                          end
+			                         end
+			                         
+           end
+    else
+        print("停止")
+    end
+end)
+local yx = false
+gm:Toggle("秒修机(演戏6秒)", "", false, function(state)
+    yx = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while yx do  -- 检测阀门状态
+                 -- 在游戏启动后或玩家加入时运行此脚本
+                                   --  local a = game:GetService("CoreGui").frosty.Main.TabMain:GetChildren()[2].Section.Objs.TextboxModule.TextboxBack.BoxBG.TextBox.Text
+                                     wait(6)
+                          	         local FartNapFolder = workspace:FindFirstChild("Map")
+				                          and workspace.Map:FindFirstChild("Ingame")
+				                          and workspace.Map.Ingame:FindFirstChild("Map")
+			                         if FartNapFolder then
+				                          local closestGenerator, closestDistance = nil, math.huge
+				                          local playerPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+				                          for _, g in ipairs(FartNapFolder:GetChildren()) do
+					                          if g.Name == "Generator" and g.Progress.Value < 100 then
+						                          local distance = (g.Main.Position - playerPosition).Magnitude
+						                          if distance < closestDistance then
+							                          closestDistance = distance
+							                          closestGenerator = g
+						                          end
+					                          end
+				                          end
+				                          if closestGenerator then
+					                          closestGenerator.Remotes.RE:FireServer()
+				                          end
+			                         end
+			                         
+           end
+    else
+        print("停止")
+    end
+end)
 local function setupModelEffects(model)
     -- 防止重复添加
     if model:FindFirstChild("ModelHighlight") or model:FindFirstChild("NameBillboard") then
