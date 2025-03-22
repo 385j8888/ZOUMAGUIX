@@ -4155,6 +4155,9 @@ local credits = creds:section("UI设置",true)
     end)
 local gm = window:Tab("主要功能")
 local gm = gm:section("主要",true)
+gm:Textbox("视野(默认80)", "视野", "请输入视野", function(value)
+game:GetService("Players").LocalPlayer.PlayerData.Settings.Game.FieldOfView.Value = value
+end)
 gm:Toggle("禁用耐力", "", false, function(state)
     jump = state  -- 同步阀门状态
     
@@ -4481,7 +4484,7 @@ ts:Toggle("透视电机", "", false, function(state)
                                       billboard.Name = "GeneratorText"
                                       billboard.Adornee = model.PrimaryPart
                                       billboard.Size = UDim2.new(2, 0, 2, 0)
-                                      billboard.StudsOffset = Vector3.new(0, 0, 0)  -- 文字偏移量
+                                      billboard.StudsOffset = Vector3.new(0, 1, 0)  -- 文字偏移量
                                       billboard.AlwaysOnTop = true
             
                                       local textLabel = Instance.new("TextLabel")
