@@ -4058,4 +4058,3 @@ end
       end
       return window
     end
-local window = library:new("走马观花X")
