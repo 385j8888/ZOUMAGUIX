@@ -4090,6 +4090,7 @@ end
     end
 --local diren = game:GetService('ReplicatedStorage')['HIDDEN_UNITS']
 local alwaysnight = false
+local noclipEnabled = false
 local alwaysunday = false
 local autosn = false
 local itemESP = false
@@ -4112,7 +4113,7 @@ local StoreItem = Remotes:WaitForChild("StoreItem")
 local RuntimeItems = workspace:WaitForChild("RuntimeItems")
 local replicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+local player = game.Players.LocalPlayer
 local pplayer = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait() -- 等待角色加载
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart") -- 获取角色基准点
@@ -4126,6 +4127,14 @@ local Mouse = game:GetService('Players').LocalPlayer:GetMouse()
 local ScriptLoadOrSave = false
 --local CurrentlySavingOrLoading = game.Players.LocalPlayer:WaitForChild("CurrentlySavingOrLoading")
 local mouse = game.Players.LocalPlayer:GetMouse()
+local function toggleNoclip(state)
+    noclipEnabled = state or not noclipEnabled
+    for _, part in pairs(player.Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CanCollide = not noclipEnabled
+        end
+    end
+end
 local tp = function(p)
     lp.Character:PivotTo(p)
 end
@@ -4166,6 +4175,25 @@ local credits = creds:section("UI设置",true)
     end)
 local gn = window:Tab("主要功能")
 local gn = gn:section("主要",true)
+gn:Button("传送至终点",function()
+player.Character:PivotTo(CFrame.new(-346, -69, -49060))
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "走马观花X";
+	Text = "乖乖在这等10分钟~10分钟后才能有效拉闸~10分钟后我们会通知您的！";
+	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+Button1 = "明白";
+Duration = 15})
+wait(610)
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "走马观花X";
+	Text = "时间已到！拉闸！！";
+	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+Button1 = "明白";
+Duration = 600})
+end)
+gn:Button("穿墙(现在有点小问题，最好别用)",function()
+   toggleNoclip()
+end)
 gn:Label("温馨小提示:被固定的物品无法被收纳")
 gn:Button("一键收纳周围的物品(袋子拿手上)",function()
  for _, item in ipairs(runtimeItemsFolder:GetChildren()) do
@@ -4660,9 +4688,12 @@ ME.CFrame = CFrame.new(115, 3, 29893)
 end)
 local player = window:Tab("玩家设置")
 local player = player:section("玩家",true)
-player:Slider("速度", "速度设置", 16, 16, 480, false, function(value)
-    lp.Character.Humanoid.WalkSpeed = value
-end)
+--player:Slider("速度", "速度设置", 16, 16, 480, false, function(value)
+--    lp.Character.Humanoid.WalkSpeed = value
+--end)
+--player:Slider("跳高", "跳高设置", 16, 16, 480, false, function(value)
+--    lp.Character.Humanoid.JumpPower = value
+--end)
 local hj = window:Tab("世界环境")
 local hj = hj:section("环境",true)
 hj:Toggle("永远白天", "", false, function(state)
@@ -4864,96 +4895,101 @@ eg:Toggle("防固定", "", false, function(state)
         print("关闭")
     end
 end)
-local snn = window:Tab("收纳功能2.0")
-local snn = snn:section("指定收纳物品2.0",true)
-local dropdownn = snn:Dropdown("选择想要收纳的物品", "item_selector", {}, function(selectedName)
-    -- 获取远程事件引用
-    local remotes = game:GetService("ReplicatedStorage"):WaitForChild("Remotes")
-    local storeEvent = remotes:WaitForChild("StoreItem")
-    
-    -- 构造参数
-    local runtimeItems = workspace:WaitForChild("RuntimeItems")
-    local targetItem = runtimeItems:FindFirstChild(selectedName)
-    
-    if targetItem and targetItem:IsA("Model") then
-        local args = {
-            [1] = targetItem
-        }
-        storeEvent:FireServer(unpack(args))
-        print("已发送物品:", selectedName)
-    else
-        warn("找不到目标物品或物品不是Model:", selectedName)
-    end
-end)
+local settingSection = window:Tab("收纳功能2.0")
+local settingSection = settingSection:section("指定收纳物品2.0",true)
+local dropdown = settingSection:Dropdown("选择模型", "model_selector", {}, function(selectedName)
+    -- 获取本地玩家角色
+    local player = game:GetService("Players").LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
--- 刷新物品列表函数
-local function refreshItemList()
-    local items = {}
-    local runtimeItems = workspace:WaitForChild("RuntimeItems")
-    
-    -- 递归查找所有Model
-    local function scanFolder(folder)
-        for _, item in ipairs(folder:GetChildren()) do
-            if item:IsA("Model") then
-                table.insert(items, item.Name)
-            elseif item:IsA("Folder") then
-                scanFolder(item)  -- 递归扫描子文件夹
+    -- 递归查找目标模型
+    local function findModel(parent, name)
+        for _, child in ipairs(parent:GetChildren()) do
+            if child.Name == name and child:IsA("Model") then
+                return child
+            elseif child:IsA("Folder") then
+                local found = findModel(child, name)
+                if found then return found end
             end
         end
     end
+
+    -- 获取目标模型
+    local targetModel = findModel(workspace:WaitForChild("RuntimeItems"), selectedName)
+
+    if targetModel then
+        -- 传送逻辑
+        if targetModel.PrimaryPart then
+            -- 传送到模型主要部件上方3米位置
+            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
+            wait(0.01)
+            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
+            wait(0.01)
+            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
+            wait(0.01)
+            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
+            wait(0.01)
+            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
+            wait(0.01)
+            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
+            wait(0.01)
+            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
+            
+            -- 触发远程事件
+            local args = {
+                [1] = targetModel
+            }
+            
+            -- 安全发送请求
+            pcall(function()
+                game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
+            end)
+        else
+            warn("目标模型缺少PrimaryPart")
+        end
+    else
+        warn("找不到目标模型:", selectedName)
+    end
+end)
+
+-- 动态更新模型列表
+local function refreshModelList()
+    local modelNames = {}
     
-    scanFolder(runtimeItems)
-    dropdownn:SetOptions(items)
+    -- 递归收集所有模型名称
+    local function collectModels(parent)
+        for _, child in ipairs(parent:GetChildren()) do
+            if child:IsA("Model") then
+                table.insert(modelNames, child.Name)
+            elseif child:IsA("Folder") then
+                collectModels(child)  -- 递归子文件夹
+            end
+        end
+    end
+
+    collectModels(workspace:WaitForChild("RuntimeItems"))
+    dropdown:SetOptions(modelNames)
 end
 
 -- 初始化刷新
-refreshItemList()
+refreshModelList()
 
--- 添加自动刷新机制
+-- 设置自动刷新
 local debounce = false
-workspace.ChildAdded:Connect(function(child)
-    if child.Name == "RuntimeItems" then
-        --wait(1)  -- 等待文件夹完全加载
-        if not debounce then
-            debounce = true
-            refreshItemList()
-            debounce = false
-        end
+workspace:WaitForChild("RuntimeItems").DescendantAdded:Connect(function()
+    if not debounce then
+        debounce = true
+        wait(0.5)  -- 防抖延迟
+        refreshModelList()
+        debounce = false
     end
 end)
 
--- 每1秒自动刷新（防止事件丢失）
-spawn(function()
-    while true do
-        wait(1)
-        refreshItemList()
-    end
+workspace:WaitForChild("RuntimeItems").DescendantRemoving:Connect(refreshModelList)
+
+-- 添加手动刷新按钮
+settingSection:Button("刷新模型列表", function()
+    refreshModelList()
+    print("模型列表已手动刷新")
 end)
--- 动态更新玩家列表
-local function updatePlayers()
-    local playerOptions = {}
-    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
-        -- 过滤掉本地玩家（可选）
-        if player ~= game:GetService("Players").LocalPlayer then
-            table.insert(playerOptions, player.Name)
-        end
-    end
-    dropdown:SetOptions(playerOptions)
-end
-
--- 初始化玩家列表
-updatePlayers()
-
--- 监听玩家变动
-game:GetService("Players").PlayerAdded:Connect(function()
-    --wait(1) -- 等待玩家完全加入
-    updatePlayers()
-end)
-
-game:GetService("Players").PlayerRemoving:Connect(updatePlayers)
-
--- 每30秒自动刷新（防止事件丢失）
-while true do
-    wait(5)
-    updatePlayers()
-end
