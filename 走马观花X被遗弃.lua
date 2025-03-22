@@ -4339,7 +4339,7 @@ local function setupSurvivorsModelEffects(model)
     -- 添加高光效果
     local highlight = Instance.new("Highlight")
     highlight.Name = "ModelHighlight"
-    highlight.FillColor = Color3.fromRGB(245, 245, 245)   -- 红色填充
+    highlight.FillColor = Color3.fromRGB(0, 255, 0)   -- 红色填充
     highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- 白色边框
     highlight.Parent = model
 
@@ -4357,7 +4357,7 @@ local function setupSurvivorsModelEffects(model)
     textLabel.Text = model.Name
     textLabel.Font = Enum.Font.SourceSansBold
     textLabel.TextSize = 15
-    textLabel.TextColor3 = Color3.new(255, 255, 255)
+    textLabel.TextColor3 = Color3.new(0, 255, 0)
     textLabel.BackgroundTransparency = 1
     textLabel.Parent = billboard
 end
