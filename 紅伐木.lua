@@ -4773,3 +4773,24 @@
 	end
 
 end)("走马观花 X")  --> 脚本名字, 双引号里面的中文可以改
+local CoreGui = game:GetService("CoreGui")
+local RunService = game:GetService("RunService")
+
+-- 获取目标TextLabel
+local screenGui = CoreGui:FindFirstChild("走马观花 X")
+if not screenGui then return end
+
+local textLabel = screenGui.Main:FindFirstChild("TextLabel")
+if not textLabel then return end
+
+-- 彩虹颜色参数
+local hue = 0
+local saturation = 1
+local value = 1
+local speed = 0.35-- 颜色变化速度（越大越快）
+
+-- 创建颜色渐变循环
+RunService.Heartbeat:Connect(function(deltaTime)
+    hue = (hue + deltaTime * speed) % 1
+    textLabel.TextColor3 = Color3.fromHSV(hue, saturation, value)
+end)
