@@ -4089,22 +4089,7 @@ end
       return window
     end
 --local diren = game:GetService('ReplicatedStorage')['HIDDEN_UNITS']
-local alwaysnight = false
-local alwaysunday = false
-local autosn = false
-local itemESP = false
-local autoBond = false
-local autoCoal = false
-local autoGoldBar = false
-local xxgd = false
-local bondd = false
-local TurretAmmo = false
-local Cross = false
-local Walker = false
-local dujiaoshou = false
-local antigd = false
-local autodorp = false
-local bd = false
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local replicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -4159,10 +4144,11 @@ loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
 end)
 local xx = window:Tab("支持的服务器")
 local xx = xx:section("当前支持服务器",true)
-xx:Label("战争大亨")
+xx:Label("伐木大亨")
 xx:Label("战斗中的菜鸟")
 xx:Label("死铁轨")
 xx:Label("CHAIN")
 xx:Label("nico的下一个机器人")
 xx:Label("子弹推车")
 xx:Label("被遗弃")
+xx:Label("战争大亨")
