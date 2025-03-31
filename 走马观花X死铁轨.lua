@@ -4127,14 +4127,6 @@ local Mouse = game:GetService('Players').LocalPlayer:GetMouse()
 local ScriptLoadOrSave = false
 --local CurrentlySavingOrLoading = game.Players.LocalPlayer:WaitForChild("CurrentlySavingOrLoading")
 local mouse = game.Players.LocalPlayer:GetMouse()
-local function toggleNoclip(state)
-    noclipEnabled = state or not noclipEnabled
-    for _, part in pairs(player.Character:GetDescendants()) do
-        if part:IsA("BasePart") then
-            part.CanCollide = not noclipEnabled
-        end
-    end
-end
 local tp = function(p)
     lp.Character:PivotTo(p)
 end
@@ -4173,27 +4165,10 @@ local credits = creds:section("UI设置",true)
             game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
         end
     end)
+
 local gn = window:Tab("主要功能")
 local gn = gn:section("主要",true)
-gn:Button("传送至终点",function()
-player.Character:PivotTo(CFrame.new(-346, -69, -49060))
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "走马观花X";
-	Text = "乖乖在这等10分钟~10分钟后才能有效拉闸~10分钟后我们会通知您的！";
-	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
-Button1 = "明白";
-Duration = 15})
-wait(610)
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "走马观花X";
-	Text = "时间已到！拉闸！！";
-	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
-Button1 = "明白";
-Duration = 600})
-end)
-gn:Button("穿墙(现在有点小问题，最好别用)",function()
-   toggleNoclip()
-end)
+
 gn:Label("温馨小提示:被固定的物品无法被收纳")
 gn:Button("一键收纳周围的物品(袋子拿手上)",function()
  for _, item in ipairs(runtimeItemsFolder:GetChildren()) do
@@ -4213,7 +4188,7 @@ gn:Toggle("自动收物品", "", false, function(state)
     running = state  -- 同步阀门状态
     
     if state then
-        spawn(function()  -- 使用独立协程
+        --spawn(function()  -- 使用独立协程
             while running do  -- 检测阀门状态
                   wait(0.1)
                   for _, item in ipairs(runtimeItemsFolder:GetChildren()) do
@@ -4225,7 +4200,7 @@ gn:Toggle("自动收物品", "", false, function(state)
                     end
                   end
             end
-        end)
+        --end)
     else
         print("关闭状态")
     end
@@ -4336,15 +4311,7 @@ gn:Toggle("透视物品", "", false, function(state)
                 for _, child in ipairs(workspace.RuntimeItems:GetChildren()) do
                    if child:IsA("Model") then
           -- 添加高光（如果不存在）
-                         if not child:FindFirstChild("Highlight") then
-                             local highlight = Instance.new("Highlight")
-                             highlight.Name = "Highlight"
-                             highlight.FillColor = Color3.new(1, 0, 0)  -- 红色填充
-                             highlight.OutlineColor = Color3.new(1, 1, 1)  -- 白色轮廓
-                             highlight.FillTransparency = 1  -- 不透明填充
-                             highlight.OutlineTransparency = 0.9  -- 不透明轮廓
-                             highlight.Parent = child
-                         end
+                         
 
           -- 添加文字标签（如果不存在）
                    if not child:FindFirstChild("NameBillboard") and itemESP==true then
@@ -4470,18 +4437,6 @@ gn:Button("解除所有固定物品",function()
             :FireServer(unpack(args))
       end
    end
-end)
-gn:Button("获得一个😱点哪就传送到哪的工具😱",function()
-mouse = game.Players.LocalPlayer:GetMouse()
-tool = Instance.new("Tool")
-tool.RequiresHandle = false
-tool.Name = "传送"
-tool.Activated:connect(function()
-local pos = mouse.Hit+Vector3.new(0,2.5,0)
-pos = CFrame.new(pos.X,pos.Y,pos.Z)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
-end)
-tool.Parent = game.Players.LocalPlayer.Backpack
 end)
 local sn = window:Tab("自动收纳功能")
 local sn = sn:section("自动收纳物品",true)
@@ -4660,34 +4615,8 @@ end)
 --sn:Slider("视野距离", "fov", 70, 50, 120, false, function(value)
 --    print("当前视野:", value)
 --end)
-local cs = window:Tab("传送")
-local cs = cs:section("传送",true)
-cs:Button("传送到火车",function()
-local function teleportToPart()
-    local targetPart = workspace.Train.Platform:GetChildren()[4]
-    if targetPart and targetPart:IsA("BasePart") then
-        local character = player.Character
-        if character then
-            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-            if humanoidRootPart then
-                -- 使用CFrame保持方向同步
-                humanoidRootPart.CFrame = targetPart.CFrame
-                
-                -- 重置物理特性防止弹飞
-                humanoidRootPart.Velocity = Vector3.new()
-                humanoidRootPart.AssemblyLinearVelocity = Vector3.new()
-            end
-        end
-    end
-end
-
-teleportToPart()  -- 直接执行传送
-end)
-cs:Button("传送到出生地",function()
-ME.CFrame = CFrame.new(115, 3, 29893)
-end)
-local player = window:Tab("玩家设置")
-local player = player:section("玩家",true)
+local playerjjj = window:Tab("玩家设置")
+local playerjjj = playerjjj:section("玩家",true)
 --player:Slider("速度", "速度设置", 16, 16, 480, false, function(value)
 --    lp.Character.Humanoid.WalkSpeed = value
 --end)
@@ -4726,270 +4655,140 @@ hj:Toggle("永远黑夜", "", false, function(state)
         print("关闭状态")
     end
 end)
-local lin = window:Tab("❤️lin的专属功能❤️")
-local lin = lin:section("专属",true)
-lin:Button("78",function()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Aru385/-fisch/refs/heads/main/Admin%20function.lua'))()
--- 创建 Sound 对象
-local sound = Instance.new("Sound")
-
--- 设置音频ID（格式必须包含 'rbxassetid://' 前缀）
-sound.SoundId = "rbxassetid://1839246711"
-
--- 设置音量（可选，范围 0-1）
-sound.Volume = 0.5
-
--- 将 Sound 对象附加到工作区（或其他容器）
-sound.Parent = workspace
-
--- 确保音频加载完成后播放
-sound.Loaded:Connect(function()
-    print("音频加载完成，开始播放...")
-    sound:Play()
-end)
-
--- 处理播放结束（可选）
-sound.Ended:Connect(function()
-    print("播放结束")
-    sound:Destroy() -- 播放完成后销毁对象
-end)
-wait(5)
--- 创建 Sound 对象
-  local sound = Instance.new("Sound")
-
--- 设置音频ID（格式必须包含 'rbxassetid://' 前缀）
-  sound.SoundId = "rbxassetid://94624102598882"
-
--- 设置音量（可选，范围 0-1）
-  sound.Volume = 1
-
--- 将 Sound 对象附加到工作区（或其他容器）
-  sound.Parent = workspace
-
--- 确保音频加载完成后播放
-  sound.Loaded:Connect(function()
-      print("音频加载完成，开始播放...")
-      sound:Play()
-  end)
-
--- 处理播放结束（可选）
-  sound.Ended:Connect(function()
-      print("播放结束")
-      sound:Destroy() -- 播放完成后销毁对象
-  end)
-wait(15)
-game.Players.LocalPlayer:Kick("You were baned from this game with 9999days,This is a message from the creator:Exploitation")
-wait(2)
-game.Players.LocalPlayer:Kick("你不会以为真封号了吧:）")
-end)
-
-
-
--- 创建下拉菜单
-local eg = window:Tab("恶搞")
-local eg = eg:section("恶搞",true)
-local dropdown = eg:Dropdown("固定玩家", "player_selector", {}, function(selectedName)
-    -- 安全获取各个组件
-    local targetPlayer = game:GetService("Players"):FindFirstChild(selectedName)
-    local trainPart = workspace:FindFirstChild("Train") and 
-                     workspace.Train:FindFirstChild("Train") and 
-                     workspace.Train.Train:FindFirstChild("Part")
-    
-    -- 验证有效性
-    if not targetPlayer or not trainPart then
-        warn("无效目标: "..(not targetPlayer and "玩家不存在" or "火车部件缺失"))
-        return
-    end
-
-    -- 构造参数表
-    local args = {
-        [1] = workspace:FindFirstChild(selectedName),  -- 根据名称查找实例
-        [2] = trainPart
-    }
-
-    -- 带错误处理的远程调用
-    pcall(function()
-        game:GetService("ReplicatedStorage").Shared.Remotes.Weld.RequestWeld:FireServer(unpack(args))
-    end)
-end)
-
--- 实时更新玩家列表
-local function updatePlayerList()
-    local players = {}
-    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
-        if player ~= game.Players.LocalPlayer then  -- 排除自己
-            table.insert(players, player.Name)
-        end
-    end
-    dropdown:SetOptions(players)
-end
-
--- 初始化列表
-updatePlayerList()
-
--- 监听玩家变动
-game:GetService("Players").PlayerAdded:Connect(updatePlayerList)
-game:GetService("Players").PlayerRemoving:Connect(updatePlayerList)
-
--- 添加自动刷新保护
-spawn(function()
-    while true do
-        wait(15)
-        if #dropdown.Options ~= #game:GetService("Players"):GetPlayers() -1 then
-            updatePlayerList()
-        end
-    end
-end)
-
--- 添加火车部件监控
-workspace.DescendantAdded:Connect(function(child)
-    if child:IsDescendantOf(workspace.Train) then
-        updatePlayerList()
-    end
-end)
-eg:Button("解除固定的玩家",function()
-local Players = game:GetService("Players")
-local Remote = game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("Weld"):WaitForChild("RequestUnweld")
-
-local function ProcessPlayer(player)
-    -- 等待玩家角色加载
-    local character = player.Character or player.CharacterAdded:Wait()
-    
-    -- 创建参数表
-    local args = {
-        [1] = character  -- 使用玩家角色代替名称
-    }
-    
-    -- 触发远程事件
-    Remote:FireServer(unpack(args))
-end
-
--- 处理现有玩家
-for _, player in ipairs(Players:GetPlayers()) do
-    coroutine.wrap(ProcessPlayer)(player)
-end
-
--- 处理新加入玩家
-Players.PlayerAdded:Connect(function(player)
-    coroutine.wrap(ProcessPlayer)(player)
-end)
-end)
-eg:Toggle("防固定", "", false, function(state)
-    antigd = state  -- 同步阀门状态
+local runninggg = false
+local ending = window:Tab("直达终点")
+local ending = ending:section("终点",true)
+ending:Toggle("自动传送1", "", false, function(state)
+    runninggg = state  -- 同步阀门状态
     
     if state then
-       --  pawn(function()  -- 使用独立协程
-           while antigd do  -- 检测阀门状态
-                             wait(0.0000001)
-                               local Players = game:GetService("Players")
-                               local player = Players.LocalPlayer -- 获取本地玩家
-                               local character = player.Character or player.CharacterAdded:Wait() -- 等待角色加载完成
-
-                               local args = {
-                                     [1] = character -- 直接使用玩家角色对象
-                               }
-                             game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("Weld"):WaitForChild("RequestUnweld"):FireServer(unpack(args))
-           end
-      --   end)
-    else
-        print("关闭")
-    end
-end)
-local settingSection = window:Tab("收纳功能2.0")
-local settingSection = settingSection:section("指定收纳物品2.0",true)
-local dropdown = settingSection:Dropdown("选择模型", "model_selector", {}, function(selectedName)
-    -- 获取本地玩家角色
-    local player = game:GetService("Players").LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-
-    -- 递归查找目标模型
-    local function findModel(parent, name)
-        for _, child in ipairs(parent:GetChildren()) do
-            if child.Name == name and child:IsA("Model") then
-                return child
-            elseif child:IsA("Folder") then
-                local found = findModel(child, name)
-                if found then return found end
+      --  spawn(function()  -- 使用独立协程
+            while runninggg do  -- 检测阀门状态
+                  
+                  --player.Character:PivotTo(CFrame.new(-425,27,-49040))
+                  player.Character:PivotTo(CFrame.new(-424.44476318359375, 26.517261505126953, -49040.64453125))
+                  wait(0.000001)
             end
-        end
-    end
-
-    -- 获取目标模型
-    local targetModel = findModel(workspace:WaitForChild("RuntimeItems"), selectedName)
-
-    if targetModel then
-        -- 传送逻辑
-        if targetModel.PrimaryPart then
-            -- 传送到模型主要部件上方3米位置
-            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
-            wait(0.01)
-            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
-            wait(0.01)
-            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
-            wait(0.01)
-            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
-            wait(0.01)
-            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
-            wait(0.01)
-            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
-            wait(0.01)
-            humanoidRootPart.CFrame = targetModel.PrimaryPart.CFrame * CFrame.new(0, 0, 0)
-            
-            -- 触发远程事件
-            local args = {
-                [1] = targetModel
-            }
-            
-            -- 安全发送请求
-            pcall(function()
-                game:GetService("ReplicatedStorage").Remotes.StoreItem:FireServer(unpack(args))
-            end)
-        else
-            warn("目标模型缺少PrimaryPart")
-        end
+        --end)
     else
-        warn("找不到目标模型:", selectedName)
+        print("关闭状态")
     end
 end)
-
--- 动态更新模型列表
-local function refreshModelList()
-    local modelNames = {}
+local aabb = false
+ending:Toggle("自动传送2", "", false, function(state)
+    aabb = state  -- 同步阀门状态
     
-    -- 递归收集所有模型名称
-    local function collectModels(parent)
-        for _, child in ipairs(parent:GetChildren()) do
-            if child:IsA("Model") then
-                table.insert(modelNames, child.Name)
-            elseif child:IsA("Folder") then
-                collectModels(child)  -- 递归子文件夹
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while aabb do  -- 检测阀门状态
+                  
+                  --player.Character:PivotTo(CFrame.new(-425,27,-49040))
+                  player.Character:PivotTo(CFrame.new(-447.3828125, 26.545448303222656, -48747.69140625))
+                  wait(0.000001)
             end
+       -- end)
+    else
+        print("关闭状态")
+    end
+end)
+local bb = false
+ending:Toggle("自动传送3", "", false, function(state)
+    bb = state  -- 同步阀门状态
+    
+    if state then
+       -- spawn(function()  -- 使用独立协程
+            while bb do  -- 检测阀门状态
+                  
+                  --player.Character:PivotTo(CFrame.new(-425,27,-49040))
+                  player.Character:PivotTo(CFrame.new(-312.17218017578125, 26.546648025512695, -48747.734375))
+                  wait(0.000001)
+            end
+        --end)
+    else
+        print("关闭状态")
+    end
+end)
+ending:Button("传送至点位",function()
+player.Character:PivotTo(CFrame.new(-424.44476318359375, 24.517261505126953, -49040.64453125))
+--player.Character:PivotTo(CFrame.new(-346, -69, -49060))
+end)
+local runnnninggg = false
+ending:Toggle("穿墙", "", false, function(state)
+    runnnninggg = state  -- 同步阀门状态
+    
+    if state then
+      --  spawn(function()  -- 使用独立协程
+            while runnnninggg do  -- 检测阀门状态
+                  
+                  --player.Character:PivotTo(CFrame.new(-425,27,-49040))
+                  for _, part in pairs(player.Character:GetDescendants()) do
+                     if part:IsA("BasePart") then
+                        part.CanCollide = false
+                     end
+                  end
+                  wait(0.1)
+            end
+        --end)
+    else
+        print("关闭状态")
+        for _, part in pairs(player.Character:GetDescendants()) do
+                     if part:IsA("BasePart") then
+                        part.CanCollide = true
+                     end
         end
     end
+end)
+ending:Button("创建10分钟倒计时",function()
+-- 创建界面
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Name = "CountdownGui"
+gui.ResetOnSpawn = false -- 防止角色重生时重置
+gui.Parent = player:WaitForChild("PlayerGui")
 
-    collectModels(workspace:WaitForChild("RuntimeItems"))
-    dropdown:SetOptions(modelNames)
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(0, 150, 0, 150)
+textLabel.Position = UDim2.new(0.5, -200, 0.5, -100) -- 居中显示
+textLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+textLabel.TextScaled = true
+textLabel.BackgroundTransparency = 1
+textLabel.TextColor3 = Color3.new(1, 1, 1)
+textLabel.Font = Enum.Font.SourceSansBold
+textLabel.Text = "10:00"
+textLabel.Parent = gui
+
+-- 倒计时逻辑
+local function startCountdown()
+    local duration = 10 * 60  -- 10 分钟转换为秒
+    local startTime = os.time()
+    
+    while true do
+        local elapsed = os.time() - startTime
+        local remaining = duration - elapsed
+        
+        if remaining <= 0 then
+            textLabel.Text = "拉桥去吧，宝贝-"
+            break
+        end
+        
+        -- 格式化时间显示
+        local minutes = math.floor(remaining / 60)
+        local seconds = remaining % 60
+        textLabel.Text = string.format("%02d:%02d", minutes, seconds)
+        
+        wait(1)  -- 每秒更新一次
+    end
 end
 
--- 初始化刷新
-refreshModelList()
-
--- 设置自动刷新
-local debounce = false
-workspace:WaitForChild("RuntimeItems").DescendantAdded:Connect(function()
-    if not debounce then
-        debounce = true
-        wait(0.5)  -- 防抖延迟
-        refreshModelList()
-        debounce = false
-    end
+-- 启动倒计时
+startCountdown()
 end)
-
-workspace:WaitForChild("RuntimeItems").DescendantRemoving:Connect(refreshModelList)
-
--- 添加手动刷新按钮
-settingSection:Button("刷新模型列表", function()
-    refreshModelList()
-    print("模型列表已手动刷新")
-end)
+--ending:Label("食用方法")
+--ending:Label("第一步:买枪")
+--ending:Label("第二步:开启穿墙")
+--ending:Label("第三步:使用自动传送(❗️重要❗️)")
+--ending:Label("使用自动传送1，把头上的土匪打掉，然后关闭")
+--ending:Label("使用自动传送2，把头上的土匪打掉，然后关闭")
+--ending:Label("使用自动传送3，把头上的土匪打掉，然后关闭")
+--ending:Label("第四步:把穿墙关掉")
+--ending:Label("如果你坐在一个座位上，并且土匪刷新开枪了，就说明你成功了")
