@@ -4165,10 +4165,63 @@ local credits = creds:section("UI设置",true)
             game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
         end
     end)
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local runService = game:GetService("RunService")
+local camera = workspace.CurrentCamera
+local function getClosestNPC()
+    local closestNPC = nil
+    local closestDistance = math.huge
 
+    for _, object in ipairs(workspace:GetDescendants()) do
+        if object:IsA("Model") then
+            local humanoid = object:FindFirstChild("Humanoid") or object:FindFirstChildWhichIsA("Humanoid")
+            local hrp = object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart
+            if humanoid and hrp and humanoid.Health > 0 then
+                local isPlayer = false
+                for _, pl in ipairs(Players:GetPlayers()) do
+                    if pl.Character == object then
+                        isPlayer = true
+                        break
+                    end
+                end
+                if not isPlayer then
+                    local distance = (hrp.Position - player.Character.HumanoidRootPart.Position).Magnitude
+                    if distance < closestDistance then
+                        closestDistance = distance
+                        closestNPC = object
+                    end
+                end
+            end
+        end
+    end
+    return closestNPC
+end
 local gn = window:Tab("主要功能")
 local gn = gn:section("主要",true)
-
+local abba = false
+gn:Label("建议搭配自由切换视角使用")
+gn:Toggle("锁定敌人(视角移到敌人头上)", "", false, function(state)
+    abba = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while abba  do-- 检测阀门状态
+                  wait(0.1)
+                  local npc = getClosestNPC()
+                  if npc and npc:FindFirstChild("Humanoid") then
+                      local npcHumanoid = npc:FindFirstChild("Humanoid")
+                      if npcHumanoid.Health > 0 then
+                        camera.CameraSubject = npcHumanoid
+                      end
+                  end
+            end
+    else
+        camera.CameraSubject = player.Character.Humanoid
+        wait(0.05)
+        camera.CameraSubject = player.Character.Humanoid
+    end
+end)
 gn:Label("温馨小提示:被固定的物品无法被收纳")
 gn:Button("一键收纳周围的物品(袋子拿手上)",function()
  for _, item in ipairs(runtimeItemsFolder:GetChildren()) do
@@ -4180,6 +4233,7 @@ gn:Button("一键收纳周围的物品(袋子拿手上)",function()
     end
  end
 end)
+gn:Label("🚫不要在驾驶时使用！🚫")
 gn:Button("自由切换视角",function()
 game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
 game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
