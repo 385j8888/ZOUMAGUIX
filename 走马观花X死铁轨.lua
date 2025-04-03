@@ -4712,7 +4712,7 @@ end)
 local runninggg = false
 local ending = window:Tab("直达终点")
 local ending = ending:section("终点",true)
-ending:Toggle("自动传送1", "", false, function(state)
+ending:Toggle("手动传送1", "", false, function(state)
     runninggg = state  -- 同步阀门状态
     
     if state then
@@ -4729,7 +4729,7 @@ ending:Toggle("自动传送1", "", false, function(state)
     end
 end)
 local aabb = false
-ending:Toggle("自动传送2", "", false, function(state)
+ending:Toggle("手动传送2", "", false, function(state)
     aabb = state  -- 同步阀门状态
     
     if state then
@@ -4746,7 +4746,7 @@ ending:Toggle("自动传送2", "", false, function(state)
     end
 end)
 local bb = false
-ending:Toggle("自动传送3", "", false, function(state)
+ending:Toggle("手动传送3", "", false, function(state)
     bb = state  -- 同步阀门状态
     
     if state then
@@ -4762,9 +4762,46 @@ ending:Toggle("自动传送3", "", false, function(state)
         print("关闭状态")
     end
 end)
-ending:Button("传送至点位",function()
+ending:Button("传送至终点",function()
 player.Character:PivotTo(CFrame.new(-424.44476318359375, 24.517261505126953, -49040.64453125))
+wait(1)
+player.Character:PivotTo(CFrame.new(-424.44476318359375, 26.517261505126953, -49040.64453125))
+wait(1)
+player.Character:PivotTo(CFrame.new(-424.44476318359375, 26.517261505126953, -49040.64453125))
+wait(1)
+player.Character:PivotTo(CFrame.new(-447.3828125, 26.545448303222656, -48747.69140625))
+wait(1)
+player.Character:PivotTo(CFrame.new(-447.3828125, 26.545448303222656, -48747.69140625))
+wait(1)
+player.Character:PivotTo(CFrame.new(-447.3828125, 26.545448303222656, -48747.69140625))
+wait(1)
+player.Character:PivotTo(CFrame.new(-312.17218017578125, 26.546648025512695, -48747.734375))
+wait(1)
+player.Character:PivotTo(CFrame.new(-312.17218017578125, 26.546648025512695, -48747.734375))
+wait(1)
+player.Character:PivotTo(CFrame.new(-312.17218017578125, 26.546648025512695, -48747.734375))
 --player.Character:PivotTo(CFrame.new(-346, -69, -49060))
+end)
+ending:Label("建议搭配自由切换视角使用")
+ending:Toggle("锁定敌人(视角移到敌人头上)", "", false, function(state)
+    abba = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while abba  do-- 检测阀门状态
+                  --wait(0.1)
+                  local npc = getClosestNPC()
+                  if npc and npc:FindFirstChild("Humanoid") then
+                      local npcHumanoid = npc:FindFirstChild("Humanoid")
+                      if npcHumanoid.Health > 0 then
+                        camera.CameraSubject = npcHumanoid
+                      end
+                  end
+                  wait(0.1)
+            end
+    else
+        camera.CameraSubject = player.Character.Humanoid
+    end
 end)
 local runnnninggg = false
 ending:Toggle("穿墙", "", false, function(state)
