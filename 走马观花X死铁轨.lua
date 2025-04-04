@@ -4710,54 +4710,25 @@ hj:Toggle("永远黑夜", "", false, function(state)
     end
 end)
 local runninggg = false
-local ending = window:Tab("直达终点")
-local ending = ending:section("终点",true)
-ending:Toggle("手动传送1", "", false, function(state)
-    runninggg = state  -- 同步阀门状态
-    
-    if state then
-      --  spawn(function()  -- 使用独立协程
-            while runninggg do  -- 检测阀门状态
-                  
-                  --player.Character:PivotTo(CFrame.new(-425,27,-49040))
-                  player.Character:PivotTo(CFrame.new(-424.44476318359375, 26.517261505126953, -49040.64453125))
-                  wait(0.000001)
-            end
-        --end)
-    else
-        print("关闭状态")
-    end
-end)
-local aabb = false
-ending:Toggle("手动传送2", "", false, function(state)
-    aabb = state  -- 同步阀门状态
+local endingj = window:Tab("直达终点")
+local ending = endingj:section("终点",true)
+local jjjb
+ending:Toggle("自动传送pro", "", false, function(state)
+    jjjb = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
-            while aabb do  -- 检测阀门状态
+            while jjjb do  -- 检测阀门状态
                   
                   --player.Character:PivotTo(CFrame.new(-425,27,-49040))
                   player.Character:PivotTo(CFrame.new(-447.3828125, 26.545448303222656, -48747.69140625))
-                  wait(0.000001)
+                  wait(1)
+                  player.Character:PivotTo(CFrame.new(-312.17218017578125, 26.546648025512695, -48747.734375))
+                  wait(1)
+                  player.Character:PivotTo(CFrame.new(-424.44476318359375, 26.517261505126953, -49040.64453125))
+                  wait(1)
             end
        -- end)
-    else
-        print("关闭状态")
-    end
-end)
-local bb = false
-ending:Toggle("手动传送3", "", false, function(state)
-    bb = state  -- 同步阀门状态
-    
-    if state then
-       -- spawn(function()  -- 使用独立协程
-            while bb do  -- 检测阀门状态
-                  
-                  --player.Character:PivotTo(CFrame.new(-425,27,-49040))
-                  player.Character:PivotTo(CFrame.new(-312.17218017578125, 26.546648025512695, -48747.734375))
-                  wait(0.000001)
-            end
-        --end)
     else
         print("关闭状态")
     end
@@ -4829,6 +4800,38 @@ ending:Toggle("穿墙", "", false, function(state)
         end
     end
 end)
+local jump = false
+ending:Toggle("自动跳跃", "", false, function(state)
+    jump = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while jump do  -- 检测阀门状态
+                     wait(1)
+                                       local player = game.Players.LocalPlayer
+                  
+                  local function onCharacterAdded(character)
+                      local humanoid = character:WaitForChild("Humanoid")
+    
+                      -- 持续自动跳跃循环（每秒触发一次）
+                      --while humanoid and humanoid.Parent do
+                          humanoid.Jump = true
+                          --task.wait(1) -- 间隔时间可调（例如 0.5 秒）
+                      --end
+                  end
+
+-- 监听角色重生事件
+                  player.CharacterAdded:Connect(onCharacterAdded)
+
+-- 初始加载（如果角色已存在）
+                  if player.Character then
+                      onCharacterAdded(player.Character)
+                  end
+           end
+    else
+        print("关闭")
+    end
+end)
 ending:Button("创建10分钟倒计时",function()
 -- 创建界面
 local player = game.Players.LocalPlayer
@@ -4874,12 +4877,18 @@ end
 -- 启动倒计时
 startCountdown()
 end)
---ending:Label("食用方法")
---ending:Label("第一步:买枪")
---ending:Label("第二步:开启穿墙")
---ending:Label("第三步:使用自动传送(❗️重要❗️)")
---ending:Label("使用自动传送1，把头上的土匪打掉，然后关闭")
+local endingg = endingj:section("方法",true)
+endingg:Label("食用方法")
+endingg:Label("第一步:买枪")
+endingg:Label("第二步:开启穿墙")
+endingg:Label("第三步:开启视角锁敌人")
+endingg:Label("第四步:把自动传送打开")
+endingg:Label("第五步:把头上的劫匪全打掉")
 --ending:Label("使用自动传送2，把头上的土匪打掉，然后关闭")
 --ending:Label("使用自动传送3，把头上的土匪打掉，然后关闭")
 --ending:Label("第四步:把穿墙关掉")
---ending:Label("如果你坐在一个座位上，并且土匪刷新开枪了，就说明你成功了")
+endingg:Label("如果你坐在一个座位上，并且土匪刷新开枪了，就说明你成功了")
+endingg:Label("第六步:把传送关掉，然后剩下的自己弄")
+local combat = window:Tab("战斗")
+local combat = combat:section("战斗",true)
+combat:Label("鸡巴鸡巴鸡巴鸡巴鸡巴鸡巴鸡巴鸡巴")
