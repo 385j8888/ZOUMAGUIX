@@ -4722,11 +4722,11 @@ ending:Toggle("自动传送pro", "", false, function(state)
                   
                   --player.Character:PivotTo(CFrame.new(-425,27,-49040))
                   player.Character:PivotTo(CFrame.new(-447.3828125, 26.545448303222656, -48747.69140625))
-                  wait(1)
+                  wait(0.00001)
                   player.Character:PivotTo(CFrame.new(-312.17218017578125, 26.546648025512695, -48747.734375))
-                  wait(1)
+                  wait(0.00001)
                   player.Character:PivotTo(CFrame.new(-424.44476318359375, 26.517261505126953, -49040.64453125))
-                  wait(1)
+                  wait(0.00001)
             end
        -- end)
     else
