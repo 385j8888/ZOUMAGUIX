@@ -107,11 +107,92 @@ local function getClosestNPC()
     end
     return closestNPC
 end
-local gn = window:Tab("主要功能")
-local gn = gn:section("主要",true)
+local gnj = window:Tab("主要功能")
+local gn = gnj:section("主要",true)
+local gnpp = gnj:section("自动功能",true)
 local abba = false
 
-gn:Label("温馨小提示:被固定的物品无法被收纳")
+gn:Button("一键固定周围物品(fix)",function()
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- 获取玩家角色和基准位置
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+-- 配置参数
+local MAX_DISTANCE = 50
+local TARGET_PART = workspace:WaitForChild("Train"):WaitForChild("Platform"):WaitForChild("Part")
+local REMOTE = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("RequestWeld")
+local function isModelInRange(model)
+    -- 获取模型的主部件位置（如果有PrimaryPart优先使用）
+    if model.PrimaryPart then
+        return (model.PrimaryPart.Position - rootPart.Position).Magnitude <= MAX_DISTANCE
+    end
+    
+    -- 如果没有设置PrimaryPart，则遍历所有部件检测
+    for _, part in ipairs(model:GetDescendants()) do
+        if part:IsA("BasePart") then
+            if (part.Position - rootPart.Position).Magnitude <= MAX_DISTANCE then
+                return true
+            end
+        end
+    end
+    return false
+end
+    for _, model in ipairs(workspace.RuntimeItems:GetChildren()) do
+        if model:IsA("Model") and isModelInRange(model) then
+            -- 构建参数并触发远程事件
+            local args = {
+                [1] = model,
+                [2] = TARGET_PART
+            }
+            REMOTE:FireServer(unpack(args))
+        end
+    end
+end)
+gn:Button("一键解除固定周围物品(fix)",function()
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- 获取玩家角色和基准位置
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+-- 配置参数
+local MAX_DISTANCE = 50
+local TARGET_PART = workspace:WaitForChild("Train"):WaitForChild("Platform"):WaitForChild("Part")
+local REMOTE = ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("RequestUnweld")
+local function isModelInRange(model)
+    -- 获取模型的主部件位置（如果有PrimaryPart优先使用）
+    if model.PrimaryPart then
+        return (model.PrimaryPart.Position - rootPart.Position).Magnitude <= MAX_DISTANCE
+    end
+    
+    -- 如果没有设置PrimaryPart，则遍历所有部件检测
+    for _, part in ipairs(model:GetDescendants()) do
+        if part:IsA("BasePart") then
+            if (part.Position - rootPart.Position).Magnitude <= MAX_DISTANCE then
+                return true
+            end
+        end
+    end
+    return false
+end
+    for _, model in ipairs(workspace.RuntimeItems:GetChildren()) do
+        if model:IsA("Model") and isModelInRange(model) then
+            -- 构建参数并触发远程事件
+            local args = {
+                [1] = model,
+                [2] = TARGET_PART
+            }
+            REMOTE:FireServer(unpack(args))
+        end
+    end
+end)
+--gn:Label("温馨小提示:被固定的物品无法被收纳")
 gn:Button("一键收纳周围的物品(袋子拿手上)",function()
  for _, item in ipairs(runtimeItemsFolder:GetChildren()) do
     if item:IsA("Model") then
@@ -127,7 +208,7 @@ gn:Button("自由切换视角",function()
 game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
 game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
 end)
-gn:Toggle("自动收物品", "", false, function(state)
+gnpp:Toggle("自动收物品", "", false, function(state)
     running = state  -- 同步阀门状态
     
     if state then
@@ -148,7 +229,7 @@ gn:Toggle("自动收物品", "", false, function(state)
         print("关闭状态")
     end
 end)
-gn:Toggle("自动拾取债券", "", false, function(state)
+gnpp:Toggle("自动拾取债券", "", false, function(state)
     autoBond = state  -- 同步阀门状态
     
     if state then
@@ -166,8 +247,8 @@ gn:Toggle("自动拾取债券", "", false, function(state)
         print("债券收集关闭")
     end
 end)
-gn:Label("温馨小提示:领取债券时没有提示，但是你已经拿到啦！")
-gn:Toggle("持续检测独角兽", "", false, function(state)
+--gn:Label("温馨小提示:领取债券时没有提示，但是你已经拿到啦！")
+gnpp:Toggle("持续检测独角兽", "", false, function(state)
     dujiaoshou = state  -- 同步阀门状态
     
 if state then
@@ -230,7 +311,7 @@ wait(0.1)
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DropItem"):FireServer()
 wait(0.1)
 end)
-gn:Toggle("自动丢物品", "", false, function(state)
+gnpp:Toggle("自动丢物品", "", false, function(state)
     autodorp = state  -- 同步阀门状态
     
     if state then
