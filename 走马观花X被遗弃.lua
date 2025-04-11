@@ -122,52 +122,19 @@ gm:Toggle("无限耐力2(杀手用这个)", "", false, function(state)
     end
 end)
 gm:Textbox("修机间隔", "速度", "请输入间隔", function(value)
-print(value)
+--print(value)
+_fixtime = value
 end)
-gm:Toggle("快速修机", "", false, function(state)
+gm:Toggle("自动修机(自定义修机间隔)", "", false, function(state)
     xj = state  -- 同步阀门状态
     
     if state then
        --  pawn(function()  -- 使用独立协程
            while xj do  -- 检测阀门状态
                  -- 在游戏启动后或玩家加入时运行此脚本
-                                     local a = game:GetService("CoreGui").frosty.Main.TabMain:GetChildren()[2].Section.Objs.TextboxModule.TextboxBack.BoxBG.TextBox.Text
-                                     wait(a)
-                          	         local FartNapFolder = workspace:FindFirstChild("Map")
-				                          and workspace.Map:FindFirstChild("Ingame")
-				                          and workspace.Map.Ingame:FindFirstChild("Map")
-			                         if FartNapFolder then
-				                          local closestGenerator, closestDistance = nil, math.huge
-				                          local playerPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-				                          for _, g in ipairs(FartNapFolder:GetChildren()) do
-					                          if g.Name == "Generator" and g.Progress.Value < 100 then
-						                          local distance = (g.Main.Position - playerPosition).Magnitude
-						                          if distance < closestDistance then
-							                          closestDistance = distance
-							                          closestGenerator = g
-						                          end
-					                          end
-				                          end
-				                          if closestGenerator then
-					                          closestGenerator.Remotes.RE:FireServer()
-				                          end
-			                         end
-			                         
-           end
-    else
-        print("停止")
-    end
-end)
-local mxj = false
-gm:Toggle("秒修机", "", false, function(state)
-    mxj = state  -- 同步阀门状态
-    
-    if state then
-       --  pawn(function()  -- 使用独立协程
-           while mxj do  -- 检测阀门状态
-                 -- 在游戏启动后或玩家加入时运行此脚本
                                    --  local a = game:GetService("CoreGui").frosty.Main.TabMain:GetChildren()[2].Section.Objs.TextboxModule.TextboxBack.BoxBG.TextBox.Text
-                                     wait(0.5)
+                                    -- wait(a)
+                                    wait(_fixtime)
                           	         local FartNapFolder = workspace:FindFirstChild("Map")
 				                          and workspace.Map:FindFirstChild("Ingame")
 				                          and workspace.Map.Ingame:FindFirstChild("Map")
@@ -187,47 +154,13 @@ gm:Toggle("秒修机", "", false, function(state)
 					                          closestGenerator.Remotes.RE:FireServer()
 				                          end
 			                         end
-			                         
+			                         --wait(_fixtime)
            end
     else
         print("停止")
     end
 end)
-local yx = false
-gm:Toggle("秒修机(演戏6秒)", "", false, function(state)
-    yx = state  -- 同步阀门状态
-    
-    if state then
-       --  pawn(function()  -- 使用独立协程
-           while yx do  -- 检测阀门状态
-                 -- 在游戏启动后或玩家加入时运行此脚本
-                                   --  local a = game:GetService("CoreGui").frosty.Main.TabMain:GetChildren()[2].Section.Objs.TextboxModule.TextboxBack.BoxBG.TextBox.Text
-                                     wait(6)
-                          	         local FartNapFolder = workspace:FindFirstChild("Map")
-				                          and workspace.Map:FindFirstChild("Ingame")
-				                          and workspace.Map.Ingame:FindFirstChild("Map")
-			                         if FartNapFolder then
-				                          local closestGenerator, closestDistance = nil, math.huge
-				                          local playerPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-				                          for _, g in ipairs(FartNapFolder:GetChildren()) do
-					                          if g.Name == "Generator" and g.Progress.Value < 100 then
-						                          local distance = (g.Main.Position - playerPosition).Magnitude
-						                          if distance < closestDistance then
-							                          closestDistance = distance
-							                          closestGenerator = g
-						                          end
-					                          end
-				                          end
-				                          if closestGenerator then
-					                          closestGenerator.Remotes.RE:FireServer()
-				                          end
-			                         end
-			                         
-           end
-    else
-        print("停止")
-    end
-end)
+
 local function setupModelEffects(model)
     -- 防止重复添加
     if model:FindFirstChild("ModelHighlight") or model:FindFirstChild("NameBillboard") then
@@ -270,6 +203,7 @@ local function setupSurvivorsModelEffects(model)
     highlight.Name = "ModelHighlight"
     highlight.FillColor = Color3.fromRGB(0, 255, 0)   -- 红色填充
     highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- 白色边框
+   -- highlight.Transparency = 0.5
     highlight.Parent = model
 
     -- 添加3D文字
@@ -428,19 +362,16 @@ ts:Toggle("透视物品", "", false, function(state)
                           end
     end
 end)
-local dj = false
+local djjb = false
 ts:Toggle("透视电机", "", false, function(state)
-    dj = state  -- 同步阀门状态
-    
+    djjb = state
     if state then
-       --  pawn(function()  -- 使用独立协程
-           while dj do  -- 检测阀门状态
+           while djjb do
                           local targetFolder = workspace.Map.Ingame.Map
 
                           for _, model in ipairs(targetFolder:GetChildren()) do
-                              if model:IsA("Model") and model.Name == "Generator" then
-        -- 确保 Model 有 PrimaryPart
-                                  if not model.PrimaryPart and dj==true then
+                              if model.Name == "Generator" then
+                                  if not model.PrimaryPart then
                                       local foundPart
                                       for _, descendant in ipairs(model:GetDescendants()) do
                                           if descendant:IsA("BasePart") then
@@ -452,13 +383,12 @@ ts:Toggle("透视电机", "", false, function(state)
                                       if foundPart then
                                           model.PrimaryPart = foundPart
                                       else
-                                          warn("Generator ".. model.Name .." 缺少 BasePart，跳过处理")
-                                          continue -- 使用 Roblox-Lua 的伪 continue 语法
+                                          continue
                                       end
                                   end
 
         -- 添加高光效果
-                                  if not model:FindFirstChildOfClass("Highlight") and dj==true then
+                                  if not model:FindFirstChildOfClass("Highlight") then
                                       local highlight = Instance.new("Highlight")
                                       highlight.Name = "GeneratorHighlight"
                                       highlight.Adornee = model
@@ -472,18 +402,16 @@ ts:Toggle("透视电机", "", false, function(state)
                                           local label = gui:FindFirstChild("TextLabel")
                                           if label and label.Text == "电机" then
                                               hasTextGui = true
-                                              break
+                                              --break
                                           end
                                       end
                                   end
-
-        -- 添加 3D 文本
-                                  if not hasTextGui and dj==true then
+                                  if not hasTextGui then
                                       local billboard = Instance.new("BillboardGui")
                                       billboard.Name = "GeneratorText"
                                       billboard.Adornee = model.PrimaryPart
                                       billboard.Size = UDim2.new(2, 0, 2, 0)
-                                      billboard.StudsOffset = Vector3.new(0, 1, 0)  -- 文字偏移量
+                                     -- billboard.StudsOffset = Vector3.new(0, 1, 0)  -- 文字偏移量
                                       billboard.AlwaysOnTop = true
             
                                       local textLabel = Instance.new("TextLabel")
@@ -496,7 +424,7 @@ ts:Toggle("透视电机", "", false, function(state)
                                       textLabel.Parent = billboard
             
                                       billboard.Parent = model
-                                  end
+                                 end
                               end
                           end
                           wait(2)
@@ -521,5 +449,25 @@ ts:Toggle("透视电机", "", false, function(state)
                                   end
                               end
                           end
+    end
+end)
+local zdd = window:Tab("自动功能")
+local zdd = zdd:section("自动功能",true)
+local coin = false
+zdd:Toggle("机会自动抛硬币", "", false, function(state)
+    coin = state
+    
+    if state then
+           while coin do
+                          local args = {
+                            [1] = "UseActorAbility",
+                            [2] = "CoinFlip"
+                          }
+
+                          game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Network"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+               wait(0.1)
+           end
+    else
+         print("关")
     end
 end)
