@@ -399,7 +399,6 @@ ESPP:Toggle("透视物品", "", false, function(state)
     end
 end)
 local swww = false
--- 配置参数（可自定义）
 local ESP_CONFIG = {
     Name = "ESPshengwu",
     TextColor = Color3.new(1, 0, 0),    -- 红色
@@ -410,12 +409,8 @@ local ESP_CONFIG = {
     StrokeColor = Color3.new(0, 0, 0),  -- 描边颜色
     StrokeTransparency = 0.3
 }
-
--- 核心创建函数
 local function createIntegratedESP()
-    -- 遍历整个场景
     for _, npc in ipairs(workspace:GetDescendants()) do
-        -- 筛选条件：是模型、包含Humanoid、未添加ESP
         if npc:IsA("Model") and npc:FindFirstChildOfClass("Humanoid") and not npc:FindFirstChild(ESP_CONFIG.Name) and swww==true then
             -- 获取锚点部件
             local rootPart = npc:FindFirstChild("HumanoidRootPart") or npc.PrimaryPart
@@ -494,10 +489,9 @@ sn:Toggle("机枪子弹", "", false, function(state)
     end
 end)
 sn:Toggle("绷带", "", false, function(state)
-    bd = state  -- 同步阀门状态
+    bd = state
     
     if state then
-       --  pawn(function()  -- 使用独立协程
            while bd do  -- 检测阀门状态
                              wait(0.001)
                              local args = {
@@ -796,8 +790,6 @@ ending:Toggle("自动跳跃", "", false, function(state)
 
 -- 监听角色重生事件
                   player.CharacterAdded:Connect(onCharacterAdded)
-
--- 初始加载（如果角色已存在）
                   if player.Character then
                       onCharacterAdded(player.Character)
                   end
@@ -805,6 +797,9 @@ ending:Toggle("自动跳跃", "", false, function(state)
     else
         print("关闭")
     end
+end)
+ending:Button("查看当前服务器运行时间",function()
+loadstring(game:HttpGet"https://pastebin.com/raw/b6TDjAzP")()
 end)
 ending:Button("创建10分钟倒计时",function()
 -- 创建界面
