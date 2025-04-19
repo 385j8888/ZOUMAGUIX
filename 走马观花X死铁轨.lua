@@ -429,7 +429,8 @@ local function createIntegratedESP()
             local textLabel = Instance.new("TextLabel")
             textLabel.Size = UDim2.new(1, 0, 1, 0)
             textLabel.BackgroundTransparency = 1
-            textLabel.Text = "🔞"..npc.Name
+            --textLabel.Text = "🔞"..npc.Name
+            textLabel.Text = npc.Name
             textLabel.Font = ESP_CONFIG.Font
             textLabel.TextColor3 = ESP_CONFIG.TextColor
             textLabel.TextStrokeColor3 = ESP_CONFIG.StrokeColor
@@ -680,6 +681,8 @@ end)
 local runninggg = false
 local endingj = window:Tab("直达终点")
 local ending = endingj:section("终点",true)
+local time = window:Tab("时间功能")
+local time = time:section("时间",true)
 local jjjb
 ending:Toggle("自动传送pro", "", false, function(state)
     jjjb = state  -- 同步阀门状态
@@ -798,10 +801,10 @@ ending:Toggle("自动跳跃", "", false, function(state)
         print("关闭")
     end
 end)
-ending:Button("查看当前服务器运行时间",function()
+time:Button("查看当前服务器运行时间",function()
 loadstring(game:HttpGet"https://pastebin.com/raw/b6TDjAzP")()
 end)
-ending:Button("创建10分钟倒计时",function()
+time:Button("创建10分钟倒计时",function()
 -- 创建界面
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui")
@@ -830,7 +833,7 @@ local function startCountdown()
         local remaining = duration - elapsed
         
         if remaining <= 0 then
-            textLabel.Text = "拉桥去吧，宝贝-"
+            textLabel.Text = "时间到"
             break
         end
         
@@ -883,3 +886,157 @@ combat:Toggle("锁定敌人(视角移到敌人头上)", "", false, function(stat
         camera.CameraSubject = player.Character.Humanoid
     end
 end)
+local tpplace = window:Tab("地点传送")
+local tpplace = tpplace:section("终点",true)
+tpplace:Button("传送到最近的椅子",function()
+-- 获取玩家服务
+local Players = game:GetService("Players")
+-- 获取当前玩家
+local player = Players.LocalPlayer
+-- 获取目标 Chair Model
+local chair = workspace.RuntimeItems.Chair
+
+-- 检查 Chair Model 是否存在
+if chair then
+    -- 获取 Chair Model 内的 Seat 对象
+    local seat = chair:FindFirstChild("Seat")
+    -- 检查 Seat 对象是否存在
+    if seat then
+        -- 获取 Seat 的位置和朝向
+        local position = seat.Position
+        local orientation = seat.Orientation
+
+        -- 获取玩家的 Character
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        -- 将玩家的 Character 传送到 Seat 的位置并设置朝向
+        character:PivotTo(CFrame.new(position, position + Vector3.new(0, 1, 0)) * CFrame.Angles(math.rad(orientation.X), math.rad(orientation.Y), math.rad(orientation.Z)))
+    else
+        warn("Seat not found in the Chair Model.")
+    end
+else
+    warn("Chair Model not found in workspace.RuntimeItems")
+end
+end)
+tpplace:Button("狼堡",function()
+player.Character:PivotTo(CFrame.new(271.4610595703125, 4.046875953674316, -9172.03515625))
+wait(0.5)
+-- 获取玩家服务
+local Players = game:GetService("Players")
+-- 获取当前玩家
+local player = Players.LocalPlayer
+-- 获取目标 Chair Model
+local chair = workspace.RuntimeItems.Chair
+
+-- 检查 Chair Model 是否存在
+if chair then
+    -- 获取 Chair Model 内的 Seat 对象
+    local seat = chair:FindFirstChild("Seat")
+    -- 检查 Seat 对象是否存在
+    if seat then
+        -- 获取 Seat 的位置和朝向
+        local position = seat.Position
+        local orientation = seat.Orientation
+
+        -- 获取玩家的 Character
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        -- 将玩家的 Character 传送到 Seat 的位置并设置朝向
+        character:PivotTo(CFrame.new(position, position + Vector3.new(0, 1, 0)) * CFrame.Angles(math.rad(orientation.X), math.rad(orientation.Y), math.rad(orientation.Z)))
+    else
+        warn("Seat not found in the Chair Model.")
+    end
+else
+    warn("Chair Model not found in workspace.RuntimeItems")
+end
+
+end)
+-- 获取玩家服务
+
+
+tpplace:Button("特斯拉实验室",function()
+player.Character:PivotTo(CFrame.new(-140.51632690429688, 4.171875, -24185.212890625))
+-- 获取玩家服务
+wait(0.1)
+local Players = game:GetService("Players")
+-- 获取当前玩家
+local player = Players.LocalPlayer
+-- 获取目标 Chair Model
+local chair = workspace.RuntimeItems.Chair
+
+-- 检查 Chair Model 是否存在
+if chair then
+    -- 获取 Chair Model 内的 Seat 对象
+    local seat = chair:FindFirstChild("Seat")
+    -- 检查 Seat 对象是否存在
+    if seat then
+        -- 获取 Seat 的位置和朝向
+        local position = seat.Position
+        local orientation = seat.Orientation
+
+        -- 获取玩家的 Character
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        -- 将玩家的 Character 传送到 Seat 的位置并设置朝向
+        character:PivotTo(CFrame.new(position, position + Vector3.new(0, 1, 0)) * CFrame.Angles(math.rad(orientation.X), math.rad(orientation.Y), math.rad(orientation.Z)))
+    else
+        warn("Seat not found in the Chair Model.")
+    end
+else
+    warn("Chair Model not found in workspace.RuntimeItems")
+end
+
+end)
+tpplace:Button("军营",function()
+player.Character:PivotTo(CFrame.new(63.61872863769531, 4.523547649383545, -28357.298828125))
+-- 获取玩家服务
+wait(0.1)
+local Players = game:GetService("Players")
+-- 获取当前玩家
+local player = Players.LocalPlayer
+-- 获取目标 Chair Model
+local chair = workspace.RuntimeItems.Chair
+
+-- 检查 Chair Model 是否存在
+if chair then
+    -- 获取 Chair Model 内的 Seat 对象
+    local seat = chair:FindFirstChild("Seat")
+    -- 检查 Seat 对象是否存在
+    if seat then
+        -- 获取 Seat 的位置和朝向
+        local position = seat.Position
+        local orientation = seat.Orientation
+
+        -- 获取玩家的 Character
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        -- 将玩家的 Character 传送到 Seat 的位置并设置朝向
+        character:PivotTo(CFrame.new(position, position + Vector3.new(0, 1, 0)) * CFrame.Angles(math.rad(orientation.X), math.rad(orientation.Y), math.rad(orientation.Z)))
+    else
+        warn("Seat not found in the Chair Model.")
+    end
+else
+    warn("Chair Model not found in workspace.RuntimeItems")
+end
+end)
+tpplace:Button("火车座位(前提是没有移动过火车)",function()
+player.Character:PivotTo(CFrame.new(59.67192840576172, 11.969432830810547, 29871.8984375))
+-- 获取玩家服务
+end)
+
+while true do
+  local function EnableAllSeats(parent)
+    for _, child in ipairs(parent:GetChildren()) do
+        -- 如果是 Seat 或 VehicleSeat 类，则禁用 Disabled 属性
+        if child:IsA("Seat") or child:IsA("VehicleSeat") then
+            child.Disabled = false
+        end
+        -- 递归遍历子对象
+        EnableAllSeats(child)
+    end
+  end
+
+-- 从 Workspace 开始遍历
+  EnableAllSeats(workspace)
+  wait(1)
+end
