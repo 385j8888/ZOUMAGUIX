@@ -818,6 +818,6 @@ return {
   ["lucide-x-square"] = "rbxassetid://10747384217",
   ["lucide-zoom-in"] = "rbxassetid://10747384552",
   ["lucide-zoom-out"] = "rbxassetid://10747384679",
-  ["lucide-ZMGH"] = "rbxassetid://17366451283",
+  ["lucide-ZMGH"] = "rbxthumb://type=Asset&id=17366451283&w=150&h=150",
   ["lucide-Sumi"] = "rbxassetid://17700422463"
 }
