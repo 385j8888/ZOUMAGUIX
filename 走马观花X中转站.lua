@@ -73,7 +73,8 @@ local redzlib = {
   Options = {},
   Flags = {},
   Tabs = {},
-  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/fishnnnvvv/Sumi/main/%E5%9B%BE%E7%89%87.lua"))()
+  --Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/fishnnnvvv/Sumi/main/%E5%9B%BE%E7%89%87.lua"))()
+  Icons = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%85%8D%E7%BD%AE%E9%A1%B5.lua"))()
 }
 
 local ViewportSize = workspace.CurrentCamera.ViewportSize
@@ -1825,14 +1826,67 @@ Tab1:AddButton({
 })
 Tab1:AddButton({
     Title = "根据服务器类型执行走马观花X",           -- 按钮标题
-    Desc = "走马观花X",   -- 按钮描述（可选）
+    Desc = "爱来自走马观花X❤️",   -- 按钮描述（可选）
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
     end
 })
+Tab1:AddButton({
+    Title = "走马观花X🐧交流群",           -- 按钮标题
+    Desc = "530634599",   -- 按钮描述（可选）
+    Callback = function()
+        print("114514")
+    end
+})
+local Tab0 = Window:MakeTab({
+    Title = "走马观花X特别鸣谢",             -- 标签页标题
+    Icon = "user"              -- 图标名称（可选，支持Lucide图标）
+})
+Tab0:AddButton({
+    Title = "紅",           -- 按钮标题
+    Desc = "走马观花X最高Owner",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "小爱同学",           -- 按钮标题
+    Desc = "走马观花X-Owner",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "Sumi",           -- 按钮标题
+    Desc = "UI by Sumi",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "小鸟游星野",           -- 按钮标题
+    Desc = "🐱",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "boboz",           -- 按钮标题
+    Desc = "最佳使用人员",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "小新",           -- 按钮标题
+    Desc = "最佳使用人员",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
 local Tab2 = Window:MakeTab({
     Title = "当前支持的游戏",             -- 标签页标题
-    Icon = "home"              -- 图标名称（可选，支持Lucide图标）
+    Icon = "moon"              -- 图标名称（可选，支持Lucide图标）
 })
 Tab2:AddButton({
     Title = "伐木大亨",           -- 按钮标题
@@ -1890,4 +1944,56 @@ Tab2:AddButton({
         print("111")
     end
 })
-redzlib:SetTheme("Pink") -- 可选主题：Darker、Dark、Purple、Pink
+--redzlib:SetTheme("darker") -- 可选主题：Darker、Dark、Purple、Pink
+redzlib:SetScale(340) -- 数值越大窗口越小
+local Tab3 = Window:MakeTab({
+    Title = "UI设置",             -- 标签页标题
+    Icon = "library"              -- 图标名称（可选，支持Lucide图标）
+})
+Tab3:AddTextBox({
+    Title = "UI大小",         -- 文本框标题
+    Desc = "数值越大界面越小", -- 描述（可选）
+    Default = "340",        -- 默认文本（可选）
+    Callback = function(Text)
+        redzlib:SetScale(Text) -- 数值越大窗口越小
+    end
+})
+Tab3:AddButton({
+    Title = "黑暗1",           -- 按钮标题
+    Desc = "Darker",   -- 按钮描述（可选）
+    Callback = function()
+        redzlib:SetTheme("Darker")
+    end
+})
+Tab3:AddButton({
+    Title = "黑暗2",           -- 按钮标题
+    Desc = "Dark",   -- 按钮描述（可选）
+    Callback = function()
+        redzlib:SetTheme("Dark")
+    end
+})
+--Tab3:AddButton({
+--    Title = "紫色",           -- 按钮标题
+--    Desc = "Purple",   -- 按钮描述（可选）
+--    Callback = function()
+--        redzlib:SetTheme("Purple")
+--    end
+--})
+Tab3:AddButton({
+    Title = "粉色",           -- 按钮标题
+    Desc = "Pink",   -- 按钮描述（可选）
+    Callback = function()
+        redzlib:SetTheme("Pink")
+    end
+})
+local Tab4 = Window:MakeTab({
+    Title = "公告(更新内容)",             -- 标签页标题
+    Icon = "info"              -- 图标名称（可选，支持Lucide图标）
+})
+Tab4:AddButton({
+    Title = "[+]更新了中转站",           -- 按钮标题
+    Desc = "2025年4月25日",   -- 按钮描述（可选）
+    Callback = function()
+        print("?")
+    end
+})
