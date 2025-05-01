@@ -209,7 +209,7 @@ gn:Toggle("自动收集木头", "", false, function(state)
                           end
                       end
                  end
-                 wait(0.01)
+                 wait(0.1)
             end
         --end)
     else
@@ -232,7 +232,7 @@ gn:Toggle("自动收集浆果", "", false, function(state)
                           end
                       end
                  end
-                 wait(0.01)
+                 wait(1)
             end
         --end)
     else
@@ -255,7 +255,7 @@ gn:Toggle("自动收集鹿肉", "", false, function(state)
                           end
                       end
                  end
-                 wait(0.01)
+                 wait(0.5)
             end
         --end)
     else
@@ -278,7 +278,7 @@ gn:Toggle("自动收集零件", "", false, function(state)
                           end
                       end
                   end
-                 wait(0.01)
+                 wait(1)
             end
         --end)
     else
