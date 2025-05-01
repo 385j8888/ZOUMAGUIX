@@ -1825,7 +1825,7 @@ Tab1:AddButton({
     end
 })
 Tab1:AddButton({
-    Title = "根据服务器类型执行走马观花X",           -- 按钮标题
+    Title = "根据服务器类型执行走马观花X(执行脚本点这里❗️)",           -- 按钮标题
     Desc = "爱来自走马观花X❤️",   -- 按钮描述（可选）
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
@@ -1887,6 +1887,13 @@ Tab0:AddButton({
 local Tab2 = Window:MakeTab({
     Title = "当前支持的游戏",             -- 标签页标题
     Icon = "moon"              -- 图标名称（可选，支持Lucide图标）
+})
+Tab2:AddButton({
+    Title = "生存7天",           -- 按钮标题
+    Desc = "",   -- 按钮描述（可选）
+    Callback = function()
+        print("111")
+    end
 })
 Tab2:AddButton({
     Title = "伐木大亨",           -- 按钮标题
