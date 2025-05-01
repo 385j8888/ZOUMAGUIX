@@ -262,19 +262,19 @@ gn:Toggle("自动收集鹿肉", "", false, function(state)
         print("1")
     end
 end)
-local autoclloggg = false
+local autocllojggg = false
 gn:Toggle("自动收集零件", "", false, function(state)
-    autoclloggg = state  -- 同步阀门状态
+    autocllojggg = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
-            while autoclloggg do  -- 检测阀门状态
+            while autocllojggg do  -- 检测阀门状态
                   for _, scrap in pairs(workspace.scraps:GetChildren()) do
-                      local material99 = scrap:FindFirstChild("defaultMaterial10")
-                      if material99 then
-                          local prompt99 = material99:FindFirstChild("ProximityPrompt")
-                          if prompt then
-                              fireproximityprompt(prompt99)
+                      local materiall = scrap:FindFirstChild("defaultMaterial10")
+                      if materiall then
+                          local promptt = materiall:FindFirstChild("ProximityPrompt")
+                          if promptt then
+                              fireproximityprompt(promptt)
                           end
                       end
                   end
@@ -307,4 +307,12 @@ local hjj = window:Tab("传送",'10723407389')
 local hjj = hjj:section("传送",true)
 hjj:Button("回到小屋",function()
 player.Character:PivotTo(CFrame.new(50.667144775390625, 41.718955993652344, 411.1571044921875))
+end)
+local playerr = window:Tab("玩家",'10723407389')
+local playerr = playerr:section("玩家功能",true)
+playerr:Textbox("速度", "速度", "请输入速度", function(value)
+    lp.Character.Humanoid.WalkSpeed = value
+end)
+playerr:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
+    lp.Character.Humanoid.JumpPower = value
 end)
