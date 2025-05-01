@@ -1991,6 +1991,13 @@ local Tab4 = Window:MakeTab({
     Icon = "info"              -- 图标名称（可选，支持Lucide图标）
 })
 Tab4:AddButton({
+    Title = "[+]修复了生存7天不能自动捡零件的问题",           -- 按钮标题
+    Desc = "2025年5月1日",   -- 按钮描述（可选）
+    Callback = function()
+        print("?")
+    end
+})
+Tab4:AddButton({
     Title = "[+]新添服务器:生存7天",           -- 按钮标题
     Desc = "2025年4月30日",   -- 按钮描述（可选）
     Callback = function()
