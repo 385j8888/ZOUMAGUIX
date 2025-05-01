@@ -112,7 +112,7 @@ gn:Toggle("枪械杀戮光环(鹿)", "", false, function(state)
                               shootEvent:FireServer(unpack(args))
                       end
                   end
-                  wait(0.1)
+                  wait(0.5)
             end
         --end)
     else
@@ -152,7 +152,7 @@ gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
                           shootEvent:FireServer(unpack(args))
                       end
                   end
-                  wait(0.1)
+                  wait(0.5)
             end
         --end)
     else
@@ -174,6 +174,25 @@ for _, scrap in pairs(workspace.scraps:GetChildren()) do
 
             wait(0.1) -- allow time for physics
             fireproximityprompt(prompt)
+        end
+    end
+end
+end)
+gn:Button("收集鹿肉",function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+--local originalCFrame = hrp.CFrame
+for _, deer in pairs(workspace.interact:GetChildren()) do
+    local ljxs = deer:FindFirstChild("lungs,heart,intestines")
+    if ljxs then
+        local promptlu = ljxs:FindFirstChild("ProximityPrompt")
+        if promptlu then
+            -- Teleport to scrap, slightly above to avoid getting stuck
+            hrp.CFrame = ljxs.CFrame + Vector3.new(0, 3, 0)
+
+            wait(0.1) -- allow time for physics
+            fireproximityprompt(promptlu)
         end
     end
 end
@@ -307,6 +326,9 @@ local hjj = window:Tab("传送",'10723407389')
 local hjj = hjj:section("传送",true)
 hjj:Button("回到小屋",function()
 player.Character:PivotTo(CFrame.new(50.667144775390625, 41.718955993652344, 411.1571044921875))
+end)
+hjj:Button("坠机事件点位",function()
+player.Character:PivotTo(CFrame.new(-337.4200134277344, 30.246173858642578, -107.8772201538086))
 end)
 local playerr = window:Tab("玩家",'10723407389')
 local playerr = playerr:section("玩家功能",true)
