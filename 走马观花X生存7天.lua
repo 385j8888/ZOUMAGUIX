@@ -112,7 +112,7 @@ gn:Toggle("枪械杀戮光环(鹿)", "", false, function(state)
                               shootEvent:FireServer(unpack(args))
                       end
                   end
-                  wait(0.5)
+                  wait(0.1)
             end
         --end)
     else
@@ -152,7 +152,7 @@ gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
                           shootEvent:FireServer(unpack(args))
                       end
                   end
-                  wait(0.5)
+                  wait(0.1)
             end
         --end)
     else
