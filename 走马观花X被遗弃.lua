@@ -330,7 +330,7 @@ ts:Toggle("透视物品", "", false, function(state)
                                       textLabel.BackgroundTransparency = 1 -- 透明背景
                                       textLabel.Text = instance.Name -- 显示 Tool 的名字
                                       textLabel.Font = Enum.Font.SourceSansBold
-                                      textLabel.TextSize = 15
+                                      textLabel.TextSize = 11
                                       textLabel.TextColor3 = Color3.new(255, 165, 0) -- 白色文字
                                       textLabel.Parent = billboard
             
@@ -383,7 +383,7 @@ ts:Toggle("透视电机", "", false, function(state)
                                     billboard.Size = UDim2.new(4, 0, 2, 0)
                                     billboard.StudsOffset = Vector3.new(0, 3, 0) -- 在模型上方 3 米
                                     billboard.Adornee = child.PrimaryPart
-                                    billboard.AlwaysOnTop = false
+                                    billboard.AlwaysOnTop = true
                                     billboard.MaxDistance = 1000
                                     billboard.Parent = child
 
