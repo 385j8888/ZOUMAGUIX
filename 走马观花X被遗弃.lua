@@ -171,7 +171,7 @@ local function setupModelEffects(model)
     local highlight = Instance.new("Highlight")
     highlight.Name = "ModelHighlight"
     highlight.FillColor = Color3.fromRGB(255, 0, 0)   -- 红色填充
-    highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- 白色边框
+    highlight.OutlineColor = Color3.fromRGB(255, 0, 0) -- 白色边框
     highlight.Parent = model
 
     -- 添加3D文字
@@ -187,7 +187,7 @@ local function setupModelEffects(model)
     textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.Text = model.Name
     textLabel.Font = Enum.Font.SourceSansBold
-    textLabel.TextSize = 15
+    textLabel.TextSize = 11
     textLabel.TextColor3 = Color3.new(255, 0, 0)
     textLabel.BackgroundTransparency = 1
     textLabel.Parent = billboard
@@ -202,7 +202,7 @@ local function setupSurvivorsModelEffects(model)
     local highlight = Instance.new("Highlight")
     highlight.Name = "ModelHighlight"
     highlight.FillColor = Color3.fromRGB(0, 255, 0)   -- 红色填充
-    highlight.OutlineColor = Color3.fromRGB(255, 255, 255) -- 白色边框
+    highlight.OutlineColor = Color3.fromRGB(0, 255, 0) -- 白色边框
    -- highlight.Transparency = 0.5
     highlight.Parent = model
 
@@ -219,7 +219,7 @@ local function setupSurvivorsModelEffects(model)
     textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.Text = model.Name
     textLabel.Font = Enum.Font.SourceSansBold
-    textLabel.TextSize = 15
+    textLabel.TextSize = 11
     textLabel.TextColor3 = Color3.new(0, 255, 0)
     textLabel.BackgroundTransparency = 1
     textLabel.Parent = billboard
@@ -367,67 +367,49 @@ ts:Toggle("透视电机", "", false, function(state)
     djjb = state
     if state then
            while djjb do
-                          local targetFolder = workspace.Map.Ingame.Map
+                    local targetFolder = workspace.Map.Ingame.Map
 
-                          for _, model in ipairs(targetFolder:GetChildren()) do
-                              if model.Name == "Generator" then
-                                  if not model.PrimaryPart then
-                                      local foundPart
-                                      for _, descendant in ipairs(model:GetDescendants()) do
-                                          if descendant:IsA("BasePart") then
-                                              foundPart = descendant
-                                              break
-                                          end
-                                      end
-            
-                                      if foundPart then
-                                          model.PrimaryPart = foundPart
-                                      else
-                                          continue
-                                      end
-                                  end
+                    for _, child in ipairs(targetFolder:GetChildren()) do
+                        if child:IsA("Model") and child.Name == "Generator" then
+                            if not child.PrimaryPart then
+                                warn("Generator " .. child.Name .. " 缺少 PrimaryPart，無法附加 3D 文字。")
+                            else
+            -- 检查并添加 3D 文字
+                                local billboard = child:FindFirstChild("GeneratorBillboard")
+                                if not billboard and djjb==true then
+                -- 创建 BillboardGui
+                                    billboard = Instance.new("BillboardGui")
+                                    billboard.Name = "GeneratorBillboard"
+                                    billboard.Size = UDim2.new(4, 0, 2, 0)
+                                    billboard.StudsOffset = Vector3.new(0, 3, 0) -- 在模型上方 3 米
+                                    billboard.Adornee = child.PrimaryPart
+                                    billboard.AlwaysOnTop = false
+                                    billboard.MaxDistance = 1000
+                                    billboard.Parent = child
 
-        -- 添加高光效果
-                                  if not model:FindFirstChildOfClass("Highlight") then
-                                      local highlight = Instance.new("Highlight")
-                                      highlight.Name = "GeneratorHighlight"
-                                      highlight.Adornee = model
-                                      highlight.Parent = model
-                                  end
+                -- 创建 TextLabel
+                                    local textLabel = Instance.new("TextLabel")
+                                    textLabel.Text = "电机"
+                                    textLabel.Size = UDim2.new(1, 0, 1, 0)
+                                  --  textLabel.Font = Enum.Font.SourceHanSansCN
+                                    textLabel.TextSize = 13
+                                    textLabel.TextColor3 = Color3.new(1, 1, 1)
+                                    textLabel.BackgroundTransparency = 1
+                                    textLabel.Parent = billboard
+                                end
 
-        -- 检查是否已存在包含"电机"文本的 BillboardGui
-                                  local hasTextGui = false
-                                  for _, gui in ipairs(model:GetChildren()) do
-                                      if gui:IsA("BillboardGui") then
-                                          local label = gui:FindFirstChild("TextLabel")
-                                          if label and label.Text == "电机" then
-                                              hasTextGui = true
-                                              --break
-                                          end
-                                      end
-                                  end
-                                  if not hasTextGui then
-                                      local billboard = Instance.new("BillboardGui")
-                                      billboard.Name = "GeneratorText"
-                                      billboard.Adornee = model.PrimaryPart
-                                      billboard.Size = UDim2.new(2, 0, 2, 0)
-                                     -- billboard.StudsOffset = Vector3.new(0, 1, 0)  -- 文字偏移量
-                                      billboard.AlwaysOnTop = true
-            
-                                      local textLabel = Instance.new("TextLabel")
-                                      textLabel.Size = UDim2.new(3, 0, 3, 0)
-                                      textLabel.Text = "电机"
-                                      --textLabel.Font = Enum.Font.SourceHanSans  -- 支持中文的字体
-                                      textLabel.TextColor3 = Color3.new(0, 255, 0)
-                                      textLabel.TextScaled = true
-                                      textLabel.BackgroundTransparency = 1
-                                      textLabel.Parent = billboard
-            
-                                      billboard.Parent = model
-                                 end
-                              end
-                          end
-                          wait(2)
+                                local highlight = child:FindFirstChildOfClass("Highlight")
+                                if not highlight and djjb==true then
+                                    highlight = Instance.new("Highlight")
+                                    highlight.Name = "GeneratorHighlight"
+                                    highlight.FillColor = Color3.new(1, 0, 0) -- 紅色填充
+                                    highlight.OutlineColor = Color3.new(0.5, 0, 0) -- 暗紅色輪廓
+                                    highlight.Parent = child
+                                end
+                            end
+                        end
+                    end
+                    wait(3)
            end
     else
                           local targetFolder = workspace.Map.Ingame.Map
@@ -451,6 +433,63 @@ ts:Toggle("透视电机", "", false, function(state)
                           end
     end
 end)
+local john = false
+ts:Toggle("透视约翰的大汗脚漩涡", "", false, function(state)
+    john = state
+    if state then
+           while john do
+                    local targetParent = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame")
+
+                    for _, obj in ipairs(targetParent:GetDescendants()) do
+                        if obj.Name == "Shadow" then
+        -- 检查是否已存在 3D 文字
+                            local existingGui = obj:FindFirstChild("Shadow3DText")
+                            if not existingGui and john==true then
+            -- 创建 BillboardGui
+                                local billboard = Instance.new("BillboardGui")
+                                billboard.Name = "Shadow3DText"
+                                billboard.Size = UDim2.new(4, 0, 2, 0)  -- 根据文字大小调整
+                                billboard.StudsOffset = Vector3.new(0, 1 , 0)  -- 在部件上方显示
+                                billboard.AlwaysOnTop = true
+                                billboard.Adornee = obj  -- 绑定到目标部件
+                                billboard.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                                billboard.MaxDistance = 500  -- 最大可见距离
+            
+            -- 创建文本标签
+                                local textLabel = Instance.new("TextLabel")
+                                textLabel.Text = "脚气"
+                                textLabel.Size = UDim2.new(1, 0, 1 ,0)
+                               -- textLabel.Font = Enum.Font.SourceHanSansCN  -- 中文字体
+                                textLabel.TextColor3 = Color3.new(240, 0, 0)
+                                textLabel.TextStrokeColor3 = Color3.new(1, 1, 1)
+                                textLabel.TextStrokeTransparency = 0.5
+                                textLabel.TextSize = 11
+                              --  textLabel.TextScaled = true  -- 自动缩放文字
+                                textLabel.BackgroundTransparency = 1  -- 透明背景
+                                textLabel.Parent = billboard
+            
+                                billboard.Parent = obj
+                            end
+                        end
+                    end
+                    wait(5)
+           end
+    else
+                   local targetParent = workspace:FindFirstChild("Map") and workspace.Map:FindFirstChild("Ingame")
+
+-- 删除现有文字
+                    for _, obj in ipairs(targetParent:GetDescendants()) do
+                        if obj.Name == "Shadow" and obj:IsA("BasePart") then
+                            local existingGui = obj:FindFirstChild("Shadow3DText")
+                            if existingGui then
+                                existingGui:Destroy()
+                            end
+                        end
+                    end
+    end
+end)
+local cool = false
+
 local zdd = window:Tab("自动功能")
 local zdd = zdd:section("自动功能",true)
 local coin = false
@@ -471,3 +510,79 @@ zdd:Toggle("机会自动抛硬币", "", false, function(state)
          print("关")
     end
 end)
+local function monitorSubspaceTripmine()
+    local ingameLocation = workspace:WaitForChild("Map"):WaitForChild("Ingame")
+    
+    ingameLocation.ChildAdded:Connect(function(newChild)
+        if newChild.Name == "SubspaceTripmine" then
+            game:GetService("StarterGui"):SetCore("SendNotification", { 
+            	Title = "走马观花X";
+            	Text = "检测到塔夫扔了炸弹！";
+            	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+            Duration = 3})
+        end
+    end)
+end
+
+monitorSubspaceTripmine()
+local function monitorPizzaSpawn()
+    local ingameFolder = workspace:WaitForChild("Map"):WaitForChild("Ingame")
+    
+    ingameFolder.ChildAdded:Connect(function(child)
+        if child.Name == "Pizza" then
+            game:GetService("StarterGui"):SetCore("SendNotification", { 
+            	Title = "走马观花X";
+            	Text = "检测到有人扔了披萨！";
+            	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+            Duration = 3})
+        end
+    end)
+end
+
+monitorPizzaSpawn()
+local function PizzaSpawn()
+    local ingameFolder = workspace:WaitForChild("Map"):WaitForChild("Ingame")
+    
+    ingameFolder.ChildAdded:Connect(function(child)
+        if child.Name == "PizzaDeliveryRig" then
+            game:GetService("StarterGui"):SetCore("SendNotification", { 
+            	Title = "走马观花X";
+            	Text = "酷小孩召唤了他的小弟！";
+            	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+            Duration = 3})
+        end
+    end)
+end
+PizzaSpawn()
+
+local function deepShadowMonitor()
+    -- 安全获取目标容器（带超时机制）
+    local map = workspace:WaitForChild("Map", 5)
+    if not map then
+        warn("未找到 Map 文件夹")
+        return
+    end
+    
+    local ingame = map:WaitForChild("Ingame", 5)
+    if not ingame then
+        warn("未找到 Ingame 文件夹")
+        return
+    end
+
+    -- 深度检测函数
+    local function onDescendantAdded(descendant)
+        if descendant.Name == "Shadow" then
+            game:GetService("StarterGui"):SetCore("SendNotification", { 
+                    	Title = "走马观花X";
+                    	Text = "约翰在场上留下了脚气";
+                    	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+            Duration = 3})
+        end
+    end
+
+    -- 监听现有及新增对象
+    ingame.DescendantAdded:Connect(onDescendantAdded)
+    
+end
+
+deepShadowMonitor()
