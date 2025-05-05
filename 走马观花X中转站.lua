@@ -1889,6 +1889,13 @@ local Tab2 = Window:MakeTab({
     Icon = "moon"              -- 图标名称（可选，支持Lucide图标）
 })
 Tab2:AddButton({
+    Title = "不要点这里执行脚本啊！😭",           -- 按钮标题
+    Desc = "去主页那里执行，这里没用！",   -- 按钮描述（可选）
+    Callback = function()
+        print("111")
+    end
+})
+Tab2:AddButton({
     Title = "生存7天",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
@@ -1998,8 +2005,22 @@ local Tab4 = Window:MakeTab({
     Icon = "info"              -- 图标名称（可选，支持Lucide图标）
 })
 Tab4:AddButton({
+    Title = "[+]生存7天大厅增加免胜场游玩，不用胜场就可玩其他模式",           -- 按钮标题
+    Desc = "2025年5月4日",   -- 按钮描述（可选）
+    Callback = function()
+        print("?")
+    end
+})
+Tab4:AddButton({
+    Title = "[+]生存7天修复了一下杀戮光环，但没有完全修好",           -- 按钮标题
+    Desc = "2025年5月4日",   -- 按钮描述（可选）
+    Callback = function()
+        print("?")
+    end
+})
+Tab4:AddButton({
     Title = "[+]被遗弃更新和优化了透视，添加事件通知",           -- 按钮标题
-    Desc = "2025年5月日",   -- 按钮描述（可选）
+    Desc = "2025年5月2日",   -- 按钮描述（可选）
     Callback = function()
         print("?")
     end
