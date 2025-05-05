@@ -141,10 +141,10 @@ gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
         -- 构建动态 CFrame（替换位置，保留旋转）
                           local args = {
                               [1] = CFrame.new(
-                                  scpPosition.X, scpPosition.Y, scpPosition.Z,  deerPosition.X, deerPosition.Y, deerPosition.Z, deerPosition.X, deerPosition.Y, deerPosition.Z, deerPosition.X, deerPosition.Y, deerPosition.Z
+                                  scpPosition.X, scpPosition.Y, scpPosition.Z, scpPosition.X, scpPosition.Y, scpPosition.Z, scpPosition.X, scpPosition.Y, scpPosition.Z, scpPosition.X, scpPosition.Y, scpPosition.Z
                               ),
                               [2] = CFrame.new(
-                                  scpPosition.X, scpPosition.Y, scpPosition.Z,  deerPosition.X, deerPosition.Y, deerPosition.Z, deerPosition.X, deerPosition.Y, deerPosition.Z, deerPosition.X, deerPosition.Y, deerPosition.Z
+                                  scpPosition.X, scpPosition.Y, scpPosition.Z, scpPosition.X, scpPosition.Y, scpPosition.Z, scpPosition.X, scpPosition.Y, scpPosition.Z, scpPosition.X, scpPosition.Y, scpPosition.Z
                               )
                           }
 
