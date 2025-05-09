@@ -1,3 +1,10 @@
+if getgenv().ZOUMAGUANHUAGUI.HONG == "走马观花X" then
+   print("验证成功")
+else
+  game.Players.LocalPlayer:Kick("警告:您当前的走马观花X似乎不完整，请加入QQ群获取最新版本530634599")
+  setclipboard("530634599")
+end
+
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
@@ -1844,14 +1851,14 @@ local Tab0 = Window:MakeTab({
 })
 Tab0:AddButton({
     Title = "紅",           -- 按钮标题
-    Desc = "走马观花X最高Owner",   -- 按钮描述（可选）
+    Desc = "走马观花X真Owner-有权叫停该走马观花X项目",   -- 按钮描述（可选）
     Callback = function()
         print("1")
     end
 })
 Tab0:AddButton({
     Title = "小爱同学",           -- 按钮标题
-    Desc = "走马观花X-Owner",   -- 按钮描述（可选）
+    Desc = "走马观花X-Owner👑",   -- 按钮描述（可选）
     Callback = function()
         print("1")
     end
@@ -1871,6 +1878,13 @@ Tab0:AddButton({
     end
 })
 Tab0:AddButton({
+    Title = "lingjuyei",           -- 按钮标题
+    Desc = "建议者",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
     Title = "boboz",           -- 按钮标题
     Desc = "最佳使用人员",   -- 按钮描述（可选）
     Callback = function()
@@ -1879,6 +1893,13 @@ Tab0:AddButton({
 })
 Tab0:AddButton({
     Title = "小新",           -- 按钮标题
+    Desc = "最佳使用人员",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "新霜月",           -- 按钮标题
     Desc = "最佳使用人员",   -- 按钮描述（可选）
     Callback = function()
         print("1")
