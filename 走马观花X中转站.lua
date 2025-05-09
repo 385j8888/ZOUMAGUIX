@@ -1,10 +1,3 @@
-if getgenv().ZOUMAGUANHUAGUI.HONG == "走马观花X" then
-   print("验证成功")
-else
-  game.Players.LocalPlayer:Kick("警告:您当前的走马观花X似乎不完整，请加入QQ群获取最新版本530634599")
-  setclipboard("530634599")
-end
-
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
