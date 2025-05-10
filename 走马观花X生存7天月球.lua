@@ -207,6 +207,29 @@ gn:Toggle("自动挥镐子", "", false, function(state)
     end
 end)
 local autocllog = false
+local sta = false
+gn:Toggle("自动捡动物尸体", "", false, function(state)
+    sta = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while sta do  -- 检测阀门状态
+                 for _, reptile in pairs(workspace.interact:GetChildren()) do
+                      local jgll = reptile:FindFirstChild("HumanoidRootPart")
+                      if jgll then
+                          local  jbttt = jgll:FindFirstChild("ProximityPrompt")
+                          if jbttt then
+                              fireproximityprompt(jbttt)
+                          end
+                      end
+                 end
+                 wait(1)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
 local jgg = false
 gn:Toggle("自动捡矿石", "", false, function(state)
     jgg = state  -- 同步阀门状态
