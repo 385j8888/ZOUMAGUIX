@@ -1,3 +1,67 @@
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(1, 0, 1, 0)
+frame.BackgroundColor3 = Color3.new(1, 0, 0)
+frame.BackgroundTransparency = 1
+frame.Parent = gui
+
+local textContainer = Instance.new("Frame")
+textContainer.Size = UDim2.new(1, 0, 1, 0)
+textContainer.BackgroundTransparency = 1
+textContainer.Parent = frame
+
+textContainer.AnchorPoint = Vector2.new(0.5, 0.5)
+textContainer.Position = UDim2.new(0.5, 0, 0.5, 0)
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.Text = "走马观花X"
+textLabel.TextColor3 = Color3.new(1, 1, 1)
+textLabel.TextScaled = true
+textLabel.TextWrapped = true
+textLabel.BackgroundTransparency = 1
+textLabel.Parent = textContainer
+
+textContainer.Size = UDim2.new(0, 0, 0, 0)
+
+local fadeInInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local fadeOutInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+local scaleInInfo = TweenInfo.new(1, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+local scaleOutInfo = TweenInfo.new(1, Enum.EasingStyle.Back, Enum.EasingDirection.In)
+
+local animations = {
+    fadeIn = TweenService:Create(frame, fadeInInfo, {BackgroundTransparency = 0}),
+    fadeOut = TweenService:Create(frame, fadeOutInfo, {BackgroundTransparency = 1}),
+    scaleIn = TweenService:Create(textContainer, scaleInInfo, {Size = UDim2.new(1.2, 0, 1.2, 0)}),
+    scaleOut = TweenService:Create(textContainer, scaleOutInfo, {Size = UDim2.new(0, 0, 0, 0)})
+}
+
+coroutine.wrap(function()
+    animations.fadeIn:Play()
+    animations.scaleIn:Play()
+    animations.fadeIn.Completed:Wait()
+    
+    TweenService:Create(textContainer, TweenInfo.new(0.3), {Size = UDim2.new(1, 0, 1, 0)}):Play()
+    wait(2.7) 
+    
+    animations.fadeOut:Play()
+    animations.scaleOut:Play()
+    animations.fadeOut.Completed:Wait()
+    
+    gui:Destroy()
+end)()
+
+
+
+
+
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
