@@ -57,11 +57,7 @@ coroutine.wrap(function()
     
     gui:Destroy()
 end)()
-wait(5)
-
-
-
-
+wait(4.5)
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
