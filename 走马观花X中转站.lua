@@ -57,7 +57,7 @@ coroutine.wrap(function()
     
     gui:Destroy()
 end)()
-
+wait(5)
 
 
 
