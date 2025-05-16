@@ -1,3 +1,18 @@
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://4590662766"
+sound.Volume = 2
+sound.Parent = workspace
+
+sound.Loaded:Wait()
+sound:Play()
+
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
+
+
+
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 
