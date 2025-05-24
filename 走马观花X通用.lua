@@ -1,11 +1,4 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/ProtectUI.lua"))()
-local alwaysnight = false
-local alwaysunday = false
-local autosn = false
-local itemESP = false
-local autoBond = false
-local autoCoal = false
-local autoGoldBar = false
 local xxgd = false
 local bondd = false
 local TurretAmmo = false
@@ -88,6 +81,92 @@ local playerr = window:Tab("玩家")
 local playerr = playerr:section("玩家功能",true)
 playerr:Button("爬墙走",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/wallwalker.lua"))()
+end)
+gn:Button("绕大部分服务器反作弊",function()
+for _, Value in next, getgc(true) do
+    if typeof(Value) == "table" then
+        if rawget(Value, "indexInstance") or rawget(Value, "newindexInstance") or rawget(Value, "newIndexInstance") then
+            Value.tvk = {"kick", function() return task.wait(9e9) end}
+        end
+    end
+end
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local oldIndex, oldNamecall
+oldIndex = hookmetamethod(game, "__index", newcclosure(function(t, k)
+    if t == LocalPlayer and type(k) == "string" and k:lower() == "kick" then
+    return function(...)
+    print("__index 拦截kick 成功")
+    -- return oldIndex(t, k)(...) 原方法 需要去掉注释
+    end
+end
+    return oldIndex(t, k)
+end))
+    oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+    if self == LocalPlayer and getnamecallmethod():lower() == "kick" then print(" __namecall 拦截kick 成功")
+    return
+end
+    return oldNamecall(self, ...)
+end))
+
+print("反 kick 已开启")
+local getinfo = getinfo or debug.getinfo
+local DEBUG = false
+local Hooked = {}
+
+local Detected, Kill
+
+setthreadidentity(2)
+
+for i, v in getgc(true) do
+    if typeof(v) == "table" then
+        local DetectFunc = rawget(v, "Detected")
+        local KillFunc = rawget(v, "Kill")
+    
+        if typeof(DetectFunc) == "function" and not Detected then
+            Detected = DetectFunc
+            
+            local Old; Old = hookfunction(Detected, function(Action, Info, NoCrash)
+                if Action ~= "_" then
+                    if DEBUG then
+                        warn(`Adonis AntiCheat flagged\nMethod: {Action}\nInfo: {Info}`)
+                    end
+                end
+                
+                return true
+            end)
+
+            table.insert(Hooked, Detected)
+        end
+
+        if rawget(v, "Variables") and rawget(v, "Process") and typeof(KillFunc) == "function" and not Kill then
+            Kill = KillFunc
+            local Old; Old = hookfunction(Kill, function(Info)
+                if DEBUG then
+                    warn(`Adonis AntiCheat tried to kill (fallback): {Info}`)
+                end
+            end)
+
+            table.insert(Hooked, Kill)
+        end
+    end
+end
+
+local Old; Old = hookfunction(getrenv().debug.info, newcclosure(function(...)
+    local LevelOrFunc, Info = ...
+
+    if Detected and LevelOrFunc == Detected then
+        if DEBUG then
+            warn(`zins | adonis bypassed`)
+        end
+
+        return coroutine.yield(coroutine.running())
+    end
+    
+    return Old(...)
+end))
+-- setthreadidentity(9)
+setthreadidentity(7)
 end)
 --playerr:Slider("速度", "速度设置", 16, 16, 1000, false, function(value)
 --   lp.Character.Humanoid.WalkSpeed = value
