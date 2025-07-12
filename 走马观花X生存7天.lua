@@ -1,39 +1,20 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/ProtectUI.lua"))()
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
---local runtimeItemsFolder = workspace:WaitForChild("RuntimeItems")
---local Remotes = ReplicatedStorage:WaitForChild("Remotes")
---local StoreItem = Remotes:WaitForChild("StoreItem")
---local RuntimeItems = workspace:WaitForChild("RuntimeItems")
 local replicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local player = game.Players.LocalPlayer
 local pplayer = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait() -- 等待角色加载
+local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart") -- 获取角色基准点
 local lp = game.Players.LocalPlayer
 local Mouse = lp:GetMouse()
---local lp = gs("Players").LocalPlayer
 local pos = lp.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 local Mouse = game:GetService('Players').LocalPlayer:GetMouse()
---local CurrentSlot = game.Players.LocalPlayer:WaitForChild("CurrentSaveSlot").Value
-local ScriptLoadOrSave = false
---local CurrentlySavingOrLoading = game.Players.LocalPlayer:WaitForChild("CurrentlySavingOrLoading")
 local mouse = game.Players.LocalPlayer:GetMouse()
 local tp = function(p)
     lp.Character:PivotTo(p)
 end
---local Players = game:GetService("Players")
---local player = Players.LocalPlayer -- 客户端使用本地玩家
-
---[[
-  如果需要在服务器端运行（例如管理员指令），改为：
-  local player = Players:GetPlayerByUserId(TARGET_USER_ID) -- 替换为实际玩家ID
-  并将脚本类型从 LocalScript 改为 Script
---]]
-
--- 递归查找所有 ProximityPrompt
-
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "走马观花X";
 	Text = "脚本永远免费";
@@ -119,6 +100,45 @@ gn:Toggle("枪械杀戮光环(鹿)", "", false, function(state)
         print("关闭状态")
     end
 end)
+local runningbear = false
+gn:Toggle("枪械杀戮光环(熊)", "", false, function(state)
+    runningbear = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while runningbear do  -- 检测阀门状态
+                  local animalsFolder = workspace:WaitForChild("animals")
+                  local deers = animalsFolder:GetChildren()
+                  local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                  local shootEvent = ReplicatedStorage:WaitForChild("remotes"):WaitForChild("shoot")
+                  
+                  for _, bear in ipairs(deers) do
+                      if bear.Name == "bear" and bear:IsA("Model") and bear.PrimaryPart then
+                              local bearPosition = bear.PrimaryPart.Position
+        
+        -- 动态替换坐标，保留旋转
+                              local args = {
+                                  [1] = CFrame.new(
+                                      bearPosition.X, bearPosition.Y, bearPosition.Z,  bearPosition.X, bearPosition.Y, bearPosition.Z, bearPosition.X, bearPosition.Y, bearPosition.Z, bearPosition.X, bearPosition.Y, bearPosition.Z
+                --unpack(originalRotation1) -- 保留原有旋转参数
+                                  ),
+                                  [2] = CFrame.new(
+                                      bearPosition.X, bearPosition.Y, bearPosition.Z,  bearPosition.X, bearPosition.Y, bearPosition.Z, bearPosition.X, bearPosition.Y, bearPosition.Z, bearPosition.X, bearPosition.Y, bearPosition.Z-- 替换为当前deer的位置
+                --unpack(originalRotation2) -- 保留原有旋转参数
+                                  )
+                              }
+        
+        -- 触发远程事件
+                              shootEvent:FireServer(unpack(args))
+                      end
+                  end
+                  wait(0.1)
+            end
+        --end)
+    else
+        print("关闭状态")
+    end
+end)
 local runningg = false
 gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
     runningg = state  -- 同步阀门状态
@@ -159,6 +179,15 @@ gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
         print("关闭状态")
     end
 end)
+gn:Button("将手上的肉烤熟",function()
+local tp = function(p)
+    lp.Character:PivotTo(p)
+end
+local oldpos=lp.Character.HumanoidRootPart.CFrame
+tp(CFrame.new(1322.8975830078125, 27.473121643066406, 1329.86572265625))
+wait(2.5)
+tp(oldpos)
+end)
 gn:Button("收集零件",function()
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -178,25 +207,7 @@ for _, scrap in pairs(workspace.scraps:GetChildren()) do
     end
 end
 end)
-gn:Button("收集鹿肉",function()
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local hrp = character:WaitForChild("HumanoidRootPart")
---local originalCFrame = hrp.CFrame
-for _, deer in pairs(workspace.interact:GetChildren()) do
-    local ljxs = deer:FindFirstChild("lungs,heart,intestines")
-    if ljxs then
-        local promptlu = ljxs:FindFirstChild("ProximityPrompt")
-        if promptlu then
-            -- Teleport to scrap, slightly above to avoid getting stuck
-            hrp.CFrame = ljxs.CFrame + Vector3.new(0, 3, 0)
 
-            wait(0.1) -- allow time for physics
-            fireproximityprompt(promptlu)
-        end
-    end
-end
-end)
 local autocllogggg = false
 gn:Toggle("自动砍树", "", false, function(state)
     autocllogggg = state  -- 同步阀门状态
@@ -235,19 +246,19 @@ gn:Toggle("自动收集木头", "", false, function(state)
         print("1")
     end
 end)
-local jgg = false
-gn:Toggle("自动收集浆果", "", false, function(state)
-    jgg = state  -- 同步阀门状态
+local hhk = false
+gn:Toggle("自动捡石头，亚麻，浆果，胡萝卜，浆果", "", false, function(state)
+    hhk = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
-            while jgg do  -- 检测阀门状态
-                 for _, berry in pairs(workspace.harvest:GetChildren()) do
-                      local jg = berry:FindFirstChild("main")
-                      if jg then
-                          local prompt4 = jg:FindFirstChild("ProximityPrompt")
-                          if prompt4 then
-                              fireproximityprompt(prompt4)
+            while hhk do  -- 检测阀门状态
+                 for _, pebbles in pairs(workspace.harvest:GetChildren()) do
+                      local jkg = pebbles:FindFirstChild("main")
+                      if jkg then
+                          local prompt667 = jkg:FindFirstChild("ProximityPrompt")
+                          if prompt667 then
+                              fireproximityprompt(prompt667)
                           end
                       end
                  end
@@ -258,23 +269,92 @@ gn:Toggle("自动收集浆果", "", false, function(state)
         print("1")
     end
 end)
-local autocllogg = false
-gn:Toggle("自动收集鹿肉", "", false, function(state)
-    autocllogg = state  -- 同步阀门状态
+local hhkj = false
+gn:Toggle("自动拾取花", "", false, function(state)
+    hhkj = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
-            while autocllogg do  -- 检测阀门状态
-                 for _, deer in pairs(workspace.interact:GetChildren()) do
-                      local shouj = deer:FindFirstChild("lungs,heart,intestines")
-                      if shouj then
-                          local prompt3 = shouj:FindFirstChild("ProximityPrompt")
-                          if prompt3 then
-                              fireproximityprompt(prompt3)
+            while hhkj do  -- 检测阀门状态
+                 for _, flower in pairs(workspace.harvest:GetChildren()) do
+                      local jkg8 = flower:FindFirstChild("Object_0")
+                      if jkg8 then
+                          local prompt6678 = jkg8:FindFirstChild("ProximityPrompt")
+                          if prompt6678 then
+                              fireproximityprompt(prompt6678)
                           end
                       end
                  end
-                 wait(0.5)
+                 wait(1)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+local lrhh = false
+gn:Toggle("自动拾取鹿肉", "", false, function(state)
+    lrhh = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while lrhh do  -- 检测阀门状态
+                 for _, Model in pairs(workspace:GetChildren()) do
+                      local jkg88 = Model:FindFirstChild("Handle")
+                      if jkg88 then
+                          local prompt66788 = jkg88:FindFirstChild("Raw Deer Meat")
+                          if prompt66788 then
+                              fireproximityprompt(prompt66788)
+                          end
+                      end
+                 end
+                 wait(1)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+local bonee = false
+gn:Toggle("自动拾取骨头", "", false, function(state)
+    bonee = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while bonee do  -- 检测阀门状态
+                 for _, Model in pairs(workspace:GetChildren()) do
+                      local jkg888 = Model:FindFirstChild("Handle")
+                      if jkg888 then
+                          local prompt667880 = jkg888:FindFirstChild("Bone")
+                          if prompt667880 then
+                              fireproximityprompt(prompt667880)
+                          end
+                      end
+                 end
+                 wait(1)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+local Leatherr = false
+gn:Toggle("自动拾取皮革", "", false, function(state)
+    Leatherr = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while Leatherr do  -- 检测阀门状态
+                 for _, Model in pairs(workspace:GetChildren()) do
+                      local jkg8880 = Model:FindFirstChild("Handle")
+                      if jkg8880 then
+                          local prompt6678808 = jkg8880:FindFirstChild("Leather")
+                          if prompt6678808 then
+                              fireproximityprompt(prompt6678808)
+                          end
+                      end
+                 end
+                 wait(1)
             end
         --end)
     else
@@ -325,10 +405,7 @@ end)
 local hjj = window:Tab("传送",'10723407389')
 local hjj = hjj:section("传送",true)
 hjj:Button("回到小屋",function()
-player.Character:PivotTo(CFrame.new(50.667144775390625, 41.718955993652344, 411.1571044921875))
-end)
-hjj:Button("坠机事件点位",function()
-player.Character:PivotTo(CFrame.new(-337.4200134277344, 30.246173858642578, -107.8772201538086))
+player.Character:PivotTo(CFrame.new(1327.796875, 57.53240966796875, 1322.0035400390625))
 end)
 local playerr = window:Tab("玩家",'10723407389')
 local playerr = playerr:section("玩家功能",true)
@@ -345,4 +422,152 @@ end)
 playerr:Button("解锁视角(第三人称)",function()
 game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
 game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+end)
+local esp = window:Tab("绘制功能",'10723407389')
+local esp= esp:section("绘制",true)
+local espanimal = false
+esp:Toggle("绘制动物", "", false, function(state)
+    espanimal = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while espanimal do  -- 检测阀门状态
+                  local animalsFolder = workspace:WaitForChild("animals")
+
+-- 为单个Model创建悬浮文字的函数
+                  local function createBillboard(model)
+    -- 检查是否已存在悬浮文字组件
+                      if not model:FindFirstChild("ModelNameBillboard") and espanimal==true then
+        -- 创建BillboardGui组件
+                          local billboard = Instance.new("BillboardGui")
+                          billboard.Name = "ModelNameBillboard"
+                          billboard.Adornee = model  -- 绑定到模型
+                          billboard.AlwaysOnTop = true
+                          billboard.Size = UDim2.new(0, 200, 0, 50)  -- 显示区域大小
+                          billboard.StudsOffset = Vector3.new(0, 3, 0)  -- 在模型上方3单位处显示
+        
+        -- 创建文字标签
+                          local textLabel = Instance.new("TextLabel")
+                          textLabel.Size = UDim2.new(1, 0, 1, 0)  -- 占满整个Billboard区域
+                          textLabel.BackgroundTransparency = 1  -- 透明背景
+                          textLabel.Text = model.Name  -- 显示模型名称
+                          textLabel.Font = Enum.Font.SourceSansBold
+                          textLabel.TextSize = 24
+                          textLabel.TextColor3 = Color3.new(1, 1, 1)  -- 白色文字
+                          textLabel.TextStrokeTransparency = 0  -- 文字描边
+                          textLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+                          textLabel.Parent = billboard
+        
+                          billboard.Parent = model
+                      end
+                  end
+
+-- 初始化处理现有模型
+                  for _, model in ipairs(animalsFolder:GetChildren()) do
+                      if model:IsA("Model") then
+                          createBillboard(model)
+                      end
+                  end
+
+-- 监听新加入的模型
+                  animalsFolder.ChildAdded:Connect(function(child)
+                      if child:IsA("Model") then
+                          createBillboard(child)
+                      end
+                  end)
+                  wait(5)
+            end
+        --end)
+    else
+                  local animalsFolder = workspace:WaitForChild("animals")
+
+-- 删除所有悬浮文字的函数
+                  local function removeBillboards()
+                      for _, model in ipairs(animalsFolder:GetChildren()) do
+                          if model:IsA("Model") then
+                              local billboard = model:FindFirstChild("ModelNameBillboard")
+                              if billboard then
+                                  billboard:Destroy()
+                                  print("已从 " .. model.Name .. " 移除悬浮文字")
+                              end
+                          end
+                      end
+                  end
+
+-- 执行删除操作
+                  removeBillboards()
+    end
+end)
+local espanimal2 = false
+esp:Toggle("绘制怪物", "", false, function(state)
+    espanimal2 = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while espanimal2 do  -- 检测阀门状态
+                  local animals2Folder = workspace:WaitForChild("scps")
+
+-- 为单个Model创建悬浮文字的函数
+                  local function createeBillboard(model)
+    -- 检查是否已存在悬浮文字组件
+                      if not model:FindFirstChild("ModelNameBillboard") and espanimal2==true then
+        -- 创建BillboardGui组件
+                          local billboard = Instance.new("BillboardGui")
+                          billboard.Name = "ModelNameBillboard"
+                          billboard.Adornee = model  -- 绑定到模型
+                          billboard.AlwaysOnTop = true
+                          billboard.Size = UDim2.new(0, 200, 0, 50)  -- 显示区域大小
+                          billboard.StudsOffset = Vector3.new(0, 3, 0)  -- 在模型上方3单位处显示
+        
+        -- 创建文字标签
+                          local textLabel = Instance.new("TextLabel")
+                          textLabel.Size = UDim2.new(1, 0, 1, 0)  -- 占满整个Billboard区域
+                          textLabel.BackgroundTransparency = 1  -- 透明背景
+                          textLabel.Text = model.Name  -- 显示模型名称
+                          textLabel.Font = Enum.Font.SourceSansBold
+                          textLabel.TextSize = 24
+                          textLabel.TextColor3 = Color3.new(1, 0, 0)  -- 白色文字
+                          textLabel.TextStrokeTransparency = 0  -- 文字描边
+                          textLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
+                          textLabel.Parent = billboard
+        
+                          billboard.Parent = model
+                      end
+                  end
+
+-- 初始化处理现有模型
+                  for _, model in ipairs(animals2Folder:GetChildren()) do
+                      if model:IsA("Model") then
+                          createeBillboard(model)
+                      end
+                  end
+
+-- 监听新加入的模型
+                  animals2Folder.ChildAdded:Connect(function(child)
+                      if child:IsA("Model") then
+                          createeBillboard(child)
+                      end
+                  end)
+                  wait(5)
+            end
+        --end)
+    else
+                  local animals2Folder = workspace:WaitForChild("scps")
+
+-- 删除所有悬浮文字的函数
+                  local function remove2Billboards()
+                      for _, model in ipairs(animals2Folder:GetChildren()) do
+                          if model:IsA("Model") then
+                              local billboard = model:FindFirstChild("ModelNameBillboard")
+                              if billboard then
+                                  billboard:Destroy()
+                                  print("已从 " .. model.Name .. " 移除悬浮文字")
+                              end
+                          end
+                      end
+                  end
+
+-- 执行删除操作
+                  remove2Billboards()
+    end
 end)
