@@ -139,6 +139,45 @@ gn:Toggle("枪械杀戮光环(熊)", "", false, function(state)
         print("关闭状态")
     end
 end)
+local mm = false
+gn:Toggle("枪械杀戮光环(猛犸象)", "", false, function(state)
+    mm = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while mm do  -- 检测阀门状态
+                  local mmFolder = workspace:WaitForChild("animals")
+                  local Gmm = mmFolder:GetChildren()
+                  local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                  local shootEvent = ReplicatedStorage:WaitForChild("remotes"):WaitForChild("shoot")
+                  
+                  for _, mammoth in ipairs(Gmm) do
+                      if mammoth.Name == "mammoth" and mammoth:IsA("Model") and mammoth.PrimaryPart then
+                              local mammothPosition = mammoth.PrimaryPart.Position
+        
+        -- 动态替换坐标，保留旋转
+                              local args = {
+                                  [1] = CFrame.new(
+                                      mammothPosition.X, mammothPosition.Y, mammothPosition.Z,  mammothPosition.X, mammothPosition.Y, mammothPosition.Z, mammothPosition.X, mammothPosition.Y, mammothPosition.Z, mammothPosition.X, mammothPosition.Y, mammothPosition.Z
+                --unpack(originalRotation1) -- 保留原有旋转参数
+                                  ),
+                                  [2] = CFrame.new(
+                                      mammothPosition.X, mammothPosition.Y, mammothPosition.Z,  mammothPosition.X, mammothPosition.Y, mammothPosition.Z, mammothPosition.X, mammothPosition.Y, mammothPosition.Z, mammothPosition.X, mammothPosition.Y, mammothPosition.Z-- 替换为当前deer的位置
+                --unpack(originalRotation2) -- 保留原有旋转参数
+                                  )
+                              }
+        
+        -- 触发远程事件
+                              shootEvent:FireServer(unpack(args))
+                      end
+                  end
+                  wait(0.1)
+            end
+        --end)
+    else
+        print("关闭状态")
+    end
+end)
 local runningg = false
 gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
     runningg = state  -- 同步阀门状态
