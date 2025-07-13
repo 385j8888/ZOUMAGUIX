@@ -163,8 +163,8 @@ end)
 gm:Button("创建一个按钮，点击可以修机",function()
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "DragButtonGui"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
+--screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.Parent = game:GetService("CoreGui")
 local button = Instance.new("TextButton")
 button.Name = "DragButton"
 button.Size = UDim2.new(0, 50, 0, 50)  -- 正方形按钮
