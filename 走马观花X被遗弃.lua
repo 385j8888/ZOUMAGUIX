@@ -160,7 +160,97 @@ gm:Toggle("自动修机(自定义修机间隔)", "", false, function(state)
         print("停止")
     end
 end)
+gm:Button("创建一个按钮，点击可以修机",function()
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "DragButtonGui"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
+local button = Instance.new("TextButton")
+button.Name = "DragButton"
+button.Size = UDim2.new(0, 50, 0, 50)  -- 正方形按钮
+button.Position = UDim2.new(0.5, -50, 0.5, -50)  -- 屏幕中心
+button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+button.Text = "修机"
+button.TextSize = 20
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Parent = screenGui
+
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0.2, 0)  -- 圆角程度
+corner.Parent = button
+
+
+local isDragging = false
+local dragStartPos
+local buttonStartPos
+local dragThreshold = 5  -- 防误触阈值 (像素)
+local touchStartTime
+
+
+button.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        isDragging = true
+        dragStartPos = input.Position
+        buttonStartPos = button.Position
+        touchStartTime = tick()
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                isDragging = false
+            end
+        end)
+    end
+end)
+
+button.InputChanged:Connect(function(input)
+    if isDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
+        local delta = input.Position - dragStartPos
+        button.Position = UDim2.new(
+            buttonStartPos.X.Scale, 
+            buttonStartPos.X.Offset + delta.X,
+            buttonStartPos.Y.Scale,
+            buttonStartPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+
+button.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        isDragging = false
+        
+      
+        local dragDistance = (input.Position - dragStartPos).Magnitude
+        
+    
+        if dragDistance <= dragThreshold and (tick() - touchStartTime) < 0.3 then
+                                     local FartNapFolder = workspace:FindFirstChild("Map")
+				                          and workspace.Map:FindFirstChild("Ingame")
+				                          and workspace.Map.Ingame:FindFirstChild("Map")
+			                         if FartNapFolder then
+				                          local closestGenerator, closestDistance = nil, math.huge
+				                          local playerPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+				                          for _, g in ipairs(FartNapFolder:GetChildren()) do
+					                          if g.Name == "Generator" and g.Progress.Value < 100 then
+						                          local distance = (g.Main.Position - playerPosition).Magnitude
+						                          if distance < closestDistance then
+							                          closestDistance = distance
+							                          closestGenerator = g
+						                          end
+					                          end
+				                          end
+				                          if closestGenerator then
+					                          closestGenerator.Remotes.RE:FireServer()
+				                          end
+			                         end
+        end
+    end
+end)
+end)
+gm:Button("摧毁按钮",function()
+local anniu = game.Players.LocalPlayer.PlayerGui.DragButtonGui
+anniu:Destroy()
+end)
 local function setupModelEffects(model)
     -- 防止重复添加
     if model:FindFirstChild("ModelHighlight") or model:FindFirstChild("NameBillboard") then
