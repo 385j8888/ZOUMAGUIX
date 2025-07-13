@@ -269,7 +269,7 @@ gn:Toggle("自动收集木头", "", false, function(state)
     if state then
         --spawn(function()  -- 使用独立协程
             while autocllog do  -- 检测阀门状态
-                 for _, log in pairs(workspace.logs:GetChildren()) do
+                 for _, log in pairs(workspace.dropped:GetChildren()) do
                       local log2 = log:FindFirstChild("main")
                       if log2 then
                           local prompt2 = log2:FindFirstChild("ProximityPrompt")
