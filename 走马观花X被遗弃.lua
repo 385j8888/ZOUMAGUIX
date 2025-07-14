@@ -121,6 +121,61 @@ gm:Toggle("无限耐力2(杀手用这个)", "", false, function(state)
         sprintModule.MinStamina = 0
     end
 end)
+local jjumppp = false
+gm:Toggle("免减速，眩晕", "", false, function(state)
+    jjumppp = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while jjumppp do  -- 检测阀门状态
+                 -- 配置参数
+                 local TARGET_SPEED = 20
+                 local player = game.Players.LocalPlayer  -- 客户端使用
+-- local player = game:GetService("Players"):GetPlayerByName("你的用户名")  -- 服务器指定玩家
+
+-- 连接存储
+                 local wsLoopConnection = nil
+                 local charAddedConnection = nil
+
+-- 初始角色处理
+                 local char = player.Character
+                 if char then
+                     local humanoid = char:FindFirstChild("Humanoid")
+                     if humanoid then
+        -- 设置初始速度
+                         humanoid.WalkSpeed = TARGET_SPEED
+        
+        -- 监听速度变化
+                         wsLoopConnection = humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                             humanoid.WalkSpeed = TARGET_SPEED
+                         end)
+                     end
+                 end
+
+-- 监听新角色生成
+                 charAddedConnection = player.CharacterAdded:Connect(function(newChar)
+                     local humanoid = newChar:WaitForChild("Humanoid")
+    
+    -- 清除旧连接
+                     if wsLoopConnection then
+                         wsLoopConnection:Disconnect()
+                         wsLoopConnection = nil
+                     end
+    
+    -- 设置新角色速度
+                     humanoid.WalkSpeed = TARGET_SPEED
+    
+    -- 重新连接监听
+                     wsLoopConnection = humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                         humanoid.WalkSpeed = TARGET_SPEED
+                     end)
+                 end)
+                 wait(0.01)
+           end
+    else
+       humanoid.WalkSpeed = 16
+    end
+end)
 gm:Textbox("修机间隔", "速度", "请输入间隔", function(value)
 --print(value)
 _fixtime = value
