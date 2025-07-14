@@ -180,3 +180,22 @@ end)
 playerr:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
     lp.Character.Humanoid.JumpPower = value
 end)
+local hhk = false
+playerr:Toggle("触发所有临近显示", "", false, function(state)
+    hhk = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while hhk do  -- 检测阀门状态
+                  for _, descendant in pairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
+                       fireproximityprompt(descendant)
+                    end
+                  end
+                 wait(0.01)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
