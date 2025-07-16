@@ -2098,3 +2098,8 @@ Window:Dialog({
         {"傻逼滚开"}
     }
 })
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "❤️最新QQ交流群❤️";
+	Text = "947178829";
+	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
+Duration = 15})
