@@ -233,6 +233,35 @@ end)
 gn:Button("子弹，炮弹追踪(无法关闭，不分敌我)",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaoxiaoxin222/78scripts/refs/heads/main/%E4%BD%A0%E7%8C%9C%E7%8C%9C%E6%98%AF%E5%95%A5.lua"))()
 end)
+tpp:Button("传送到一个零件箱子",function()
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+local originalCFrame = hrp.CFrame
+local cratesFolder = Workspace:FindFirstChild("Game Systems") and Workspace["Game Systems"]:FindFirstChild("Crate Workspace")
+
+local farthestCrate = nil
+local farthestDistance = 0
+
+for _, crate in pairs(cratesFolder:GetChildren()) do
+    if crate.Name == "Tank Crate" and crate:IsA("BasePart") then
+        local distance = (crate.Position - hrp.Position).Magnitude
+        if distance > farthestDistance then
+            farthestDistance = distance
+            farthestCrate = crate
+        end
+    end
+end
+
+
+if farthestCrate then
+    hrp.CFrame = farthestCrate.CFrame
+    --autoInteract(farthestCrate)
+    
+end
+end)
 gn:Button("删除所有大亨(慎点)",function()
     local ty = game:GetService('Workspace')['Tycoon'].Tycoons;
     ty:Destroy()
