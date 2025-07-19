@@ -1904,7 +1904,9 @@ Tab1:AddButton({
     Title = "根据服务器类型执行走马观花X(执行脚本点这里❗️)",           -- 按钮标题
     Desc = "爱来自走马观花X❤️",   -- 按钮描述（可选）
     Callback = function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
+       loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
+        wait(5)
+      --  local zmui = game:GetService("CoreGui").ZOUMAGU
     end
 })
 Tab1:AddButton({
@@ -1920,7 +1922,7 @@ local Tab0 = Window:MakeTab({
 })
 Tab0:AddButton({
     Title = "紅",           -- 按钮标题
-    Desc = "走马观花X真Owner-有权叫停该走马观花X项目",   -- 按钮描述（可选）
+    Desc = "走马观花X真Owner-一切听从他的命令",   -- 按钮描述（可选）
     Callback = function()
         print("1")
     end
