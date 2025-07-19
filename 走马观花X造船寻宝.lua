@@ -66,7 +66,7 @@ local function teleportToPlace()
     end)
     
 end
-gn:Button("修改存档数量",function()
+gn:Button("修改",function()
 local slotsyouwant = _Number
 
 for i = 1, slotsyouwant do
