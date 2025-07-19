@@ -1988,6 +1988,13 @@ Tab2:AddButton({
     end
 })
 Tab2:AddButton({
+    Title = "造船寻宝",           -- 按钮标题
+    Desc = "",   -- 按钮描述（可选）
+    Callback = function()
+        print("111")
+    end
+})
+Tab2:AddButton({
     Title = "生存7天",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
