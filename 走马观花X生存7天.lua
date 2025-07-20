@@ -332,66 +332,18 @@ gn:Toggle("自动拾取花", "", false, function(state)
     end
 end)
 local lrhh = false
-gn:Toggle("自动拾取鹿肉", "", false, function(state)
+gn:Toggle("自动拾取肉，骨头，皮革", "", false, function(state)
     lrhh = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
             while lrhh do  -- 检测阀门状态
-                 for _, Model in pairs(workspace:GetChildren()) do
-                      local jkg88 = Model:FindFirstChild("Handle")
-                      if jkg88 then
-                          local prompt66788 = jkg88:FindFirstChild("Raw Deer Meat")
-                          if prompt66788 then
-                              fireproximityprompt(prompt66788)
-                          end
-                      end
-                 end
-                 wait(1)
-            end
-        --end)
-    else
-        print("1")
-    end
-end)
-local bonee = false
-gn:Toggle("自动拾取骨头", "", false, function(state)
-    bonee = state  -- 同步阀门状态
-    
-    if state then
-        --spawn(function()  -- 使用独立协程
-            while bonee do  -- 检测阀门状态
-                 for _, Model in pairs(workspace:GetChildren()) do
-                      local jkg888 = Model:FindFirstChild("Handle")
-                      if jkg888 then
-                          local prompt667880 = jkg888:FindFirstChild("Bone")
-                          if prompt667880 then
-                              fireproximityprompt(prompt667880)
-                          end
-                      end
-                 end
-                 wait(1)
-            end
-        --end)
-    else
-        print("1")
-    end
-end)
-local Leatherr = false
-gn:Toggle("自动拾取皮革", "", false, function(state)
-    Leatherr = state  -- 同步阀门状态
-    
-    if state then
-        --spawn(function()  -- 使用独立协程
-            while Leatherr do  -- 检测阀门状态
-                 for _, Model in pairs(workspace:GetChildren()) do
-                      local jkg8880 = Model:FindFirstChild("Handle")
-                      if jkg8880 then
-                          local prompt6678808 = jkg8880:FindFirstChild("Leather")
-                          if prompt6678808 then
-                              fireproximityprompt(prompt6678808)
-                          end
-                      end
+                 -- 获取workspace.dropped的所有后代对象
+                 local dropdescendants = workspace.dropped:GetDescendants()
+                 for _, obj in ipairs(dropdescendants) do
+                     if obj:IsA("ProximityPrompt") then
+                        fireproximityprompt(obj)
+                     end
                  end
                  wait(1)
             end
