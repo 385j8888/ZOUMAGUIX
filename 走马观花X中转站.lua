@@ -1942,7 +1942,7 @@ Tab0:AddButton({
     end
 })
 Tab0:AddButton({
-    Title = "小鸟游星野",           -- 按钮标题
+    Title = "CHICKEN",           -- 按钮标题
     Desc = "🐱",   -- 按钮描述（可选）
     Callback = function()
         print("1")
@@ -1970,7 +1970,7 @@ Tab0:AddButton({
     end
 })
 Tab0:AddButton({
-    Title = "新霜月",           -- 按钮标题
+    Title = "月星",           -- 按钮标题
     Desc = "最佳使用人员",   -- 按钮描述（可选）
     Callback = function()
         print("1")
@@ -1983,6 +1983,13 @@ local Tab2 = Window:MakeTab({
 Tab2:AddButton({
     Title = "不要点这里执行脚本啊！😭",           -- 按钮标题
     Desc = "去主页那里执行，这里没用！",   -- 按钮描述（可选）
+    Callback = function()
+        print("111")
+    end
+})
+Tab2:AddButton({
+    Title = "森林中的99个夜晚",           -- 按钮标题
+    Desc = "",   -- 按钮描述（可选）
     Callback = function()
         print("111")
     end
@@ -2103,8 +2110,8 @@ Window:Dialog({
     Title = "泥豪~走马观花X官方QQ群:947178829",
     Text = "求求你啦~加下群吧~球球嘞，好不好嘛~😭",
     Options = {
-        {"豪~马上加~", function() print("确认关闭") end},
-        {"傻逼滚开"}
+        {"傻逼滚开", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))() end},
+        {"豪的～马上加～"}
     }
 })
 game:GetService("StarterGui"):SetCore("SendNotification", { 
