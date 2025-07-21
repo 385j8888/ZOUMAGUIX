@@ -218,15 +218,6 @@ gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
         print("关闭状态")
     end
 end)
-gn:Button("将手上的肉烤熟",function()
-local tp = function(p)
-    lp.Character:PivotTo(p)
-end
-local oldpos=lp.Character.HumanoidRootPart.CFrame
-tp(CFrame.new(1322.8975830078125, 27.473121643066406, 1329.86572265625))
-wait(2.5)
-tp(oldpos)
-end)
 gn:Button("收集零件",function()
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -254,7 +245,49 @@ gn:Toggle("自动砍树", "", false, function(state)
     if state then
         --spawn(function()  -- 使用独立协程
             while autocllogggg do  -- 检测阀门状态
-              game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("swing_axe"):FireServer()
+              local player = game.Players.LocalPlayer
+              local character = player.Character or player.CharacterAdded:Wait()
+              local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+              local playerPosition = humanoidRootPart.Position
+              local args = {
+	            playerPosition
+              }
+                           game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("swing_axe"):FireServer(unpack(args))
+              wait(0.1)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+local pfish = false
+gn:Toggle("自动抛鱼竿", "", false, function(state)
+    pfish = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while pfish do  -- 检测阀门状态
+              game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("cast"):FireServer()
+
+              wait(1)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+local autopfish = false
+gn:Toggle("自动钓鱼", "", false, function(state)
+    autopfish = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while autopfish do  -- 检测阀门状态
+              local args = {
+                	true
+              }
+              game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("fish_point"):FireServer(unpack(args))
+
               wait(0.01)
             end
         --end)
