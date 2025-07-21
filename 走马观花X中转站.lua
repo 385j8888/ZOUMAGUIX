@@ -10,17 +10,17 @@ sound:Play()
 sound.Ended:Connect(function()
     sound:Destroy()
 end)
-local sound = Instance.new("Sound")
-sound.SoundId = "rbxassetid://7334239757"
-sound.Volume = 5
-sound.Parent = workspace
+--local sound = Instance.new("Sound")
+--sound.SoundId = "rbxassetid://7334239757"
+--sound.Volume = 5
+--sound.Parent = workspace
 
-sound.Loaded:Wait()
-sound:Play()
+--sound.Loaded:Wait()
+--sound:Play()
 
-sound.Ended:Connect(function()
-    sound:Destroy()
-end)
+--sound.Ended:Connect(function()
+--    sound:Destroy()
+--end)
 
 
 
@@ -1966,7 +1966,7 @@ Tab0:AddButton({
     end
 })
 Tab0:AddButton({
-    Title = "boboz",           -- 按钮标题
+    Title = "Autumn wind",           -- 按钮标题
     Desc = "最佳使用人员",   -- 按钮描述（可选）
     Callback = function()
         print("1")
