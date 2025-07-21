@@ -10,7 +10,17 @@ sound:Play()
 sound.Ended:Connect(function()
     sound:Destroy()
 end)
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://17647322226"
+sound.Volume = 2
+sound.Parent = workspace
 
+sound.Loaded:Wait()
+sound:Play()
+
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
 
 
 
