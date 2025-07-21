@@ -12,7 +12,7 @@ sound.Ended:Connect(function()
 end)
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://17647322226"
-sound.Volume = 2
+sound.Volume = 10
 sound.Parent = workspace
 
 sound.Loaded:Wait()
