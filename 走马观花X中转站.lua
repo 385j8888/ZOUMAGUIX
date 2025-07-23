@@ -159,7 +159,7 @@ scriptname.Text = "群号已复制!进群获取!"
 setclipboard(keylink)
 task.wait(10)
 scriptname.Text = nameofthescript
-wait(1e+99)
+wait(99999999999999999999999999999999999999999999999999999999999999999999999999999)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%A1%B6%E9%83%A8%E9%80%9A%E7%9F%A5.lua"))()
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://4590662766"
