@@ -82,6 +82,9 @@ local playerr = playerr:section("玩家功能",true)
 playerr:Button("爬墙走",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/wallwalker.lua"))()
 end)
+playerr:Button("飞行V3",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%A3%9E%E8%A1%8C%E8%84%9A%E6%9C%ACV3(%E5%85%A8%E6%B8%B8%E6%88%8F%E9%80%9A%E7%94%A8).txt"))()
+end)
 gn:Button("绕大部分服务器反作弊",function()
 for _, Value in next, getgc(true) do
     if typeof(Value) == "table" then
