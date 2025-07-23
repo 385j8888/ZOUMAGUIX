@@ -202,3 +202,165 @@ playerr:Toggle("触发所有临近显示", "", false, function(state)
         print("1")
     end
 end)
+local playeresp = false
+playerr:Toggle("透视玩家", "", false, function(state)
+    playeresp = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while playeresp do
+                 local Players = game:GetService("Players")
+                 local RunService = game:GetService("RunService")
+                 local LocalPlayer = Players.LocalPlayer
+
+
+                 local trackedPlayers = {}
+
+                 while playeresp do
+                     for _, player in ipairs(Players:GetPlayers()) do
+                         if player ~= LocalPlayer and player.Character and not trackedPlayers[player] then
+                             local humanoid = player.Character:FindFirstChild("Humanoid")
+                             local head = player.Character:FindFirstChild("Head")
+            
+                             if humanoid and head then
+               
+                                 local billboard = Instance.new("BillboardGui")
+                                 billboard.Adornee = head
+                                 billboard.Size = UDim2.new(0, 200, 0, 50)
+                                 billboard.StudsOffset = Vector3.new(0, 2, 0) -- 头顶位置
+                                 billboard.AlwaysOnTop = true
+                
+                                 local textLabel = Instance.new("TextLabel")
+                                 textLabel.Size = UDim2.new(1, 0, 1, 0)
+                                 textLabel.BackgroundTransparency = 1
+                                 textLabel.TextScaled = true
+                                 textLabel.Font = Enum.Font.SciFi
+                                 textLabel.Text = ""
+                
+                                 textLabel.TextColor3 = Color3.new(1, 0, 0) -- 默认红色
+                                 textLabel.Parent = billboard
+                                 billboard.Parent = player.Character
+                                 trackedPlayers[player] = billboard
+                             end
+                         end
+        
+                         if trackedPlayers[player] and player.Character then
+                             local humanoid = player.Character:FindFirstChild("Humanoid")
+                             local head = player.Character:FindFirstChild("Head")
+                             local billboard = trackedPlayers[player]
+                             local textLabel = billboard:FindFirstChild("TextLabel")
+            
+                             if humanoid and head and textLabel then
+              
+                                 local distance = math.floor((LocalPlayer.Character.Head.Position - head.Position).Magnitude)
+              
+                                 textLabel.Text = string.format("%s\n血量: %d\n距离: %d", player.Name, humanoid.Health, distance)
+                
+             
+                                 if LocalPlayer.Team == player.Team then
+                                     textLabel.TextColor3 = Color3.new(0, 1, 0) -- 同队绿色
+                                 else
+                                     textLabel.TextColor3 = Color3.new(1, 0, 0) -- 敌方红色
+                                 end
+                             end
+                         end
+                     end
+    
+   
+                     for player, billboard in pairs(trackedPlayers) do
+                         if not Players:FindFirstChild(player.Name) then
+                             billboard:Destroy()
+                             trackedPlayers[player] = nil
+                         end
+                     end
+    
+                     RunService.Heartbeat:Wait()
+                     
+                 end
+                 wait(0.5)
+
+            end
+        --end)
+    else
+                 local Players = game:GetService("Players")
+                 for _, player in ipairs(Players:GetPlayers()) do
+                     if player.Character then
+                         local gui = player.Character:FindFirstChild("BillboardGui")
+                         if gui then gui:Destroy() end
+                     end
+                 end
+
+                 trackedPlayers = {}
+
+    end
+end)
+local swww = false
+local ESP_CONFIG = {
+    Name = "ESPshengwu",
+    TextColor = Color3.new(1, 0, 0),    
+    TextSize = 12,
+    Offset = Vector3.new(0, 2.5, 0),     
+    MaxDistance = 2000,                
+    Font = Enum.Font.SourceSansBold,    
+    StrokeColor = Color3.new(0, 0, 0),  
+    StrokeTransparency = 0.3
+}
+local function createIntegratedESP()
+    for _, npc in ipairs(workspace:GetDescendants()) do
+        if npc:IsA("Model") and npc:FindFirstChildOfClass("Humanoid") and not npc:FindFirstChild(ESP_CONFIG.Name) and swww==true then
+            local rootPart = npc:FindFirstChild("HumanoidRootPart") or npc.PrimaryPart
+            if not rootPart then continue end
+
+            local espGui = Instance.new("BillboardGui")
+            espGui.Name = ESP_CONFIG.Name
+            espGui.AlwaysOnTop = true
+            espGui.Size = UDim2.new(4, 0, 2, 0)
+            espGui.StudsOffset = ESP_CONFIG.Offset
+            espGui.Adornee = rootPart
+            espGui.MaxDistance = ESP_CONFIG.MaxDistance
+            
+            local textLabel = Instance.new("TextLabel")
+            textLabel.Size = UDim2.new(1, 0, 1, 0)
+            textLabel.BackgroundTransparency = 1
+            --textLabel.Text = "🔞"..npc.Name
+            textLabel.Text = npc.Name
+            textLabel.Font = ESP_CONFIG.Font
+            textLabel.TextColor3 = ESP_CONFIG.TextColor
+            textLabel.TextStrokeColor3 = ESP_CONFIG.StrokeColor
+            textLabel.TextStrokeTransparency = ESP_CONFIG.StrokeTransparency
+            textLabel.TextSize = ESP_CONFIG.TextSize
+            
+            textLabel.Parent = espGui
+            espGui.Parent = npc
+        end
+    end
+end
+playerr:Toggle("透视所有生物", "", false, function(state)
+    swww = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while swww do  -- 检测阀门状态
+                    createIntegratedESP()
+                    wait(2)
+           end
+      --   end)
+    else
+        
+             for _, obj in ipairs(workspace:GetDescendants()) do
+                     if obj.Name == "ESPshengwu" and obj:IsA("BillboardGui") then
+                       obj:Destroy()  
+                     end
+             end
+    end
+end)
+local huanjing = window:Tab("环境")
+local huanjing = huanjing:section("环境",true)
+huanjing:Button("全图变亮",function()
+Lighting = game:GetService("Lighting")
+Lighting.Brightness = 2
+	Lighting.ClockTime = 14
+	Lighting.FogEnd = 100000
+	Lighting.GlobalShadows = false
+	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+end)
