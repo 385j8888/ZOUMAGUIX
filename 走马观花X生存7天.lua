@@ -269,7 +269,7 @@ gn:Toggle("自动抛鱼竿", "", false, function(state)
             while pfish do  -- 检测阀门状态
               game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("cast"):FireServer()
 
-              wait(0.0001)
+              wait(0.0000001)
             end
         --end)
     else
@@ -288,7 +288,7 @@ gn:Toggle("自动钓鱼", "", false, function(state)
               }
               game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("fish_point"):FireServer(unpack(args))
 
-              wait(0.0000001)
+              wait(0.000000001)
             end
         --end)
     else
