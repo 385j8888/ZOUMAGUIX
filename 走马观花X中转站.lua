@@ -2,7 +2,11 @@
 
 -- Gui to Lua
 -- Version: 3.2
-
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "走马观花X";
+	Text = "群号已复制，卡密加群获取";
+	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
+Duration = 15})
 -- the stuff for preperation
 local key = "ilove78" -- put youre key in here
 
