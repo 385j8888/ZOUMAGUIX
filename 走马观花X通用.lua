@@ -354,6 +354,16 @@ playerr:Toggle("透视所有生物", "", false, function(state)
              end
     end
 end)
+playerr:Button("撸管工具R6",function()
+loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))()
+end)
+playerr:Button("撸管工具R15",function()
+loadstring(game:HttpGet("https://pastefy.app/YZoglOyJ/raw"))()
+end)
+playerr:Button("解锁第三人称",function()
+game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
+game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+end)
 local huanjing = window:Tab("环境")
 local huanjing = huanjing:section("环境",true)
 huanjing:Button("全图变亮",function()
