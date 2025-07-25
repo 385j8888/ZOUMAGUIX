@@ -8,7 +8,7 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
 Duration = 15})
 -- the stuff for preperation
-local key = "ilove78" -- put youre key in here
+local key = "91vip" -- put youre key in here
 
 local keylink = "947178829" -- put your key link here
 
@@ -106,6 +106,13 @@ TextButton.MouseButton1Click:Connect(function()
 	else
 		TextButton.Text = "错误!"
 		task.wait(2)
+		TextButton.Text = "确定"
+	end
+	if KeyTextbox.Text == key then
+	    print("111")
+    elseif KeyTextbox.Text == "ilove78" then
+       TextButton.Text = "该卡密已过期，加群获得最新卡密😘!"
+		task.wait(4)
 		TextButton.Text = "确定"
 	end
 end)
