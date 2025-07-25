@@ -374,3 +374,66 @@ Lighting.Brightness = 2
 	Lighting.GlobalShadows = false
 	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
 end)
+
+
+
+
+
+
+
+
+
+
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local infJumpConnection = nil
+local infJumpDebounce = false
+
+-- 开连跳
+local function enableInfJump()
+    if infJumpConnection then
+        infJumpConnection:Disconnect()
+    end
+    
+    infJumpDebounce = false
+    infJumpConnection = UserInputService.JumpRequest:Connect(function()
+        if not infJumpDebounce then
+            infJumpDebounce = true
+            
+            local character = player.Character
+            if character then
+                local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+                if humanoid then
+                    humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+            end
+            
+            task.wait()
+            infJumpDebounce = false
+        end
+    end)
+    
+    print("无限连跳已启用")
+end
+
+-- 关连跳
+local function disableInfJump()
+    if infJumpConnection then
+        infJumpConnection:Disconnect()
+        infJumpConnection = nil
+    end
+    infJumpDebounce = false
+end
+
+local infjumppp = false
+playerr:Toggle("无限跳", "", false, function(state)
+    infjumppp = state  -- 同步阀门状态
+    
+    if state then
+        enableInfJump()
+    else
+        disableInfJump()
+    end
+end)
