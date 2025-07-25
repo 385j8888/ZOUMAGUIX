@@ -48,7 +48,7 @@ local bin = creds:section("信息",true)
     bin:BigLabel("尊贵的走马观花X用户，感谢您的使用！")
     bin:Label("你的注入器:"..identifyexecutor())
     bin:Label("作者:小爱同学")
-    bin:Label("走马观花X交流群:530634599")
+    bin:Label("走马观花X交流群:947178829")
 
 local credits = creds:section("UI设置",true)
 
