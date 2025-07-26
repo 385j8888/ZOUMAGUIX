@@ -8,9 +8,9 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
 Duration = 15})
 -- the stuff for preperation
-local key = "91vip" -- put youre key in here
+local key = "9178114514" -- put youre key in here
 
-local keylink = "947178829" -- put your key link here
+local keylink = "群号947178829" -- put your key link here
 
 local nameofthescript = "走马观花X" --put your script name here. leave blank too leave blank ig
 
@@ -100,17 +100,21 @@ TextButton.TextWrapped = true
 TextButton.MouseButton1Click:Connect(function()
 	if KeyTextbox.Text == key then
 		TextButton.Text = "正确!"
-		task.wait(3)
+		task.wait(2)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%96%B0%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E4%B8%AD%E8%BD%AC%E7%AB%99.lua"))() -- insert script on this line
 		ScreenGui:Destroy()
 	else
-		TextButton.Text = "错误!"
+		TextButton.Text = "错误的卡密!"
 		task.wait(2)
 		TextButton.Text = "确定"
 	end
 	if KeyTextbox.Text == key then
 	    print("111")
     elseif KeyTextbox.Text == "ilove78" then
+       TextButton.Text = "该卡密已过期，加群获得最新卡密😘!"
+		task.wait(4)
+		TextButton.Text = "确定"
+	elseif KeyTextbox.Text == "91vip" then
        TextButton.Text = "该卡密已过期，加群获得最新卡密😘!"
 		task.wait(4)
 		TextButton.Text = "确定"
