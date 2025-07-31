@@ -4,11 +4,11 @@
 -- Version: 3.2
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "走马观花X";
-	Text = "群号已复制，卡密加群获取，卡密是免费哒！！！";
+	Text = "卡密加群获取，卡密是免费哒！！！";
 	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
 Duration = 15})
 -- the stuff for preperation
-local key = "xiaoai" -- put youre key in here
+local key = "dajibaccb" -- put youre key in here
 
 local keylink = "群号947178829" -- put your key link here
 
@@ -16,7 +16,7 @@ local nameofthescript = "走马观花X" --put your script name here. leave blank
 
 local whoisitmadeby = "小爱同学" -- put your name here
 
-local thenoteofthekey = "Note" --note you add here. leave blank to not have a note.
+local thenoteofthekey = "群号947178829😡😡😡😡" --note you add here. leave blank to not have a note.
 
 
 -- Instances:
@@ -119,6 +119,11 @@ TextButton.MouseButton1Click:Connect(function()
 		task.wait(4)
 		TextButton.Text = "确定"
 	elseif KeyTextbox.Text == "9178114514" then
+       TextButton.Text = "该卡密已过期，加群获得最新卡密😘!"
+		task.wait(4)
+		TextButton.Text = "确定"
+	end
+	elseif KeyTextbox.Text == "xiaoai" then
        TextButton.Text = "该卡密已过期，加群获得最新卡密😘!"
 		task.wait(4)
 		TextButton.Text = "确定"
