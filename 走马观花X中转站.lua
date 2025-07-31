@@ -174,8 +174,8 @@ note.TextScaled = true
 note.TextSize = 14.000
 note.TextWrapped = true
 
-scriptname.Text = "群号已复制!进群获取!"
-setclipboard(keylink)
-task.wait(5)
+--scriptname.Text = "群号已复制!进群获取!"
+--setclipboard(keylink)
+--task.wait(5)
 scriptname.Text = nameofthescript
 loadstring(game:HttpGet("https://pastebin.com/raw/2gRkg0sk"))()
