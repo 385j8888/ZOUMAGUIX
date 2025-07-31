@@ -122,7 +122,6 @@ TextButton.MouseButton1Click:Connect(function()
        TextButton.Text = "该卡密已过期，加群获得最新卡密😘!"
 		task.wait(4)
 		TextButton.Text = "确定"
-	end
 	elseif KeyTextbox.Text == "xiaoai" then
        TextButton.Text = "该卡密已过期，加群获得最新卡密😘!"
 		task.wait(4)
