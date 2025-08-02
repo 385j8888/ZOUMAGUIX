@@ -1,9 +1,31 @@
 -- 创建主UI框架
 local coGui = game:GetService("CoreGui")
 
+-- 创建外部控制按钮的ScreenGui
+local controlBtnGui = Instance.new("ScreenGui")
+controlBtnGui.Name = "ControlButtonGui"
+controlBtnGui.ResetOnSpawn = false
+controlBtnGui.Parent = coGui
+
+-- 外部控制按钮
+local controlButton = Instance.new("TextButton")
+controlButton.Name = "ControlButton"
+controlButton.Text = "显示/隐藏控制面板"
+controlButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+controlButton.TextSize = 16
+controlButton.Font = Enum.Font.GothamBold
+controlButton.Size = UDim2.new(0, 140, 0, 35)
+controlButton.Position = UDim2.new(0.5, -75, 0, 20)  -- 顶部居中
+controlButton.BackgroundColor3 = Color3.fromRGB(70, 70, 150)
+controlButton.BorderSizePixel = 0
+controlButton.AutoButtonColor = true
+controlButton.Parent = controlBtnGui
+
+-- 主UI的ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AbnormalityControl"
 screenGui.ResetOnSpawn = false
+screenGui.Enabled = false  -- 初始禁用
 screenGui.Parent = coGui
 
 -- 主框架
@@ -38,7 +60,7 @@ title.Parent = titleBar
 -- 控制按钮（隐藏/显示）
 local toggleButton = Instance.new("TextButton")
 toggleButton.Name = "ToggleButton"
-toggleButton.Text = "销毁ui"
+toggleButton.Text = "隐藏"
 toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 toggleButton.TextSize = 16
 toggleButton.Font = Enum.Font.Gotham
@@ -105,10 +127,10 @@ gridLayout.Parent = buttonContainer
 
 -- 创建四个工作类型按钮
 local workTypes = {
-    {Name = "本能", Type = "Instinct", Color = Color3.fromRGB(220, 80, 80)},
-    {Name = "洞察", Type = "Insight", Color = Color3.fromRGB(80, 150, 220)},
-    {Name = "沟通", Type = "Attachment", Color = Color3.fromRGB(100, 200, 100)},
-    {Name = "压迫", Type = "Repression", Color = Color3.fromRGB(180, 80, 200)}
+    {Name = "本能", Type = "Instinct", Color = Color3.fromRGB(255, 0, 0)},
+    {Name = "洞察", Type = "Insight", Color = Color3.fromRGB(230, 230, 230)},
+    {Name = "沟通", Type = "Attachment", Color = Color3.fromRGB(128, 0, 128)},
+    {Name = "压迫", Type = "Repression", Color = Color3.fromRGB(135, 206, 250)}
 }
 
 for _, workType in ipairs(workTypes) do
@@ -150,7 +172,7 @@ local function updateInput(input)
 end
 
 titleBar.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.Touch then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true
         dragStart = input.Position
         frameStart = mainFrame.Position
@@ -164,7 +186,7 @@ titleBar.InputBegan:Connect(function(input)
 end)
 
 titleBar.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.Touch then
+    if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
         dragInput = input
     end
 end)
@@ -175,12 +197,24 @@ game:GetService("UserInputService").InputChanged:Connect(function(input)
     end
 end)
 
--- 添加隐藏/显示功能
+-- 添加隐藏/显示功能（内部按钮）
 toggleButton.MouseButton1Click:Connect(function()
     if mainFrame.Visible then
         mainFrame.Visible = false
         toggleButton.Text = "显示"
     else
+        mainFrame.Visible = true
+        toggleButton.Text = "隐藏"
+    end
+end)
+
+-- 添加外部控制按钮功能
+controlButton.MouseButton1Click:Connect(function()
+    screenGui.Enabled = not screenGui.Enabled
+    controlButton.Text = screenGui.Enabled and "隐藏控制面板" or "显示控制面板"
+    
+    -- 当显示UI时确保主框架可见
+    if screenGui.Enabled then
         mainFrame.Visible = true
         toggleButton.Text = "隐藏"
     end
@@ -303,5 +337,4 @@ end
 workspace:WaitForChild("Abnormalities").ChildAdded:Connect(initializeAbnormalities)
 workspace:WaitForChild("Abnormalities").ChildRemoved:Connect(initializeAbnormalities)
 
--- 初始加载
 initializeAbnormalities()
