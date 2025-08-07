@@ -49,6 +49,7 @@ local credits = creds:section("UI设置",true)
     end)
 local gn = window:Tab("收集")
 local gn = gn:section("带来",true)
+gn:Label("从迷雾外带来的东西是拿不起来的，试着升级一下你的篝火！")
 gn:Button("带来木头",function()
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -319,7 +320,7 @@ zy:Slider("速度", "速度设置", 16, 16, 200, false, function(value)
 lp.Character.Humanoid.WalkSpeed = value
 end)
 local hhk = false
-zy:Toggle("老斧头杀戮光环", "", false, function(state)
+zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, function(state)
     hhk = state  -- 同步阀门状态
     
     if state then
@@ -362,11 +363,21 @@ zy:Toggle("老斧头杀戮光环", "", false, function(state)
                           remoteEvent:InvokeServer(unpack(args))
                           wait(0.1) 
                       end
-                      wait(1)
                   end
+                  wait(0.5)
             end
         --end)
     else
         print("1")
     end
+end)
+local huanjing = window:Tab("环境")
+local huanjing = huanjing:section("环境",true)
+huanjing:Button("全图无黑暗",function()
+Lighting = game:GetService("Lighting")
+Lighting.Brightness = 2
+	Lighting.ClockTime = 14
+	Lighting.FogEnd = 100000
+	Lighting.GlobalShadows = false
+	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
 end)
