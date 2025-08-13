@@ -19,6 +19,8 @@ elseif a=="Invincib14yiiii"then
 _G.white=true
 elseif a=="Lnorais"then
 _G.white=true
+elseif a=="TGS_0018"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
