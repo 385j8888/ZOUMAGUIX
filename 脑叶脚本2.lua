@@ -15,6 +15,8 @@ elseif a=="xhsans"then
 _G.white=true
 elseif a=="sanxulou"then
 _G.white=true
+elseif a=="Invincib14yiiii"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
