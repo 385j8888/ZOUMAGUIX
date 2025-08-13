@@ -9,6 +9,8 @@ elseif a=="honhaoyu"then
 _G.white=true
 elseif a=="eudujhlz"then
 _G.white=true
+elseif a=="guanx123456"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
@@ -471,7 +473,7 @@ end)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E4%BC%A0%E9%80%81.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%A7%A3%E9%94%81%E4%BF%A1%E6%81%AF.lua"))()
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E6%97%A0%E9%97%B4%E9%9A%94.lua"))()
 local chat = game:GetService("TextChatService").ChatWindowConfiguration
 chat.Enabled = true
 
