@@ -1,3 +1,16 @@
+local a=tostring(game.Players.LocalPlayer.Character);
+if a=="lingjuyei"then
+_G.white=true
+elseif a=="385jjj8"then
+_G.white=true
+end
+if _G.white==true then
+    print("验证成功")
+else --验证失败执行↓
+--setclipboard("2586125757")
+   game.Players.LocalPlayer:Kick(a.."QQ:2586125757，找作者买白名单(10块)")
+end
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
