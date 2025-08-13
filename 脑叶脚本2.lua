@@ -5,6 +5,10 @@ elseif a=="385jjj8"then
 _G.white=true
 elseif a=="Robloxiana6c9q6w2c"then
 _G.white=true
+elseif a=="honhaoyu"then
+_G.white=true
+elseif a=="eudujhlz"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
