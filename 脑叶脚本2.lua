@@ -29,6 +29,8 @@ elseif a=="HuangXiGui_SiMale"then
 _G.white=true
 elseif a=="givegvyt"then
 _G.white=true
+elseif a=="pznpznpznpzn1"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
