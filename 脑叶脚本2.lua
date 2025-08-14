@@ -1,5 +1,5 @@
 local a=tostring(game.Players.LocalPlayer.Character);
-if a=="lingjuyei"then
+if a=="lingjuye"then
 _G.white=true
 elseif a=="385jjj8"then
 _G.white=true
@@ -47,6 +47,7 @@ else --验证失败执行↓
    game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:1548622841，找这个人买白名单")
    wait(0.01)
    while true do
+       wait(1)
        print("想过验证？")
    end
 end
