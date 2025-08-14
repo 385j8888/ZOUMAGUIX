@@ -7,7 +7,7 @@ gui.Parent = game:GetService("CoreGui")
 local button = Instance.new("TextButton")
 button.Name = "UnlockButton"
 button.Text = "一键解锁所有异想体信息"
-button.Size = UDim2.new(0, 200, 0, 60)
+button.Size = UDim2.new(0, 100, 0, 60)
 button.Position = UDim2.new(0.5, -100, 0.8, -30) -- 初始位置在底部居中
 button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
 button.TextColor3 = Color3.new(1, 1, 1)
@@ -84,7 +84,7 @@ button.MouseButton1Click:Connect(function()
 	-- 添加点击反馈
 	button.Text = "已解锁!"
 	task.wait(1)
-	button.Text = "一键解锁所有异想体信息"
+	button.Text = "解锁所有异想体信息"
 end)
 
 -- 适配移动设备触摸事件
