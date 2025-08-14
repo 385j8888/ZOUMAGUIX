@@ -9,7 +9,7 @@ screenGui.Parent = game:GetService("CoreGui")
 -- 创建可拖动按钮
 local dragButton = Instance.new("TextButton")
 dragButton.Name = "DragButton"
-dragButton.Size = UDim2.new(0, 100, 0, 40)
+dragButton.Size = UDim2.new(0, 70, 0, 40)
 dragButton.Position = UDim2.new(0, 20, 0.5, -20)
 dragButton.BackgroundColor3 = Color3.fromRGB(25, 120, 200)
 dragButton.Text = "异想体房间传送"
