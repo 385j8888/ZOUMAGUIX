@@ -35,12 +35,14 @@ elseif a=="azsdxcxz"then
 _G.white=true
 elseif a=="dgfgugjvcut"then
 _G.white=true
+elseif a=="bolt61584"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
 else --验证失败执行↓
 --setclipboard("2586125757")
-   game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:1548622841，找作者买白名单")
+   game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:1548622841，找这个人买白名单")
 end
 
 local Players = game:GetService("Players")
