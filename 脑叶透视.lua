@@ -1,23 +1,24 @@
 local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
+local player = Players.LocalPlayer
 local RunService = game:GetService("RunService")
 
 -- 创建UI
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "PersistentButtonGUI"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.Name = "EntityViewerUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = player:WaitForChild("PlayerGui")
 
+-- 创建可拖动按钮
 local button = Instance.new("TextButton")
-button.Name = "PersistentButton"
-button.Size = UDim2.new(0, 120, 0, 40) -- 适当大小
-button.Position = UDim2.new(0.5, -60, 0.8, -20) -- 底部居中
-button.BackgroundColor3 = Color3.new(0, 0, 0) -- 黑色背景
-button.TextColor3 = Color3.new(1, 1, 1) -- 白色文字
+button.Name = "EntityViewerButton"
 button.Text = "透视异想体"
-button.TextSize = 14
+button.Size = UDim2.new(0, 120, 0, 40)
+button.Position = UDim2.new(0.5, -60, 0.8, -20)
+button.BackgroundColor3 = Color3.new(0, 0, 0)
+button.TextColor3 = Color3.new(1, 1, 1)
 button.Font = Enum.Font.SourceSansBold
-button.ZIndex = 10
-button.Transparency = 0.5
+button.TextSize = 18
+button.AutoButtonColor = false
 button.Parent = screenGui
 
 -- 添加圆角
@@ -25,51 +26,53 @@ local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0.3, 0)
 corner.Parent = button
 
--- 按钮拖动功能
-local isDragging = false
-local dragStartPos
-local buttonStartPos
-
+-- 拖动功能
+local dragging, dragInput, dragStart, startPos
 button.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.Touch then
-        isDragging = true
-        dragStartPos = input.Position
-        buttonStartPos = button.Position
+        dragging = true
+        dragStart = input.Position
+        startPos = button.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
     end
 end)
 
 button.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.Touch and isDragging then
-        local delta = input.Position - dragStartPos
+    if input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        local delta = input.Position - dragStart
         button.Position = UDim2.new(
-            buttonStartPos.X.Scale,
-            buttonStartPos.X.Offset + delta.X,
-            buttonStartPos.Y.Scale,
-            buttonStartPos.Y.Offset + delta.Y
+            startPos.X.Scale, 
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
         )
     end
 end)
 
-button.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.Touch then
-        isDragging = false
-    end
-end)
+-- 功能状态管理
+local active = false
+local billboards = {}  -- 存储创建的悬浮文字
 
--- 透视功能
-local isActive = false
-local billboards = {} -- 存储创建的悬浮文字
-
+-- 创建悬浮文字
 local function createBillboard(model)
-    if not model:FindFirstChild("PersistentBillboard") then
+    if not model:FindFirstChild("EntityBillboard") then
         local billboard = Instance.new("BillboardGui")
-        billboard.Name = "PersistentBillboard"
+        billboard.Name = "EntityBillboard"
         billboard.Adornee = model
-        billboard.Size = UDim2.new(0, 100, 0, 40)
+        billboard.Size = UDim2.new(0, 200, 0, 50)
         billboard.StudsOffset = Vector3.new(0, 3, 0)
         billboard.AlwaysOnTop = true
-        billboard.Enabled = true
-        billboard.LightInfluence = 0
         billboard.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         billboard.Parent = model
         
@@ -79,7 +82,6 @@ local function createBillboard(model)
         textLabel.Text = model.Name
         textLabel.TextColor3 = Color3.new(1, 1, 1)
         textLabel.TextStrokeTransparency = 0.5
-        textLabel.TextStrokeColor3 = Color3.new(0, 0, 0)
         textLabel.Font = Enum.Font.SourceSansBold
         textLabel.TextSize = 18
         textLabel.Parent = billboard
@@ -88,7 +90,8 @@ local function createBillboard(model)
     end
 end
 
-local function removeAllBillboards()
+-- 清除所有悬浮文字
+local function clearBillboards()
     for _, billboard in ipairs(billboards) do
         if billboard and billboard.Parent then
             billboard:Destroy()
@@ -97,44 +100,40 @@ local function removeAllBillboards()
     billboards = {}
 end
 
-local function updateBillboards()
-    local unitsFolder = workspace:FindFirstChild("Units")
-    if not unitsFolder then return end
-    
-    local player = Players.LocalPlayer
-    local playerCharacter = player and player.Character
-    
-    for _, model in ipairs(unitsFolder:GetChildren()) do
-        if model:IsA("Model") then
-            -- 排除名为"Clerk"的Model和玩家Model
-            if model.Name ~= "Clerk" and model ~= playerCharacter then
-                createBillboard(model)
-            end
-        end
-    end
+-- 检查模型是否有效
+local function isValidModel(model)
+    return model:IsA("Model") and 
+           model.Name ~= "Clerk" and 
+           model ~= player.Character and 
+           not Players:GetPlayerFromCharacter(model)
 end
 
--- 按钮点击事件
+-- 主循环
+local connection
 button.MouseButton1Click:Connect(function()
-    isActive = not isActive
+    active = not active
     
-    if isActive then
-        button.Text = "关闭透视"
-        -- 初始添加一次
-        updateBillboards()
-        -- 持续检测
-        while isActive and task.wait(1) do
-            updateBillboards()
-        end
+    if active then
+        button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)  -- 激活状态颜色
+        clearBillboards()  -- 清除旧悬浮文字
+        
+        -- 开始检测
+        connection = RunService.Heartbeat:Connect(function()
+            local units = workspace:FindFirstChild("Units")
+            if units then
+                for _, model in ipairs(units:GetChildren()) do
+                    if isValidModel(model) then
+                        createBillboard(model)
+                    end
+                end
+            end
+        end)
     else
-        button.Text = "透视异想体"
-        removeAllBillboards()
-    end
-end)
-
--- 清理残留悬浮文字
-game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function()
-    if not isActive then
-        removeAllBillboards()
+        button.BackgroundColor3 = Color3.new(0, 0, 0)  -- 恢复原始颜色
+        if connection then
+            connection:Disconnect()
+            connection = nil
+        end
+        clearBillboards()
     end
 end)
