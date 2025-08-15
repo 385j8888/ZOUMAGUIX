@@ -47,6 +47,8 @@ elseif a=="WBCA1594"then
 _G.white=true
 elseif a=="Judgealph404"then
 _G.white=true
+elseif a=="tgb54155555555"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
