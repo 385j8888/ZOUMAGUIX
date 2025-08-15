@@ -530,9 +530,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/re
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%A7%A3%E9%94%81%E4%BF%A1%E6%81%AF.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E6%97%A0%E9%97%B4%E9%9A%94.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%81%B7%E8%A3%85%E5%A4%87.lua"))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%87%BA%E9%80%83%E9%80%9A%E7%9F%A5.lua'))()
 local chat = game:GetService("TextChatService").ChatWindowConfiguration
-chat.Enabled = true
-
+while true do
+   chat.Enabled = true
+   wait(20)
+end
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "脑叶公司";
 	Text = "已展开聊天框，现在你可以查看聊天框消息啦~";
