@@ -97,7 +97,7 @@ mainFrame.Name = "MainFrame"
 mainFrame.Size = UDim2.new(0.8, 0, 0.8, 0)
 mainFrame.Position = UDim2.new(0.1, 0, 0.15, 0)
 mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-mainFrame.BackgroundTransparency = 0.1
+mainFrame.BackgroundTransparency = 0.5
 mainFrame.BorderSizePixel = 0
 mainFrame.ClipsDescendants = true
 mainFrame.Parent = screenGui
@@ -121,13 +121,13 @@ dragBarCorner.Parent = dragBar
 
 local title = Instance.new("TextLabel")
 title.Name = "Title"
-title.Text = "异想体工作管理"
+title.Text = "异想体工作管理--走马观花"
 title.TextColor3 = Color3.fromRGB(220, 220, 255)
 title.TextScaled = true
 title.Font = Enum.Font.GothamBold
 title.Size = UDim2.new(0.7, 0, 0.8, 0)
 title.Position = UDim2.new(0.15, 0, 0.1, 0)
-title.BackgroundTransparency = 1
+title.BackgroundTransparency = 0.5
 title.Parent = dragBar
 
 -- 滚动框架用于容纳所有异想体UI
@@ -135,7 +135,7 @@ local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Name = "ScrollFrame"
 scrollFrame.Size = UDim2.new(0.95, 0, 0.88, 0)
 scrollFrame.Position = UDim2.new(0.025, 0, 0.1, 0)
-scrollFrame.BackgroundTransparency = 1
+scrollFrame.BackgroundTransparency = 0.5
 scrollFrame.ScrollBarThickness = 6
 scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -161,6 +161,7 @@ toggleButton.Text = "≡"
 toggleButton.TextScaled = true
 toggleButton.Font = Enum.Font.GothamBold
 toggleButton.BorderSizePixel = 0
+toggleButton.Transparency = 0.5
 toggleButton.Parent = screenGui
 
 local toggleButtonCorner = Instance.new("UICorner")
@@ -205,7 +206,7 @@ local function createAbnormalityUI(abnormalityName)
     bottomButtonFrame.Name = "BottomButtons"
     bottomButtonFrame.Size = UDim2.new(0.9, 0, 0.3, 0)
     bottomButtonFrame.Position = UDim2.new(0.05, 0, 0.65, 0)
-    bottomButtonFrame.BackgroundTransparency = 1
+    bottomButtonFrame.BackgroundTransparency = 0.5
     bottomButtonFrame.Parent = frame
     
     -- 创建四个开关按钮
@@ -533,6 +534,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/re
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E6%97%A0%E9%97%B4%E9%9A%94.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%81%B7%E8%A3%85%E5%A4%87.lua"))()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%87%BA%E9%80%83%E9%80%9A%E7%9F%A5.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%9B%BA%E5%AE%9A%E7%8E%A9%E5%AE%B6.lua'))()
 local chat = game:GetService("TextChatService").ChatWindowConfiguration
 while true do
    chat.Enabled = true
