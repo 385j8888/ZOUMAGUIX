@@ -206,7 +206,7 @@ local function createAbnormalityUI(abnormalityName)
     bottomButtonFrame.Name = "BottomButtons"
     bottomButtonFrame.Size = UDim2.new(0.9, 0, 0.3, 0)
     bottomButtonFrame.Position = UDim2.new(0.05, 0, 0.65, 0)
-    bottomButtonFrame.BackgroundTransparency = 0.5
+    bottomButtonFrame.BackgroundTransparency = 1
     bottomButtonFrame.Parent = frame
     
     -- 创建四个开关按钮
