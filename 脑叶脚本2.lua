@@ -99,7 +99,7 @@ mainFrame.Name = "MainFrame"
 mainFrame.Size = UDim2.new(0.8, 0, 0.8, 0)
 mainFrame.Position = UDim2.new(0.1, 0, 0.15, 0)
 mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-mainFrame.BackgroundTransparency = 0.5
+mainFrame.BackgroundTransparency = 0.3
 mainFrame.BorderSizePixel = 0
 mainFrame.ClipsDescendants = true
 mainFrame.Parent = screenGui
@@ -129,7 +129,7 @@ title.TextScaled = true
 title.Font = Enum.Font.GothamBold
 title.Size = UDim2.new(0.7, 0, 0.8, 0)
 title.Position = UDim2.new(0.15, 0, 0.1, 0)
-title.BackgroundTransparency = 0.5
+title.BackgroundTransparency = 1
 title.Parent = dragBar
 
 -- 滚动框架用于容纳所有异想体UI
@@ -137,7 +137,7 @@ local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Name = "ScrollFrame"
 scrollFrame.Size = UDim2.new(0.95, 0, 0.88, 0)
 scrollFrame.Position = UDim2.new(0.025, 0, 0.1, 0)
-scrollFrame.BackgroundTransparency = 0.5
+scrollFrame.BackgroundTransparency = 1
 scrollFrame.ScrollBarThickness = 6
 scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -163,7 +163,7 @@ toggleButton.Text = "≡"
 toggleButton.TextScaled = true
 toggleButton.Font = Enum.Font.GothamBold
 toggleButton.BorderSizePixel = 0
-toggleButton.Transparency = 0.5
+toggleButton.Transparency = 0.2
 toggleButton.Parent = screenGui
 
 local toggleButtonCorner = Instance.new("UICorner")
