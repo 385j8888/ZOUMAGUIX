@@ -530,22 +530,23 @@ RunService.Heartbeat:Connect(function()
 end)
 
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E4%BC%A0%E9%80%81.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%A7%A3%E9%94%81%E4%BF%A1%E6%81%AF.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E6%97%A0%E9%97%B4%E9%9A%94.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%81%B7%E8%A3%85%E5%A4%87.lua"))()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%87%BA%E9%80%83%E9%80%9A%E7%9F%A5.lua'))()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%9B%BA%E5%AE%9A%E7%8E%A9%E5%AE%B6.lua'))()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E9%80%8F%E8%A7%86.lua'))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%A7%A3%E9%94%81%E4%BF%A1%E6%81%AF.lua"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E6%97%A0%E9%97%B4%E9%9A%94.lua"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%81%B7%E8%A3%85%E5%A4%87.lua"))()
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%87%BA%E9%80%83%E9%80%9A%E7%9F%A5.lua'))()
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%9B%BA%E5%AE%9A%E7%8E%A9%E5%AE%B6.lua'))()
+--loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E9%80%8F%E8%A7%86.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%84%91%E5%8F%B6.lua'))()
 local chat = game:GetService("TextChatService").ChatWindowConfiguration
 while true do
    chat.Enabled = true
    wait(20)
 end
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "脑叶公司";
-	Text = "已展开聊天框，现在你可以查看聊天框消息啦~";
-	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
-Duration = 6})
+--game:GetService("StarterGui"):SetCore("SendNotification", { 
+--	Title = "脑叶公司";
+--	Text = "已展开聊天框，现在你可以查看聊天框消息啦~";
+--	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
+--Duration = 6})
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "走马观花X";
 	Text = "此脚本隶属走马观花附属脚本";
