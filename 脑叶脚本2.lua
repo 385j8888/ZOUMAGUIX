@@ -535,7 +535,7 @@ end)
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%81%B7%E8%A3%85%E5%A4%87.lua"))()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%87%BA%E9%80%83%E9%80%9A%E7%9F%A5.lua'))()
 --loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E5%9B%BA%E5%AE%9A%E7%8E%A9%E5%AE%B6.lua'))()
---loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E9%80%8F%E8%A7%86.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E9%80%8F%E8%A7%86.lua'))()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%84%91%E5%8F%B6.lua'))()
 local chat = game:GetService("TextChatService").ChatWindowConfiguration
 while true do
