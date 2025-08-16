@@ -53,6 +53,8 @@ elseif a=="jjjb995"then
 _G.white=true
 elseif a=="huan_muyu"then
 _G.white=true
+elseif a=="XiaoFeng1451"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
