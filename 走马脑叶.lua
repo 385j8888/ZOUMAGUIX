@@ -71,7 +71,7 @@ gn:Textbox("攻速", "攻速", "请输入攻速", function(value)
     end
 end)
 local tsyxt = false
-playerr:Toggle("透视所有生物", "", false, function(state)
+gn:Toggle("透视所有生物", "", false, function(state)
     tsyxt = state  -- 同步阀门状态
     
     if state then
