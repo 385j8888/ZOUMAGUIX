@@ -55,7 +55,7 @@ elseif a=="huan_muyu"then
 _G.white=true
 elseif a=="XiaoFeng1451"then
 _G.white=true
-elseif a=="duration_888"then
+elseif a=="jogfyienvgw"then
 _G.white=true
 end
 if _G.white==true then
