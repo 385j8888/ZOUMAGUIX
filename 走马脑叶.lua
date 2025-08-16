@@ -45,8 +45,7 @@ local creds = window:Tab("基本信息")
 local bin = creds:section("信息",true)
     bin:BigLabel("尊贵的用户，感谢您的使用！")
     bin:Label("你的注入器:"..identifyexecutor())
-    bin:Label("作者:不远透露姓名")
-    bin:Label("感谢支持")
+    bin:Label("作者:不愿透露姓名")
 
 local credits = creds:section("UI设置",true)
 
@@ -77,44 +76,26 @@ gn:Toggle("透视所有异想体", "", false, function(state)
     if state then
        --  pawn(function()  -- 使用独立协程
            while tsyxt do  -- 检测阀门状态
-                 for _, model in ipairs(workspace.Units:GetChildren()) do
-    -- 仅处理 Model 对象
-                     if model:IsA("Model") then
-        -- 排除 Clerk 和玩家角色
-                         if model.Name ~= "Clerk" and not model:FindFirstChild("Humanoid") then
-                             local tagExists = false
+                 for _, child in ipairs(workspace.Units:GetChildren()) do
+                     if child:IsA("Model") and child.Name ~= "Clerk" and not child:FindFirstChild("Humanoid") then
+                         local existingTag = child:FindFirstChild("NameDisplay")
+                         if not existingTag then
+                             local billboard = Instance.new("BillboardGui")
+                             billboard.Name = "NameDisplay"
+                             billboard.Adornee = child:FindFirstChild("HumanoidRootPart") or child.PrimaryPart or child
+                             billboard.AlwaysOnTop = true
+                             billboard.Size = UDim2.new(0, 200, 0, 50)
+                             billboard.StudsOffset = Vector3.new(0, 2.5, 0)
+                             billboard.Parent = child
             
-            -- 检查是否已有名称标签
-                             for _, child in ipairs(model:GetChildren()) do
-                                 if child:IsA("BillboardGui") and child.Name == "NameTag" then
-                                     tagExists = true
-                                     break
-                                 end
-                             end
-            
-            -- 创建新标签
-                             if not tagExists then
-                                 local billboard = Instance.new("BillboardGui")
-                                 billboard.Name = "NameTag"
-                                 billboard.Adornee = model
-                                 billboard.Size = UDim2.new(0, 200, 0, 50)
-                                 billboard.StudsOffset = Vector3.new(0, 3, 0) -- 模型上方3单位
-                                 billboard.AlwaysOnTop = true
-                                 billboard.LightInfluence = 0
-                                 billboard.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-                
-                                 local textLabel = Instance.new("TextLabel")
-                                 textLabel.Text = model.Name
-                                 textLabel.TextColor3 = Color3.new(1, 0, 0) -- 纯红色
-                                 textLabel.TextStrokeTransparency = 0.5
-                                 textLabel.TextSize = 24
-                                 textLabel.Font = Enum.Font.SourceSansBold
-                                 textLabel.BackgroundTransparency = 1
-                                 textLabel.Size = UDim2.new(1, 0, 1, 0)
-                
-                                 textLabel.Parent = billboard
-                                 billboard.Parent = model
-                             end
+                             local textLabel = Instance.new("TextLabel")
+                             textLabel.Text = child.Name
+                             textLabel.Size = UDim2.new(1, 0, 1, 0)
+                             textLabel.Font = Enum.Font.SourceSansBold
+                             textLabel.TextScaled = true
+                             textLabel.TextColor3 = Color3.new(1, 0, 0)
+                             textLabel.BackgroundTransparency = 1
+                             textLabel.Parent = billboard
                          end
                      end
                  end
@@ -189,7 +170,7 @@ gn:Toggle("锚定玩家(防大鸟魅惑)", "", false, function(state)
            end
     end
 end)
-bin:Label("需要在被魅惑前开启")
+gn:Label("需要在被魅惑前开启")
 local playerr = window:Tab("玩家")
 local playerr = playerr:section("玩家功能",true)
 playerr:Button("爬墙走",function()
