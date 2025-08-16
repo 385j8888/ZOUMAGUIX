@@ -77,7 +77,7 @@ gn:Toggle("透视所有异想体", "", false, function(state)
        --  pawn(function()  -- 使用独立协程
            while tsyxt do  -- 检测阀门状态
                  for _, child in ipairs(workspace.Units:GetChildren()) do
-                     if child:IsA("Model") and child.Name ~= "Clerk" and not child:FindFirstChild("Humanoid") then
+                     if child:IsA("Model") and not child:FindFirstChild("Humanoid") then
                          local existingTag = child:FindFirstChild("NameDisplay")
                          if not existingTag then
                              local billboard = Instance.new("BillboardGui")
