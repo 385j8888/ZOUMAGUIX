@@ -61,6 +61,10 @@ elseif a=="fengmlin"then
 _G.white=true
 elseif a=="tianzhirong18"then
 _G.white=true
+elseif a=="123ekszk"then
+_G.white=true
+elseif a=="sjcm43"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
