@@ -69,6 +69,10 @@ elseif a=="laksjdhfg25864"then
 _G.white=true
 elseif a=="YDJ559"then
 _G.white=true
+elseif a=="LimbusCompany_12"then
+_G.white=true
+elseif a=="fgdbg37"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
