@@ -590,8 +590,19 @@ Duration = 10})
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 getgenv().Notify = true
-local Notify_Webhook = "https://discord.com/api/webhooks/1407336491289415842/JPNczTsJhsjHnffyBjeTkv_TICtzxBS6v6chEXSy_CBi1zy55Q7UfL0_4cYCSotwgzp7"
+local Notify_Webhook = "https://discord.com/api/webhooks/1407373188282847274/S0nE58NJ9elM6zUtmBWalFstqGs33mZL0rfuDSC1f2n66QGiyKvErKk0AaH-_D3ZIffa"
 function notify_hook()
 	-- Thumb API
 	local ThumbnailAPI = game:HttpGet("https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..player.UserId.."&size=420x420&format=Png&isCircular=true")
