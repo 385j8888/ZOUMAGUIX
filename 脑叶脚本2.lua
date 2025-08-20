@@ -85,6 +85,10 @@ elseif a=="qawsedrf11451421"then
 _G.white=true
 elseif a=="GBwcnm"then
 _G.white=true
+elseif a=="mybsdsb"then
+_G.white=true
+elseif a=="354354ewq"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
