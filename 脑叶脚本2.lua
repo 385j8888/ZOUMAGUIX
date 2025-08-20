@@ -19,7 +19,7 @@ elseif a=="Invincib14yiiii"then
 _G.white=true
 elseif a=="Lnorais"then
 _G.white=true
-elseif a=="TGS_0018"then
+elseif a=="vzxhdu5"then
 _G.white=true
 elseif a=="dkmdfna"then
 _G.white=true
