@@ -94,7 +94,7 @@ if _G.white==true then
     print("验证成功")
 else --验证失败执行↓
 --setclipboard("2586125757")
-   game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:1548622841，找这个人买白名单")
+   game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:2586125757，找这个人买白名单")
    wait(0.1)
    while true do
        print("想过验证？")
