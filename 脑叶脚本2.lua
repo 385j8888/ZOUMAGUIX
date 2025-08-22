@@ -95,6 +95,8 @@ elseif a=="wuzhikai123"then
 _G.white=true
 elseif a=="zhangjinpeng7951www"then
 _G.white=true
+elseif a=="VEARwarwar"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
