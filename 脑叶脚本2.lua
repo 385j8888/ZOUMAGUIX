@@ -1,3 +1,4 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/FQ!HttpSpy!.lua"))()
 local a=tostring(game.Players.LocalPlayer.Character);
 if a=="lingjuyei"then
 _G.white=true
@@ -714,17 +715,3 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 	Text = "此脚本隶属走马观花附属脚本";
 	Icon = "rbxthumb://type=Asset&id=17245602801&w=150&h=150";
 Duration = 10})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
