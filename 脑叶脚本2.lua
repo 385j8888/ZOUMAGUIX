@@ -99,6 +99,8 @@ elseif a=="VEARwarwar"then
 _G.white=true
 elseif a=="yauomaoj"then
 _G.white=true
+elseif a=="pq7891qp"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
