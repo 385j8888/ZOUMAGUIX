@@ -1,4 +1,3 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/FQ!HttpSpy!.lua"))()
 local a=tostring(game.Players.LocalPlayer.Character);
 if a=="lingjuyei"then
 _G.white=true
