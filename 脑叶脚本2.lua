@@ -107,6 +107,8 @@ elseif a=="CN_99977"then
 _G.white=true
 elseif a=="HDHV6R"then
 _G.white=true
+elseif a=="ikua1U"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
