@@ -101,7 +101,7 @@ elseif a=="yauomaoj"then
 _G.white=true
 elseif a=="pq7891qp"then
 _G.white=true
-elseif a=="TGS-0018"then
+elseif a=="TGS_0018"then
 _G.white=true
 elseif a=="CN_99977"then
 _G.white=true
