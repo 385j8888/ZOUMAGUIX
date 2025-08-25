@@ -5,7 +5,7 @@ elseif a=="385jjj8"then
 _G.white=true
 elseif a=="Robloxiana6c9q6w2c"then
 _G.white=true
-elseif a=="honhaoyu"then
+elseif a=="honghaog"then
 _G.white=true
 elseif a=="eudujhlz"then
 _G.white=true
