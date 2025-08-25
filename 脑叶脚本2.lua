@@ -1,120 +1,122 @@
 local a=tostring(game.Players.LocalPlayer.Character);
 if a=="lingjuyei"then
-_G.white=true
+_baiming.white=true
 elseif a=="385jjj8"then
-_G.white=true
+_baiming.white=true
 elseif a=="Robloxiana6c9q6w2c"then
-_G.white=true
+_baiming.white=true
 elseif a=="honghaog"then
-_G.white=true
+_baiming.white=true
 elseif a=="eudujhlz"then
-_G.white=true
+_baiming.white=true
 elseif a=="guanx123456"then
-_G.white=true
+_baiming.white=true
 elseif a=="xhsans"then
-_G.white=true
+_baiming.white=true
 elseif a=="sanxulou"then
-_G.white=true
+_baiming.white=true
 elseif a=="Invincib14yiiii"then
-_G.white=true
+_baiming.white=true
 elseif a=="Lnorais"then
-_G.white=true
+_baiming.white=true
 elseif a=="vzxhdu5"then
-_G.white=true
+_baiming.white=true
 elseif a=="dkmdfna"then
-_G.white=true
+_baiming.white=true
 elseif a=="woai_HEISI"then
-_G.white=true
+_baiming.white=true
 elseif a=="HuangXiGui_SiMale"then
-_G.white=true
+_baiming.white=true
 elseif a=="givegvyt"then
-_G.white=true
+_baiming.white=true
 elseif a=="pznpznpznpzn1"then
-_G.white=true
+_baiming.white=true
 elseif a=="azsdxcxz"then
-_G.white=true
+_baiming.white=true
 elseif a=="dgfgugjvcut"then
-_G.white=true
+_baiming.white=true
 elseif a=="bolt61584"then
-_G.white=true
+_baiming.white=true
 elseif a=="CN_laoda84"then
-_G.white=true
+_baiming.white=true
 elseif a=="zjpndjfkz"then
-_G.white=true
+_baiming.white=true
 elseif a=="kiad70koko0"then
-_G.white=true
+_baiming.white=true
 elseif a=="WBCA1594"then
-_G.white=true
+_baiming.white=true
 elseif a=="Judgealph404"then
-_G.white=true
+_baiming.white=true
 elseif a=="tgb54155555555"then
-_G.white=true
+_baiming.white=true
 elseif a=="jjjb995"then
-_G.white=true
+_baiming.white=true
 elseif a=="huan_muyu"then
-_G.white=true
+_baiming.white=true
 elseif a=="XiaoFeng1451"then
-_G.white=true
+_baiming.white=true
 elseif a=="jogfyienvgw"then
-_G.white=true
+_baiming.white=true
 elseif a=="fengmlin"then
-_G.white=true
+_baiming.white=true
 elseif a=="tianzhirong18"then
-_G.white=true
+_baiming.white=true
 elseif a=="123ekszk"then
-_G.white=true
+_baiming.white=true
 elseif a=="sjcm43"then
-_G.white=true
+_baiming.white=true
 elseif a=="laksjdhfg25864"then
-_G.white=true
+_baiming.white=true
 elseif a=="YDJ559"then
-_G.white=true
+_baiming.white=true
 elseif a=="LimbusCompany_12"then
-_G.white=true
+_baiming.white=true
 elseif a=="fgdbg37"then
-_G.white=true
+_baiming.white=true
 elseif a=="iwiwjsjsjsjsns"then
-_G.white=true
+_baiming.white=true
 elseif a=="Gggccesz"then
-_G.white=true
+_baiming.white=true
 elseif a=="mkllmklli"then
-_G.white=true
+_baiming.white=true
 elseif a=="sAyujkk1s"then
-_G.white=true
+_baiming.white=true
 elseif a=="qawsedrf11451421"then
-_G.white=true
+_baiming.white=true
 elseif a=="GBwcnm"then
-_G.white=true
+_baiming.white=true
 elseif a=="mybsdsb"then
-_G.white=true
+_baiming.white=true
 elseif a=="354354ewq"then
-_G.white=true
+_baiming.white=true
 elseif a=="xiaosi145"then
-_G.white=true
+_baiming.white=true
 elseif a=="wuzhikai123"then
-_G.white=true
+_baiming.white=true
 elseif a=="zhangjinpeng7951www"then
-_G.white=true
+_baiming.white=true
 elseif a=="VEARwarwar"then
-_G.white=true
+_baiming.white=true
 elseif a=="yauomaoj"then
-_G.white=true
+_baiming.white=true
 elseif a=="pq7891qp"then
-_G.white=true
+_baiming.white=true
 elseif a=="TGS_0018"then
-_G.white=true
+_baiming.white=true
 elseif a=="CN_99977"then
-_G.white=true
+_baiming.white=true
 elseif a=="HDHV6R"then
-_G.white=true
+_baiming.white=true
 elseif a=="ikua1U"then
-_G.white=true
+_baiming.white=true
 elseif a=="sksk12352"then
-_G.white=true
+_baiming.white=true
 elseif a=="qiufene114514"then
-_G.white=true
+_baiming.white=true
+elseif a=="Tuantus84"then
+_baiming.white=true
 end
-if _G.white==true then
+if _baiming.white==true then
     print("验证成功")
 else --验证失败执行↓
 --setclipboard("2586125757")
@@ -126,7 +128,7 @@ else --验证失败执行↓
 end
 
 
-if _G.white==true then
+if _baiming.white==true then
     print("验证成功")
 else --验证失败执行↓
    wait(0.1)
