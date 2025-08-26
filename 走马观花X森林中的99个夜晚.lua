@@ -49,7 +49,8 @@ local credits = creds:section("UI设置",true)
     end)
 local gn = window:Tab("收集")
 local gn = gn:section("带来",true)
-gn:Label("从迷雾外带来的东西是拿不起来的，试着升级一下你的篝火！")
+gn:Label("为什么东西拿不起来？你只需要稍微等待一段时间！")
+gn:Label("还拿不起来？再试试走走全图！")
 gn:Button("带来木头",function()
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -320,13 +321,18 @@ zy:Slider("速度", "速度设置", 16, 16, 200, false, function(value)
 lp.Character.Humanoid.WalkSpeed = value
 end)
 local hhk = false
-zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, function(state)
+zy:Toggle("全武器杀戮光环(如果失效就重新打开)", "", false, function(state)
     hhk = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
             while hhk do  -- 检测阀门状态
                   local characters = workspace:WaitForChild("Characters")
+                  --local tool = game:GetService("Players").LocalPlayer:WaitForChild("Inventory"):WaitForChild("Old Axe")
+                  local Players = game:GetService("Players")
+                  local localPlayer = Players.LocalPlayer
+
+                  
                   local tool = game:GetService("Players").LocalPlayer:WaitForChild("Inventory"):WaitForChild("Old Axe")
                   local remoteEvent = game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("ToolDamageObject")
 
@@ -337,7 +343,7 @@ zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, funct
                       end
                   end
 
-                  for number = 1, 10000000 do
+                  for number = 1, 10000 do
                       local code = tostring(number) .. "_8830937997"
     
                       for _, model in ipairs(models) do
@@ -361,7 +367,7 @@ zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, funct
                           }
         
                           remoteEvent:InvokeServer(unpack(args))
-                          wait(0.1) 
+                         
                       end
                   end
                   wait(0.5)
