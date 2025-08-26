@@ -218,21 +218,86 @@ gn:Toggle("枪械杀戮光环(怪物)", "", false, function(state)
         print("关闭状态")
     end
 end)
-gn:Button("收集零件",function()
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local hrp = character:WaitForChild("HumanoidRootPart")
---local originalCFrame = hrp.CFrame
-for _, scrap in pairs(workspace.scraps:GetChildren()) do
-    local material = scrap:FindFirstChild("defaultMaterial10")
-    if material then
-        local prompt = material:FindFirstChild("ProximityPrompt")
-        if prompt then
-            -- Teleport to scrap, slightly above to avoid getting stuck
-            hrp.CFrame = material.CFrame + Vector3.new(0, 3, 0)
 
-            wait(0.1) -- allow time for physics
-            fireproximityprompt(prompt)
+local jd = false
+gn:Toggle("枪械杀戮光环(间谍)", "", false, function(state)
+    jd = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while jd do  -- 检测阀门状态
+                  local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                  local shootEvent = ReplicatedStorage:WaitForChild("remotes"):WaitForChild("shoot")
+
+-- 获取所有目标 Model
+                  local jdFolder = workspace:WaitForChild("enemies")
+                  local jdModels = jdFolder:GetChildren()
+
+-- 遍历所有 Model 并触发射击事件
+                  for _, jdModel in ipairs(jdModels) do
+                      if jdModel:IsA("Model") and jdModel.PrimaryPart then
+                          local jdPosition = jdModel.PrimaryPart.Position
+
+        -- 构建动态 CFrame（替换位置，保留旋转）
+                          local args = {
+                              [1] = CFrame.new(
+                                  jdPosition.X, jdPosition.Y, jdPosition.Z, jdPosition.X, jdPosition.Y, jdPosition.Z, jdPosition.X, jdPosition.Y, jdPosition.Z, jdPosition.X, jdPosition.Y, jdPosition.Z
+                              ),
+                              [2] = CFrame.new(
+                                  jdPosition.X, jdPosition.Y, jdPosition.Z, jdPosition.X, jdPosition.Y, jdPosition.Z, jdPosition.X, jdPosition.Y, jdPosition.Z, jdPosition.X, jdPosition.Y, jdPosition.Z
+                              )
+                          }
+
+        -- 触发远程事件
+                          shootEvent:FireServer(unpack(args))
+                      end
+                  end
+                  wait(0.1)
+            end
+        --end)
+    else
+        print("关闭状态")
+    end
+end)
+gn:Button("收集报废直升机",function()
+local Players = game:GetService("Players")
+local interactFolder = workspace:FindFirstChild("interact")
+
+if not interactFolder then
+    return
+end
+
+local player = Players.LocalPlayer
+if not player.Character then
+    player.CharacterAdded:Wait()
+end
+local character = player.Character
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+for _, model in ipairs(interactFolder:GetChildren()) do
+    if model:IsA("Model") and model.Name == "heli_crash" then
+        if model.PrimaryPart then
+            humanoidRootPart.CFrame = model.PrimaryPart.CFrame
+            task.wait(0.1)
+
+            local prompts = {}
+            local function collectPrompts(object)
+                if object:IsA("ProximityPrompt") then
+                    table.insert(prompts, object)
+                end
+                for _, child in ipairs(object:GetChildren()) do
+                    collectPrompts(child)
+                end
+            end
+            collectPrompts(model)
+
+            for _, prompt in ipairs(prompts) do
+                prompt:InputHoldBegin()
+                task.wait(prompt.HoldDuration)
+                prompt:InputHoldEnd()
+            end
+
+            task.wait(2 - #prompts * prompt.HoldDuration)
         end
     end
 end
@@ -245,14 +310,21 @@ gn:Toggle("自动砍树", "", false, function(state)
     if state then
         --spawn(function()  -- 使用独立协程
             while autocllogggg do  -- 检测阀门状态
-              local player = game.Players.LocalPlayer
+              local Players = game:GetService("Players")
+              local player = Players.LocalPlayer
               local character = player.Character or player.CharacterAdded:Wait()
               local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-              local playerPosition = humanoidRootPart.Position
+
+-- 获取玩家前方4米的位置
+              local lookDirection = humanoidRootPart.CFrame.LookVector
+              local currentPosition = humanoidRootPart.Position
+              local targetPosition = currentPosition + (lookDirection * 2)
+
               local args = {
-	            playerPosition
+                  targetPosition
               }
-                           game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("swing_axe"):FireServer(unpack(args))
+
+              game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("swing_axe"):FireServer(unpack(args))
               wait(0.1)
             end
         --end)
@@ -267,9 +339,22 @@ gn:Toggle("自动抛鱼竿", "", false, function(state)
     if state then
         --spawn(function()  -- 使用独立协程
             while pfish do  -- 检测阀门状态
-              game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("cast"):FireServer()
+              local Players = game:GetService("Players")
+              local player = Players.LocalPlayer
+              local character = player.Character or player.CharacterAdded:Wait()
+              local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
-              wait(0.0000000000000000000001)
+-- 获取玩家前方4米的位置
+              local lookDirection = humanoidRootPart.CFrame.LookVector
+              local currentPosition = humanoidRootPart.Position
+              local targetPosition = currentPosition + (lookDirection * 4)
+
+              local args = {
+                  targetPosition
+              }
+
+              game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("cast"):FireServer(unpack(args))
+              wait(8)
             end
         --end)
     else
@@ -277,7 +362,7 @@ gn:Toggle("自动抛鱼竿", "", false, function(state)
     end
 end)
 local autopfish = false
-gn:Toggle("自动钓鱼", "", false, function(state)
+gn:Toggle("钓鱼时自动上鱼(跳过小游戏)", "", false, function(state)
     autopfish = state  -- 同步阀门状态
     
     if state then
@@ -288,7 +373,7 @@ gn:Toggle("自动钓鱼", "", false, function(state)
               }
               game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("fish_point"):FireServer(unpack(args))
 
-              wait(0.00000000000000000000001)
+              wait(0.0000000000001)
             end
         --end)
     else
@@ -425,6 +510,14 @@ hj:Toggle("下雨", "", false, function(state)
     else
         rain.Value = false
     end
+end)
+hj:Button("全图变亮",function()
+Lighting = game:GetService("Lighting")
+Lighting.Brightness = 2
+	Lighting.ClockTime = 14
+	Lighting.FogEnd = 100000
+	Lighting.GlobalShadows = false
+	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
 end)
 local hjj = window:Tab("传送",'10723407389')
 local hjj = hjj:section("传送",true)
