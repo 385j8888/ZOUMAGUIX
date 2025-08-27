@@ -259,6 +259,13 @@ gn:Toggle("枪械杀戮光环(间谍)", "", false, function(state)
         print("关闭状态")
     end
 end)
+gn:Button("烧掉手上的物品(烧进熔炉)",function()
+local args = {
+	workspace:WaitForChild("builds"):WaitForChild("Campfire")
+}
+game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("add_fuel"):FireServer(unpack(args))
+
+end)
 gn:Button("收集报废直升机",function()
 local Players = game:GetService("Players")
 local interactFolder = workspace:FindFirstChild("interact")
