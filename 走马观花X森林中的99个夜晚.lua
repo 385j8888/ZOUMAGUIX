@@ -321,7 +321,7 @@ zy:Slider("速度", "速度设置", 16, 16, 200, false, function(value)
 lp.Character.Humanoid.WalkSpeed = value
 end)
 local hhk = false
-zy:Toggle("全武器杀戮光环(如果失效就重新打开)", "", false, function(state)
+zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, function(state)
     hhk = state  -- 同步阀门状态
     
     if state then
@@ -386,4 +386,41 @@ Lighting.Brightness = 2
 	Lighting.FogEnd = 100000
 	Lighting.GlobalShadows = false
 	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+end)
+
+local plantt = window:Tab("圆圈种树")
+local plantt = plantt:section("圆圈种树",true)
+plantt:Textbox("半径", "半径", "请输入圆圈半径", function(value)
+    _R = value
+end)
+plantt:Textbox("每个树隔多远", "每个树隔多远", "请输入", function(value)
+    _jgg = value
+end)
+plantt:Button("开种",function()
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RequestPlantItem = ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("RequestPlantItem")
+local Sapling = workspace:WaitForChild("Items"):WaitForChild("Sapling")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+local radius = _R -- 半径
+local angleStep = _jgg  -- 每xxx度种植一个植物
+local fixedY = 1.216280221939087  -- Y
+
+local function plantAtAngle(angle)
+    local angleRad = math.rad(angle)
+    local x = rootPart.Position.X + radius * math.cos(angleRad)
+    local z = rootPart.Position.Z + radius * math.sin(angleRad)
+    local position = Vector3.new(x, fixedY, z)
+    
+    RequestPlantItem:InvokeServer(Sapling, position)
+end
+
+for angle = 0, 350, angleStep do
+    plantAtAngle(angle)
+    wait(0.1)
+end
 end)
