@@ -119,6 +119,8 @@ elseif a=="gjxfhnvChina"then
 _G.white=true
 elseif a=="yuzhifangcun"then
 _G.white=true
+elseif a=="D0N_QUIX0TE"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
