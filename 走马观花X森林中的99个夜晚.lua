@@ -377,7 +377,7 @@ end)
 local hhk = false
 zy:Button("锁血",function()
 local args = {
-    [1] = -inf
+    [1] = -999999999999
 }
 
 game:GetService("ReplicatedStorage").RemoteEvents.DamagePlayer:FireServer(unpack(args))
