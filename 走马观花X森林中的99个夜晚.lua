@@ -52,6 +52,24 @@ local gn = gn:section("带来",true)
 gn:Label("为什么东西拿不起来？你只需要稍微等待一段时间！")
 gn:Label("还拿不起来？再试试走走全图！")
 gn:Button("带来木头",function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+local rootPart = character:FindFirstChild("HumanoidRootPart")
+
+if humanoid and rootPart then
+    local originalCFrame = rootPart.CFrame
+    for _, item in pairs(workspace.Items:GetChildren()) do
+        if item.Name == "Log" and item:IsA("Model") then
+            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+            rootPart.CFrame = item:GetPivot()
+            wait(0.3)
+        end
+    end
+    humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+    rootPart.CFrame = originalCFrame
+end
+
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
@@ -91,6 +109,24 @@ for _, fanModel in ipairs(workspace.Items:GetChildren()) do
 end
 end)
 gn:Button("带来萝卜",function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+local rootPart = character:FindFirstChild("HumanoidRootPart")
+
+if humanoid and rootPart then
+    local originalCFrame = rootPart.CFrame
+    for _, item in pairs(workspace.Items:GetChildren()) do
+        if item.Name == "Carrot" and item:IsA("Model") then
+            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+            rootPart.CFrame = item:GetPivot()
+            wait(0.3)
+        end
+    end
+    humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+    rootPart.CFrame = originalCFrame
+end
+
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
@@ -104,6 +140,24 @@ for _, carrotModel in ipairs(workspace.Items:GetChildren()) do
 end
 end)
 gn:Button("带来煤炭",function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+local rootPart = character:FindFirstChild("HumanoidRootPart")
+
+if humanoid and rootPart then
+    local originalCFrame = rootPart.CFrame
+    for _, item in pairs(workspace.Items:GetChildren()) do
+        if item.Name == "Cola" and item:IsA("Model") then
+            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+            rootPart.CFrame = item:GetPivot()
+            wait(0.3)
+        end
+    end
+    humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+    rootPart.CFrame = originalCFrame
+end
+
 local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
@@ -321,6 +375,33 @@ zy:Slider("速度", "速度设置", 16, 16, 200, false, function(value)
 lp.Character.Humanoid.WalkSpeed = value
 end)
 local hhk = false
+zy:Button("锁血",function()
+local args = {
+    [1] = -inf
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.DamagePlayer:FireServer(unpack(args))
+end)
+local hhkk = false
+zy:Toggle("自动击晕鹿", "", false, function(state)
+    hhkk = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while hhkk do  -- 检测阀门状态
+                  local args = {
+                      [1] = workspace.Characters.Deer
+                  }
+
+                  game:GetService("ReplicatedStorage").RemoteEvents.MonsterHitByTorch:InvokeServer(unpack(args))
+                  wait(0.5)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+
 zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, function(state)
     hhk = state  -- 同步阀门状态
     
@@ -362,7 +443,7 @@ zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, funct
                           local args = {
                               model,  
                               tool,
-                              code,
+                              true,
                               position
                           }
         
@@ -370,7 +451,7 @@ zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, funct
                          
                       end
                   end
-                  wait(0.5)
+                  wait(0.1)
             end
         --end)
     else
