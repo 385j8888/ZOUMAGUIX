@@ -1911,8 +1911,8 @@ Tab1:AddButton({
     end
 })
 Tab1:AddButton({
-    Title = "根据服务器类型执行走马观花X(执行脚本点这里❗️)",           -- 按钮标题
-    Desc = "爱来自走马观花X❤️",   -- 按钮描述（可选）
+    Title = "加载走马观花X",           -- 按钮标题
+    Desc = "执行脚本",   -- 按钮描述（可选）
     Callback = function()
        loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
         wait(5)
@@ -1939,34 +1939,48 @@ Tab0:AddButton({
 })
 Tab0:AddButton({
     Title = "小爱同学",           -- 按钮标题
-    Desc = "走马观花X-Owner👑",   -- 按钮描述（可选）
+    Desc = "假Owner",   -- 按钮描述（可选）
     Callback = function()
         print("1")
     end
 })
 Tab0:AddButton({
     Title = "Sumi",           -- 按钮标题
-    Desc = "UI by Sumi",   -- 按钮描述（可选）
+    Desc = "UI maker",   -- 按钮描述（可选）
     Callback = function()
         print("1")
     end
 })
 Tab0:AddButton({
     Title = "CHICKEN",           -- 按钮标题
-    Desc = "🐱",   -- 按钮描述（可选）
+    Desc = "greedy🤑🤑🤑",   -- 按钮描述（可选）
     Callback = function()
         print("1")
     end
 })
 Tab0:AddButton({
     Title = "lingjuyei",           -- 按钮标题
-    Desc = "建议者",   -- 按钮描述（可选）
+    Desc = "帮手",   -- 按钮描述（可选）
     Callback = function()
         print("1")
     end
 })
 Tab0:AddButton({
     Title = "Autumn wind",           -- 按钮标题
+    Desc = "最佳使用人员",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "gubby神",           -- 按钮标题
+    Desc = "最佳使用人员",   -- 按钮描述（可选）
+    Callback = function()
+        print("1")
+    end
+})
+Tab0:AddButton({
+    Title = "林北",           -- 按钮标题
     Desc = "最佳使用人员",   -- 按钮描述（可选）
     Callback = function()
         print("1")
@@ -1993,6 +2007,13 @@ local Tab2 = Window:MakeTab({
 Tab2:AddButton({
     Title = "不要点这里执行脚本啊！😭",           -- 按钮标题
     Desc = "去主页那里执行，这里没用！",   -- 按钮描述（可选）
+    Callback = function()
+        print("111")
+    end
+})
+Tab2:AddButton({
+    Title = "种植花园",           -- 按钮标题
+    Desc = "",   -- 按钮描述（可选）
     Callback = function()
         print("111")
     end
@@ -2124,114 +2145,14 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 Duration = 15})
 
 Window:Dialog({
-    Title = "求求你加群",
-    Text = "947178829",
+    Title = "你们好哇:）",
+    Text = "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈",
     Options = {
-        {"好的呢～马上加～", function()
+        {"意义不明", function()
 
         end},
-        {"臭傻逼我加个屁", function()
+        {"臭傻逼又发癫了是吧", function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))()
         end}
     }
 })
-
-
-
-
-getgenv().Notify = true
-local Notify_Webhook = "https://discord.com/api/webhooks/1407336491289415842/JPNczTsJhsjHnffyBjeTkv_TICtzxBS6v6chEXSy_CBi1zy55Q7UfL0_4cYCSotwgzp7"
-function notify_hook()
-	-- Thumb API
-	local ThumbnailAPI = game:HttpGet("https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds="..player.UserId.."&size=420x420&format=Png&isCircular=true")
-	local json = HttpService:JSONDecode(ThumbnailAPI)
-	local avatardata = json.data[1].imageUrl
-
-	-------- User API Script
-	local UserAPI = game:HttpGet("https://users.roproxy.com/v1/users/"..player.UserId)
-	local json = HttpService:JSONDecode(UserAPI)
-	-------- Description Data
-	local DescriptionData = json.description
-	-------- Created Data
-	local CreatedData = json.created
-
-	local send_data = {
-		["username"] = "Jumpscare Notify",
-		["avatar_url"] = "https://static.wikia.nocookie.net/19dbe80e-0ae6-48c7-98c7-3c32a39b2d7c/scale-to-width/370",
-		["content"] = "Jeff Wuz Here !",
-		["embeds"] = {
-			{
-				["title"] = "Jeff's Log",
-				["description"] = "**Game : https://www.roblox.com/games/"..game.PlaceId.."**\n\n**Profile : https://www.roblox.com/users/"..player.UserId.."/profile**\n\n**Job ID : "..game.JobId.."**",
-				["color"] = 4915083,
-				["fields"] = {
-					{
-						["name"] = "Username",
-						["value"] = player.Name,
-						["inline"] = true
-					},
-					{
-						["name"] = "Display Name",
-						["value"] = player.DisplayName,
-						["inline"] = true
-					},
-					{
-						["name"] = "User ID",
-						["value"] = player.UserId,
-						["inline"] = true
-					},
-					{
-						["name"] = "Account Age",
-						["value"] = player.AccountAge.." Day",
-						["inline"] = true
-					},
-					{
-						["name"] = "Membership",
-						["value"] = player.MembershipType.Name,
-						["inline"] = true
-					},
-					{
-						["name"] = "Account Created Day",
-						["value"] = string.match(CreatedData, "^([%d-]+)"),
-						["inline"] = true
-					},
-					{
-						["name"] = "Profile Description",
-						["value"] = "```\n"..DescriptionData.."\n```",
-						["inline"] = true
-					}
-				},
-				["footer"] = {
-					["text"] = "JTK Log",
-					["icon_url"] = "https://miro.medium.com/v2/resize:fit:1280/0*c6-eGC3Dd_3HoF-B"
-				},
-				["thumbnail"] = {
-					["url"] = avatardata
-				}
-			}
-		},
-	}
-
-	local headers = {
-		["Content-Type"] = "application/json"
-	}
-
-	request({
-		Url = Notify_Webhook,
-		Method = "POST",
-		Headers = headers,
-		Body = game:GetService("HttpService"):JSONEncode(send_data)
-	})
-end
-
-if getgenv().Notify == true then
-	if Notify_Webhook == '' then
-		return;
-	else
-		notify_hook()
-	end
-elseif getgenv().Notify == false then
-	return;
-else
-	warn("True or False")
-end
