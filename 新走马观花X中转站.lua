@@ -2012,6 +2012,13 @@ Tab2:AddButton({
     end
 })
 Tab2:AddButton({
+    Title = "恶魔学",           -- 按钮标题
+    Desc = "",   -- 按钮描述（可选）
+    Callback = function()
+        print("111")
+    end
+})
+Tab2:AddButton({
     Title = "种植花园",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
