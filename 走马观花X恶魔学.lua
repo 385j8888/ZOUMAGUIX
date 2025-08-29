@@ -65,6 +65,33 @@ gn:Button("解锁第三人称",function()
 game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
 game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
 end)
+local runnnninggg = false
+gn:Toggle("穿墙", "", false, function(state)
+    runnnninggg = state  -- 同步阀门状态
+    
+    if state then
+      --  spawn(function()  -- 使用独立协程
+            while runnnninggg do  -- 检测阀门状态
+                  
+                  --player.Character:PivotTo(CFrame.new(-425,27,-49040))
+                  for _, part in pairs(player.Character:GetDescendants()) do
+                     if part:IsA("BasePart") then
+                        part.CanCollide = false
+                     end
+                  end
+                  wait(0.1)
+            end
+        --end)
+    else
+        print("关闭状态")
+        for _, part in pairs(player.Character:GetDescendants()) do
+                     if part:IsA("BasePart") then
+                        part.CanCollide = true
+                     end
+        end
+    end
+end)
+
 local xj = false
 gn:Toggle("狩猎时自动出去", "", false, function(state)
     xj = state  -- 同步阀门状态
@@ -217,4 +244,40 @@ gn:Toggle("自动跟鬼对话(不用拿对讲机)", "", false, function(state)
     else
         print("停止")
     end
+end)
+
+local function PizzaSpawn()
+    local ingameFolder = workspace:WaitForChild("Handprints")
+    
+    ingameFolder.ChildAdded:Connect(function(child)
+        if child:IsA("Part") then
+            game:GetService("StarterGui"):SetCore("SendNotification", { 
+            	Title = "走马观花X";
+            	Text = "检测到手印";
+            	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+            Duration = 10})
+        end
+    end)
+end
+
+gn:Button("手印检测",function()
+PizzaSpawn()
+end)
+
+local function PizzaSpawwn()
+    local ingameFoldder = workspace:WaitForChild("Map")
+    
+    ingameFoldder.ChildAdded:Connect(function(child)
+        if child.Name=="GhostOrb" then
+            game:GetService("StarterGui"):SetCore("SendNotification", { 
+            	Title = "走马观花X";
+            	Text = "检测到幽灵球";
+            	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+            Duration = 10})
+        end
+    end)
+end
+
+gn:Button("幽灵球检测",function()
+PizzaSpawwn()
 end)
