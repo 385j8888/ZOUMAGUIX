@@ -152,8 +152,8 @@ gm:Toggle("自动点击1x4弹窗", "", false, function(state)
               end
               wiat(0.05)
            end
-    end
-           end
+ --   end
+           --end
     else
        print("66")
     end
