@@ -1,4 +1,20 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/ProtectUI.lua"))()
+repeat
+    task.wait()
+until game:IsLoaded()
+    game:GetService("Players").LocalPlayer.Idled:Connect(function(state)
+    game:GetService("VirtualUser"):Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    task.wait(1)
+    game:GetService("VirtualUser"):Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    game:GetService("VirtualUser"):CaptureController()
+    game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+local Floder = {"GeneratorESPFloder", "NPCESPFloder", "KillerESPFloder", "SurvivorsESPFloder", "ToolESPFloder"}
+    for i, v in next, Floder do
+    local ESPFloder = Instance.new("Folder")
+    ESPFloder.Parent = workspace
+    ESPFloder.Name = v
+end
 local jump = false
 local jumpp = false
 local xj = false
@@ -121,6 +137,28 @@ gm:Toggle("无限耐力2(杀手用这个)", "", false, function(state)
         sprintModule.MinStamina = 0
     end
 end)
+local jjumpppppp = false
+gm:Toggle("自动点击1x4弹窗", "", false, function(state)
+    jjumpppppp = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           while jjumpppppp do  -- 检测阀门状态
+              for _, i in next,game.Players.LocalPlayer.PlayerGui.TemporaryUI:GetChildren() do
+                   if v.Name == "1x1x1x1Popup" then
+                      game.VirtualBallsManager:SendMouseButtonEvent(v.AbsolutePosition.X + (v.AbsoluteSize.X / 2), v.AbsolutePosition.Y + (v.AbsoluteSize.Y / 2), Enum.UserInputType.MouseButton1.Value, true, game.Players.PlayerGui, 1)
+                      game.VirtualBallsManager:SendMouseButtonEvent(v.AbsolutePosition.X + (v.AbsoluteSize.X / 2), v.AbsolutePosition.Y + (v.AbsoluteSize.Y / 2), Enum.UserInputType.MouseButton1.Value, false, game.Players.PlayerGui, 1)
+                   end
+              end
+              wiat(0.05)
+           end
+    end
+           end
+    else
+       print("66")
+    end
+end)
+
 local jjumppp = false
 gm:Toggle("免减速，眩晕", "", false, function(state)
     jjumppp = state  -- 同步阀门状态
@@ -511,71 +549,39 @@ local djjb = false
 ts:Toggle("透视电机", "", false, function(state)
     djjb = state
     if state then
-           while djjb do
-                    local targetFolder = workspace.Map.Ingame.Map
-
-                    for _, child in ipairs(targetFolder:GetChildren()) do
-                        if child:IsA("Model") and child.Name == "Generator" then
-                            if not child.PrimaryPart then
-                                warn("Generator " .. child.Name .. " 缺少 PrimaryPart，無法附加 3D 文字。")
-                            else
-            -- 检查并添加 3D 文字
-                                local billboard = child:FindFirstChild("GeneratorBillboard")
-                                if not billboard and djjb==true then
-                -- 创建 BillboardGui
-                                    billboard = Instance.new("BillboardGui")
-                                    billboard.Name = "GeneratorBillboard"
-                                    billboard.Size = UDim2.new(4, 0, 2, 0)
-                                    billboard.StudsOffset = Vector3.new(0, 3, 0) -- 在模型上方 3 米
-                                    billboard.Adornee = child.PrimaryPart
-                                    billboard.AlwaysOnTop = true
-                                    billboard.MaxDistance = 1000
-                                    billboard.Parent = child
-
-                -- 创建 TextLabel
-                                    local textLabel = Instance.new("TextLabel")
-                                    textLabel.Text = "电机"
-                                    textLabel.Size = UDim2.new(1, 0, 1, 0)
-                                  --  textLabel.Font = Enum.Font.SourceHanSansCN
-                                    textLabel.TextSize = 13
-                                    textLabel.TextColor3 = Color3.new(1, 1, 1)
-                                    textLabel.BackgroundTransparency = 1
-                                    textLabel.Parent = billboard
-                                end
-
-                                local highlight = child:FindFirstChildOfClass("Highlight")
-                                if not highlight and djjb==true then
-                                    highlight = Instance.new("Highlight")
-                                    highlight.Name = "GeneratorHighlight"
-                                    highlight.FillColor = Color3.new(1, 0, 0) -- 紅色填充
-                                    highlight.OutlineColor = Color3.new(0.5, 0, 0) -- 暗紅色輪廓
-                                    highlight.Parent = child
-                                end
-                            end
-                        end
+        for _,v in next,workspace.Map.Ingame.Map:GetChildren() do
+            if v.Name == "Generator" and v:IsA("Model") then
+                if v.Progress.Value < 99 then
+                    ESPGenerator("电机(未完成) 进度.."..v.Progress.Value,v,Color3.new(1,0,0))
+                elseif v.Progress.Value == 100 then
+                    ESPGenerator("电机(完成)",v,Color3.new(1,0,0))
+                end
+            end
+        end
+        workspace.Map.Ingame.Map.ChildAdded:Connect(function(v)
+            if v.Name == "Generator" and v:IsA("Model") and state then
+                if v.Progress.Value < 99 then
+                    ESPGenerator("电机(未完成) 进度.."..v.Progress.Value,v,Color3.new(1,0,0))
+                elseif v.Progress.Value == 100 then
+                    ESPGenerator("电机(完成)",v,Color3.new(1,0,0))
+                end
+            end
+        end)
+        while wait() and state do
+            for _,v in pairs(workspace.GeneratorESPFloder:GetChildren()) do
+                for _,i in pairs(v:GetChildren()) do
+                    if v.Progress.Value < 99 then
+                        v.Text = "电机(未完成) 进度.."..v.Progress.Value
+                        elseif v.Progress.Value == 100 then
+                        v.Text = "电机(完成)"
                     end
-                    wait(3)
-           end
+                end
+            end
+        end
     else
-                          local targetFolder = workspace.Map.Ingame.Map
-
-                          for _, model in ipairs(targetFolder:GetChildren()) do
-                              if model:IsA("Model") and model.Name == "Generator" then
-        -- 删除所有高光特效
-                                  for _, obj in ipairs(model:GetChildren()) do
-                                      if obj:IsA("Highlight") then
-                                          obj:Destroy()
-                                      end
-                                  end
-
-        -- 删除所有 3D 文字
-                                  for _, obj in ipairs(model:GetChildren()) do
-                                      if obj:IsA("BillboardGui") then
-                                          obj:Destroy()
-                                      end
-                                  end
-                              end
-                          end
+             for _,v in pairs(workspace.GeneratorESPFloder:GetChildren()) do
+                 v:Destroy()
+             end
     end
 end)
 local john = false
