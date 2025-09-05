@@ -23,7 +23,6 @@ end)
 --end)
 
 
-
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 
@@ -47,13 +46,34 @@ textContainer.AnchorPoint = Vector2.new(0.5, 0.5)
 textContainer.Position = UDim2.new(0.5, 0, 0.5, 0)
 
 local textLabel = Instance.new("TextLabel")
-textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.Size = UDim2.new(1, 0, 0.6, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
 textLabel.Text = "走马观花X"
 textLabel.TextColor3 = Color3.new(1, 1, 1)
 textLabel.TextScaled = true
 textLabel.TextWrapped = true
 textLabel.BackgroundTransparency = 1
 textLabel.Parent = textContainer
+
+local subtitleLabel = Instance.new("TextLabel")
+subtitleLabel.Size = UDim2.new(1, 0, 0.2, 0)
+subtitleLabel.Position = UDim2.new(0, 0, 0.6, 0)
+subtitleLabel.Text = "脚本始于2023"
+subtitleLabel.TextColor3 = Color3.new(1, 1, 1)
+subtitleLabel.TextScaled = true
+subtitleLabel.TextWrapped = true
+subtitleLabel.BackgroundTransparency = 1
+subtitleLabel.Parent = textContainer
+
+local authorLabel = Instance.new("TextLabel")
+authorLabel.Size = UDim2.new(1, 0, 0.2, 0)
+authorLabel.Position = UDim2.new(0, 0, 0.8, 0)
+authorLabel.Text = "作者:小爱同学，前作者:紅"
+authorLabel.TextColor3 = Color3.new(1, 1, 1)
+authorLabel.TextScaled = true
+authorLabel.TextWrapped = true
+authorLabel.BackgroundTransparency = 1
+authorLabel.Parent = textContainer
 
 textContainer.Size = UDim2.new(0, 0, 0, 0)
 
