@@ -49,270 +49,400 @@ local credits = creds:section("UI设置",true)
     end)
 local gn = window:Tab("收集")
 local gn = gn:section("带来",true)
-gn:Label("为什么东西拿不起来？你只需要稍微等待一段时间！")
-gn:Label("还拿不起来？再试试走走全图！")
+
 gn:Button("带来木头",function()
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:FindFirstChildWhichIsA("Humanoid")
-local rootPart = character:FindFirstChild("HumanoidRootPart")
+--  for i = 1, _cishu do
+      local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
 
-if humanoid and rootPart then
-    local originalCFrame = rootPart.CFrame
-    for _, item in pairs(workspace.Items:GetChildren()) do
-        if item.Name == "Log" and item:IsA("Model") then
-            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
-            rootPart.CFrame = item:GetPivot()
-            wait(0.3)
-        end
-    end
-    humanoid:ChangeState(Enum.HumanoidStateType.Seated)
-    rootPart.CFrame = originalCFrame
-end
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
 
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, logModel in ipairs(workspace.Items:GetChildren()) do
-    if logModel.Name == "Log" and logModel:IsA("Model") then
-        local meshPart = logModel:FindFirstChild("Meshes/log_Cylinder", true)
-        if meshPart and meshPart:IsA("MeshPart") then
-            meshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Log" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Log"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
+    --  end
+ -- end
 end)
 gn:Button("带来生兔肉",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, trModel in ipairs(workspace.Items:GetChildren()) do
-    if trModel.Name == "Morsel" and trModel:IsA("Model") then
-        local trmeshPart = trModel:FindFirstChild("Meat", true)
-        if trmeshPart and trmeshPart:IsA("Part") then
-            trmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Morsel" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Morsel"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来风扇",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, fanModel in ipairs(workspace.Items:GetChildren()) do
-    if fanModel.Name == "Broken Fan" and fanModel:IsA("Model") then
-        local fanmeshPart = fanModel:FindFirstChild("Stand", true)
-        if fanmeshPart and fanmeshPart:IsA("MeshPart") then
-            fanmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Broken Fan" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Broken Fan"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来萝卜",function()
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:FindFirstChildWhichIsA("Humanoid")
-local rootPart = character:FindFirstChild("HumanoidRootPart")
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
 
-if humanoid and rootPart then
-    local originalCFrame = rootPart.CFrame
-    for _, item in pairs(workspace.Items:GetChildren()) do
-        if item.Name == "Carrot" and item:IsA("Model") then
-            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
-            rootPart.CFrame = item:GetPivot()
-            wait(0.3)
-        end
-    end
-    humanoid:ChangeState(Enum.HumanoidStateType.Seated)
-    rootPart.CFrame = originalCFrame
-end
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
 
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, carrotModel in ipairs(workspace.Items:GetChildren()) do
-    if carrotModel.Name == "Carrot" and carrotModel:IsA("Model") then
-        local carrotmeshPart = carrotModel:FindFirstChild("Handle", true)
-        if carrotmeshPart and carrotmeshPart:IsA("MeshPart") then
-            carrotmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Carrot" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Carrot"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来煤炭",function()
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:FindFirstChildWhichIsA("Humanoid")
-local rootPart = character:FindFirstChild("HumanoidRootPart")
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
 
-if humanoid and rootPart then
-    local originalCFrame = rootPart.CFrame
-    for _, item in pairs(workspace.Items:GetChildren()) do
-        if item.Name == "Cola" and item:IsA("Model") then
-            humanoid:ChangeState(Enum.HumanoidStateType.Seated)
-            rootPart.CFrame = item:GetPivot()
-            wait(0.3)
-        end
-    end
-    humanoid:ChangeState(Enum.HumanoidStateType.Seated)
-    rootPart.CFrame = originalCFrame
-end
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
 
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, coalModel in ipairs(workspace.Items:GetChildren()) do
-    if coalModel.Name == "Coal" and coalModel:IsA("Model") then
-        local coalmeshPart = coalModel:FindFirstChild("Coal", true)
-        if coalmeshPart and coalmeshPart:IsA("MeshPart") then
-            coalmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Coal" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+   --   if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Coal"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
+      --end
 end)
 gn:Button("带来老收音机",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, rdModel in ipairs(workspace.Items:GetChildren()) do
-    if rdModel.Name == "Old Radio" and rdModel:IsA("Model") then
-        local rdmeshPart = rdModel:FindFirstChild("Main", true)
-        if rdmeshPart and rdmeshPart:IsA("Part") then
-            rdmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Old Radio" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Old Radio"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来手枪弹药",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, sqModel in ipairs(workspace.Items:GetChildren()) do
-    if sqModel.Name == "Revolver Ammo" and sqModel:IsA("Model") then
-        local sqmeshPart = sqModel:FindFirstChild("Main", true)
-        if sqmeshPart and sqmeshPart:IsA("Part") then
-            sqmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Revolver Ammo" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Revolver Ammo"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来步枪弹药",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, bqModel in ipairs(workspace.Items:GetChildren()) do
-    if bqModel.Name == "Rifle Ammo" and bqModel:IsA("Model") then
-        local bqmeshPart = bqModel:FindFirstChild("Main", true)
-        if bqmeshPart and bqmeshPart:IsA("Part") then
-            bqmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
-end)
-gn:Button("带来UFO零件",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, ufoljModel in ipairs(workspace.Items:GetChildren()) do
-    if ufoljModel.Name == "UFO Scrap" and ufoljModel:IsA("Model") then
-        local ufoljmeshPart = ufoljModel:FindFirstChild("Main", true)
-        if ufoljmeshPart and ufoljmeshPart:IsA("Part") then
-            ufoljmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
-end)
-gn:Button("带来UFO垃圾",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, ufojModel in ipairs(workspace.Items:GetChildren()) do
-    if ufojModel.Name == "UFO Junk" and ufojModel:IsA("Model") then
-        local ufojmeshPart = ufojModel:FindFirstChild("Main", true)
-        if ufojmeshPart and ufojmeshPart:IsA("Part") then
-            ufojmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
-end)
-gn:Button("带来UFO部件",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, ufobjModel in ipairs(workspace.Items:GetChildren()) do
-    if ufobjModel.Name == "UFO Component" and ufobjModel:IsA("Model") then
-        local ufobjmeshPart = ufobjModel:FindFirstChild("Main", true)
-        if ufobjmeshPart and ufobjmeshPart:IsA("Part") then
-            ufobjmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Rifle Ammo" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Rifle Ammo"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 
 gn:Button("带来螺栓",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, lsModel in ipairs(workspace.Items:GetChildren()) do
-    if lsModel.Name == "Bolt" and lsModel:IsA("Model") then
-        local lsmeshPart = lsModel:FindFirstChild("Main", true)
-        if lsmeshPart and lsmeshPart:IsA("MeshPart") then
-            lsmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Bolt" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Bolt"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来手枪",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, shqModel in ipairs(workspace.Items:GetChildren()) do
-    if shqModel.Name == "Revolver" and shqModel:IsA("Model") then
-        local shqmeshPart = shqModel:FindFirstChild("Main", true)
-        if shqmeshPart and shqmeshPart:IsA("Part") then
-            shqmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Revolver" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Revolver"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
-gn:Button("带来金属板",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, jsbModel in ipairs(workspace.Items:GetChildren()) do
-    if jsbModel.Name == "Sheet Metal" and jsbModel:IsA("Model") then
-        local jsbmeshPart = jsbModel:FindFirstChild("Main", true)
-        if jsbmeshPart and jsbmeshPart:IsA("MeshPart") then
-            jsbmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+gn:Button("带来金属板",function()local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Sheet Metal" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Sheet Metal"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来老旧手电筒",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, sdtModel in ipairs(workspace.Items:GetChildren()) do
-    if sdtModel.Name == "Old Flashlight" and sdtModel:IsA("Model") then
-        local sdtmeshPart = sdtModel:FindFirstChild("Main", true)
-        if sdtmeshPart and sdtmeshPart:IsA("Part") then
-            sdtmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Old Flashlight" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Old Flashlight"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 gn:Button("带来燃料罐",function()
-local player = game:GetService("Players").LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-for _, rlgModel in ipairs(workspace.Items:GetChildren()) do
-    if rlgModel.Name == "Fuel Canister" and rlgModel:IsA("Model") then
-        local rlgmeshPart = rlgModel:FindFirstChild("Main", true)
-        if rlgmeshPart and rlgmeshPart:IsA("MeshPart") then
-            rlgmeshPart.CFrame = humanoidRootPart.CFrame
-        end
-    end
-end
+local Players = game:GetService("Players")
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local RequestBagStoreItem = ReplicatedStorage.RemoteEvents.RequestBagStoreItem
+
+      local player = Players.LocalPlayer
+      local inventory = player.Inventory
+
+      if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+           for _, itemm in ipairs(workspace.Items:GetChildren()) do
+             if itemm.Name=="Fuel Canister" then
+                RequestBagStoreItem:InvokeServer(item, itemm)
+             end
+           end
+         end
+      end
+      
+      task.wait(0.1)
+  --    if inventory then
+         for _, item in pairs(inventory:GetChildren()) do
+                local args = {
+                	item,
+                	workspace:WaitForChild("Items"):WaitForChild("Fuel Canister"),
+                	true
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestBagDropItem"):FireServer(unpack(args))
+
+         end
 end)
 
 local esp = window:Tab("透视")
