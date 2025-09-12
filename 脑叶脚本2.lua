@@ -141,6 +141,8 @@ elseif a=="hxnewyh"then
 _G.white=true
 elseif a=="windujasu"then
 _G.white=true
+elseif a=="inkwyx"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
