@@ -589,7 +589,7 @@ end)
 
 
 local autow = false
-zy:Toggle("范围自动砍树", "", false, function(state)
+zy:Toggle("范围自动砍树(先拿斧头再打开)", "", false, function(state)
     autow = state  -- 同步阀门状态
     
     if state then
