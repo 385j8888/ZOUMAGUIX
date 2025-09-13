@@ -533,13 +533,13 @@ zy:Toggle("自动击晕鹿", "", false, function(state)
 end)
 
 
-local hhk = false
+local hhkkkk = false
 zy:Toggle("杀戮光环(先拿斧头再开)", "", false, function(state)
-    hhk = state  -- 同步阀门状态
+    hhkkkk = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
-            while hhk do  -- 检测阀门状态
+            while hhkkkk do  -- 检测阀门状态
                       local Players = game:GetService("Players")
                       local ReplicatedStorage = game:GetService("ReplicatedStorage")
                       local LocalPlayer = Players.LocalPlayer
@@ -549,16 +549,16 @@ zy:Toggle("杀戮光环(先拿斧头再开)", "", false, function(state)
                       local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
 
                       local AttackRange = 100
-                      local ValidWeapons = {["Old Axe"]=true, ["Good Axe"]=true, ["Spear"]=true, ["Hatchet"]=true, ["Bone Club"]=true}
+                      local ValidWeapons = {["Old Axe"]=true, ["Good Axe"]=true, ["Spear"]=true, ["Hatchet"]=true, ["Strong Axe"]=true, ["Bone Club"]=true}
                       local AttackRemote = ReplicatedStorage:FindFirstChild("RemoteEvents") and ReplicatedStorage.RemoteEvents:FindFirstChild("ToolDamageObject")
 
-                          if not Character or not HumanoidRootPart or not AttackRemote then return end
+                         -- if not Character or not HumanoidRootPart or not AttackRemote then return end
 
    
                           local ToolHandle = Character:FindFirstChild("ToolHandle")
-                          if not ToolHandle then return end
+                       --   if not ToolHandle then return end
                           local CurrentTool = ToolHandle.OriginalItem.Value
-                          if not CurrentTool or not ValidWeapons[CurrentTool.Name] then return end
+                      --    if not CurrentTool or not ValidWeapons[CurrentTool.Name] then return end
 
    
                           for _, Enemy in pairs(workspace.Characters:GetChildren()) do
@@ -572,19 +572,13 @@ zy:Toggle("杀戮光环(先拿斧头再开)", "", false, function(state)
                                   end
                               end
                           end
-                          wait(0.7)
+                          wait(0.6)
             end
         --end)
     else
         print("1")
     end
 end)
--- 自动砍树（无function/无循环/运行即生效）
--- 功能：运行后自动砍伐100范围内树木，支持指定斧头
-
--- 1. 初始化基础服务与核心变量
-
-
 
 
 
@@ -610,7 +604,7 @@ zy:Toggle("范围自动砍树(先拿斧头再打开)", "", false, function(state
                       local ChopCooldown = 0.7  
                       local LastChopTime = 0 
 
-                      local ValidAxes = {["Old Axe"]=true, ["Stone Axe"]=true, ["Iron Axe"]=true}
+                      local ValidAxes = {["Old Axe"]=true, ["Good Axe"]=true, ["Stone Axe"]=true, ["Stone Axe"]=true, ["Iron Axe"]=true}
 
                       local ChopRemote = ReplicatedStorage:FindFirstChild("RemoteEvents") and ReplicatedStorage.RemoteEvents:FindFirstChild("ToolDamageObject")
                           if not Character or not HumanoidRootPart or not ChopRemote then return end
@@ -621,7 +615,7 @@ zy:Toggle("范围自动砍树(先拿斧头再打开)", "", false, function(state
 
    
                           local ToolHandle = Character:FindFirstChild("ToolHandle")
-                          if not ToolHandle then return end  -- 未装备工具，跳过
+                          if not ToolHandle then return end  
                           local CurrentTool = ToolHandle.OriginalItem.Value
                           if not CurrentTool or not ValidAxes[CurrentTool.Name] then return end 
 
