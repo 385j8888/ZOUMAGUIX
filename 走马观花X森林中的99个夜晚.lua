@@ -532,62 +532,138 @@ zy:Toggle("自动击晕鹿", "", false, function(state)
     end
 end)
 
-zy:Toggle("老斧头杀戮光环(如果失效就重新打开)", "", false, function(state)
+
+local hhk = false
+zy:Toggle("杀戮光环(先拿斧头再开)", "", false, function(state)
     hhk = state  -- 同步阀门状态
     
     if state then
         --spawn(function()  -- 使用独立协程
             while hhk do  -- 检测阀门状态
-                  local characters = workspace:WaitForChild("Characters")
-                  --local tool = game:GetService("Players").LocalPlayer:WaitForChild("Inventory"):WaitForChild("Old Axe")
-                  local Players = game:GetService("Players")
-                  local localPlayer = Players.LocalPlayer
+                      local Players = game:GetService("Players")
+                      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                      local LocalPlayer = Players.LocalPlayer
+                      
+                      local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+                      local Humanoid = Character:WaitForChild("Humanoid")
+                      local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
 
-                  
-                  local tool = game:GetService("Players").LocalPlayer:WaitForChild("Inventory"):WaitForChild("Old Axe")
-                  local remoteEvent = game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("ToolDamageObject")
+                      local AttackRange = 100
+                      local ValidWeapons = {["Old Axe"]=true, ["Good Axe"]=true, ["Spear"]=true, ["Hatchet"]=true, ["Bone Club"]=true}
+                      local AttackRemote = ReplicatedStorage:FindFirstChild("RemoteEvents") and ReplicatedStorage.RemoteEvents:FindFirstChild("ToolDamageObject")
 
-                  local models = {}
-                  for _, child in ipairs(characters:GetChildren()) do
-                      if child:IsA("Model") then
-                          table.insert(models, child)
-                      end
-                  end
+                          if not Character or not HumanoidRootPart or not AttackRemote then return end
 
-                  for number = 1, 10000 do
-                      local code = tostring(number) .. "_8830937997"
-    
-                      for _, model in ipairs(models) do
-                          local position
-                          if model.PrimaryPart then
-                              position = model.PrimaryPart.CFrame
-                          else
-                              local firstPart = model:FindFirstChildWhichIsA("BasePart")
-                              if firstPart then
-                                  position = firstPart.CFrame
-                              else
-                                  continue  
+   
+                          local ToolHandle = Character:FindFirstChild("ToolHandle")
+                          if not ToolHandle then return end
+                          local CurrentTool = ToolHandle.OriginalItem.Value
+                          if not CurrentTool or not ValidWeapons[CurrentTool.Name] then return end
+
+   
+                          for _, Enemy in pairs(workspace.Characters:GetChildren()) do
+                              if Enemy:IsA("Model") 
+                                 and Enemy:FindFirstChild("HumanoidRootPart") 
+                                 and Enemy:FindFirstChild("HitRegisters") 
+                              then
+                                  local Distance = (HumanoidRootPart.Position - Enemy.HumanoidRootPart.Position).Magnitude
+                                  if Distance <= AttackRange then
+                                      AttackRemote:InvokeServer(Enemy, CurrentTool, true, HumanoidRootPart.CFrame)
+                                  end
                               end
                           end
-        
-                          local args = {
-                              model,  
-                              tool,
-                              true,
-                              position
-                          }
-        
-                          remoteEvent:InvokeServer(unpack(args))
-                         
-                      end
-                  end
-                  wait(0.1)
+                          wait(0.7)
             end
         --end)
     else
         print("1")
     end
 end)
+-- 自动砍树（无function/无循环/运行即生效）
+-- 功能：运行后自动砍伐100范围内树木，支持指定斧头
+
+-- 1. 初始化基础服务与核心变量
+
+
+
+
+
+local autow = false
+zy:Toggle("范围自动砍树", "", false, function(state)
+    autow = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while autow do  -- 检测阀门状态
+                      local Players = game:GetService("Players")
+                      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                      local RunService = game:GetService("RunService")
+                      local LocalPlayer = Players.LocalPlayer
+
+
+                      local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+                      local Humanoid = Character:WaitForChild("Humanoid")
+                      local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+
+                      local ChopRange = 100  
+                      local ChopCooldown = 0.7  
+                      local LastChopTime = 0 
+
+                      local ValidAxes = {["Old Axe"]=true, ["Stone Axe"]=true, ["Iron Axe"]=true}
+
+                      local ChopRemote = ReplicatedStorage:FindFirstChild("RemoteEvents") and ReplicatedStorage.RemoteEvents:FindFirstChild("ToolDamageObject")
+                          if not Character or not HumanoidRootPart or not ChopRemote then return end
+
+    
+                          local CurrentTime = tick()
+                          if CurrentTime - LastChopTime < ChopCooldown then return end
+
+   
+                          local ToolHandle = Character:FindFirstChild("ToolHandle")
+                          if not ToolHandle then return end  -- 未装备工具，跳过
+                          local CurrentTool = ToolHandle.OriginalItem.Value
+                          if not CurrentTool or not ValidAxes[CurrentTool.Name] then return end 
+
+    
+                          local TreePaths = {workspace.Map.Foliage, workspace.Map.Landmarks}
+                          for _, Path in pairs(TreePaths) do
+    
+                              if not Path then continue end
+
+      
+                              for _, Tree in pairs(Path:GetChildren()) do
+         
+                                  local IsValidTree = table.find({"Small Tree", "TreeBig1", "TreeBig2", "TreeBig3"}, Tree.Name) ~= nil
+                                  if not (Tree:IsA("Model") and IsValidTree and Tree:FindFirstChild("HitRegisters")) then
+                                      continue  
+                                  end
+
+         
+                                  local TreePart = Tree:FindFirstChild("Trunk") 
+                                                 or Tree:FindFirstChild("HumanoidRootPart") 
+                                                 or Tree.PrimaryPart
+                                  if not TreePart then continue end  
+
+           
+                                  local Distance = (HumanoidRootPart.Position - TreePart.Position).Magnitude
+                                  if Distance <= ChopRange then
+            
+                                      ChopRemote:InvokeServer(Tree, CurrentTool, true, HumanoidRootPart.CFrame)
+                                      
+                                      LastChopTime = CurrentTime  
+                                     -- break  
+                                  end
+                              end
+                          end
+                         -- wait(0.15)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+
 local huanjing = window:Tab("环境")
 local huanjing = huanjing:section("环境",true)
 huanjing:Button("全图无黑暗",function()
