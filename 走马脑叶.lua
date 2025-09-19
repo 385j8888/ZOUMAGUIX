@@ -115,19 +115,39 @@ gn:Button("一键解锁所有异想体信息",function()
 		end
 	end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/send.lua"))()
+gn:Textbox("武器最大伤害", "伤害", "请输入伤害", function(value)
+_maxd = value
 end)
-gn:Button("秒杀",function()
-local pll = game:GetService("Players")
-for _, kill in ipairs(pll:GetDescendants()) do
-		if kill.Name == "MaxDamageValue" then
-			kill.Value = 99999999999
-		end
-end
-for _, killl in ipairs(pll:GetDescendants()) do
-		if killl.Name == "MinDamageValue" then
-			killl.Value = 99999999998
-		end
-end
+gn:Textbox("武器最小伤害", "伤害", "请输入伤害", function(value)
+_maxm = value
+end)
+local msss = false
+gn:Toggle("秒杀(请先配置，伤害太大没用)", "", false, function(state)
+    msss = state  -- 同步阀门状态
+    
+    if state then
+       --  pawn(function()  -- 使用独立协程
+           
+           while msss do  -- 检测阀门状态
+                 local pll = game:GetService("Players")
+                 for _, kill in ipairs(pll:GetDescendants()) do
+                 		if kill.Name == "MaxDamageValue" then
+                 			kill.Value = _maxd
+                 		end
+                 end
+                 for _, killl in ipairs(pll:GetDescendants()) do
+                 		if killl.Name == "MinDamageValue" then
+                 			killl.Value = _maxm
+                 		end
+                 end
+                 wait(10)
+           end
+      --   end)
+    else
+        
+             print("6")
+    end
+    --loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/send.lua"))()
 end)
 gn:Button("偷别人东西",function()
 --Copy And Paste:
