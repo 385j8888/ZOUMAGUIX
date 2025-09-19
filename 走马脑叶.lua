@@ -115,6 +115,7 @@ gn:Button("一键解锁所有异想体信息",function()
 		end
 	end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/send.lua"))()
+end)
 gn:Textbox("武器最大伤害", "伤害", "请输入伤害", function(value)
 _maxd = value
 end)
