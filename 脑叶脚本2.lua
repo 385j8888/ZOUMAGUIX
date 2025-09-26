@@ -155,6 +155,10 @@ elseif a=="hi32mop"then
 _G.white=true
 elseif a=="LAUKXC"then
 _G.white=true
+elseif a=="dekwapp"then
+_G.white=true
+elseif a=="www323www"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
