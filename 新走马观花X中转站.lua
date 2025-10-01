@@ -1914,8 +1914,8 @@ end
 --return redzlib
 
 local Window = redzlib:MakeWindow({
-    Name = "Sumi走马观花X中转站",          -- 窗口标题
-    SubTitle = "by 小爱同学" -- 副标题
+    Name = "走马观花X中转站",          -- 窗口标题
+    SubTitle = "by 小爱同学❤️" -- 副标题
     --SaveFolder = "SumiHub_Data",-- 配置保存路径（可选）
     --SaveRejoin = true           -- 是否保存重新加入的配置（可选）
 })
@@ -1931,7 +1931,7 @@ Tab1:AddButton({
     end
 })
 Tab1:AddButton({
-    Title = "加载走马观花X",           -- 按钮标题
+    Title = "加载走马观花X(如果没用请到“选择服务器”那里执行)",           -- 按钮标题
     Desc = "执行脚本",   -- 按钮描述（可选）
     Callback = function()
        loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
@@ -2021,105 +2021,112 @@ Tab0:AddButton({
     end
 })
 local Tab2 = Window:MakeTab({
-    Title = "当前支持的游戏",             -- 标签页标题
+    Title = "选择服务器",             -- 标签页标题
     Icon = "moon"              -- 图标名称（可选，支持Lucide图标）
 })
 Tab2:AddButton({
-    Title = "不要点这里执行脚本啊！😭",           -- 按钮标题
-    Desc = "去主页那里执行，这里没用！",   -- 按钮描述（可选）
+    Title = "点击你想要执行的服务器",           -- 按钮标题
+    Desc = "快快快",   -- 按钮描述（可选）
     Callback = function()
         print("111")
+    end
+})
+Tab2:AddButton({
+    Title = "Fisch",           -- 按钮标题
+    Desc = "",   -- 按钮描述（可选）
+    Callback = function()
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E9%B1%BC.lua")()
     end
 })
 Tab2:AddButton({
     Title = "恶魔学",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E6%81%B6%E9%AD%94%E5%AD%A6.lua")()
     end
 })
 Tab2:AddButton({
     Title = "种植花园",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E7%A7%8D%E6%A4%8D%E8%8A%B1%E5%9B%AD.lua")()
     end
 })
 Tab2:AddButton({
     Title = "森林中的99个夜晚",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E6%A3%AE%E6%9E%97%E4%B8%AD%E7%9A%8499%E4%B8%AA%E5%A4%9C%E6%99%9A.lua")()
     end
 })
 Tab2:AddButton({
     Title = "造船寻宝",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E9%80%A0%E8%88%B9%E5%AF%BB%E5%AE%9D.lua")()
     end
 })
 Tab2:AddButton({
     Title = "生存7天",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E7%94%9F%E5%AD%987%E5%A4%A9.lua")()
     end
 })
 Tab2:AddButton({
     Title = "伐木大亨",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E7%B4%85%E4%BC%90%E6%9C%A8.lua")()
     end
 })
 Tab2:AddButton({
     Title = "战斗中的菜鸟",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X-%E6%88%98%E6%96%97%E4%B8%AD%E7%9A%84%E8%8F%9C%E9%B8%9F.lua'))()
     end
 })
 Tab2:AddButton({
     Title = "死铁轨",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E6%AD%BB%E9%93%81%E8%BD%A8.lua")()
     end
 })
 Tab2:AddButton({
     Title = "CHAIN",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X-%E9%93%BE.lua'))()
     end
 })
 Tab2:AddButton({
     Title = "nico的下一个机器人",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X-nico%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9C%BA%E5%99%A8%E4%BA%BA.lua'))()
     end
 })
 Tab2:AddButton({
     Title = "子弹推车",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E5%AD%90%E5%BC%B9%E6%8E%A8%E8%BD%A6.lua")()
     end
 })
 Tab2:AddButton({
     Title = "被遗弃",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E8%A2%AB%E9%81%97%E5%BC%83.lua")()
     end
 })
 Tab2:AddButton({
     Title = "战争大亨",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
-        print("111")
+        loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E6%88%98%E4%BA%89%E5%A4%A7%E4%BA%A8.lua")()
     end
 })
 --redzlib:SetTheme("darker") -- 可选主题：Darker、Dark、Purple、Pink
@@ -2172,10 +2179,10 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 Duration = 15})
 
 Window:Dialog({
-    Title = "你们好哇:）",
-    Text = "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈",
+    Title = "通知",
+    Text = "执行脚本按钮已移动至“选择服务器”栏",
     Options = {
-        {"意义不明", function()
+        {"好的", function()
 
         end},
         {"臭傻逼又发癫了是吧", function()
