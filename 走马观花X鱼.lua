@@ -86,6 +86,16 @@ gn:Toggle("钓鱼区域显示", "", false, function(state)
         end
     end
 end)
+gn:Button("反挂机踢出",function()
+
+local pcall
+    = pcall
+
+for _, SkibidiConnection in getconnections(game:GetService("Players").LocalPlayer.Idled) do
+    pcall(SkibidiConnection.Disable   , SkibidiConnection)
+    pcall(SkibidiConnection.Disconnect, SkibidiConnection)
+end
+end)
 gn:Toggle("禁用氧气和气温", "", false, function(state)
   --  abbaaa = state  -- 同步阀门状态
     
