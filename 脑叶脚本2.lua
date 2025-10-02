@@ -169,6 +169,8 @@ elseif a=="5754568vc"then
 _G.white=true
 elseif a=="DUCK_BANK"then
 _G.white=true
+elseif a=="wsqiiyue"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
