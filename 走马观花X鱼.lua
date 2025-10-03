@@ -150,6 +150,48 @@ gn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
         print("6")
     end
 end)
+local yg = false
+gn:Toggle("鱼钩快速下水", "", false, function(state)
+    yg = state  -- 同步阀门状态
+    
+    if state then
+    
+         local part = Instance.new("Part")
+         part.Name = "ZOUMApart"
+         part.Size = Vector3.new(30, 30, 10)
+         part.Anchored = true
+         part.CanCollide = true
+         part.Material = Enum.Material.Plastic
+         part.BrickColor = BrickColor.new("Bright red")
+         part.Transparency = 1
+         part.Parent = workspace
+      while yg do
+         local Players = game:GetService("Players")
+         local RunService = game:GetService("RunService")
+
+         local localPlayer = Players.LocalPlayer
+         local ZOUMApart = workspace:FindFirstChild("ZOUMApart")
+             local character = localPlayer.Character
+             if character then
+                 local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                 if humanoidRootPart then
+                     local playerPosition = humanoidRootPart.Position
+                     local playerLookVector = humanoidRootPart.CFrame.LookVector
+                     local targetPosition = playerPosition + playerLookVector * 11
+            
+                     ZOUMApart.Position = targetPosition
+            
+                     local lookAtCFrame = CFrame.lookAt(targetPosition, playerPosition)
+                     ZOUMApart.CFrame = lookAtCFrame
+                 end
+             end
+         wait(0.001)
+      end
+    else
+        local ZOUMApart = workspace:FindFirstChild("ZOUMApart")
+        ZOUMApart:Destroy()
+    end
+end)
 local bt = false
 gn:Toggle("追踪白条", "", false, function(state)
     bt = state  -- 同步阀门状态
@@ -189,7 +231,7 @@ gn:Toggle("逆天白条(仅供观赏)", "", false, function(state)
          local currentSize = playerbar.Size
          local newSize = UDim2.new(
              currentSize.X.Scale, 
-             currentSize.X.Offset + 30, -- 增加横向Offset
+             currentSize.X.Offset + 30, 
              currentSize.Y.Scale, 
              currentSize.Y.Offset
          )
@@ -224,7 +266,7 @@ gn:Toggle("自动抛竿", "", false, function(state)
                  end
              end
          end
-         wait(0.2)
+         wait(0.05)
       end
     else
         print("6")
@@ -1173,70 +1215,4 @@ end)
 
 
 
-
-
-
-
-
-
-
-local game, typeof, tostring, pcall, warn, taskwait
-    = game, typeof, tostring, pcall, warn, task.wait
-
-local getcallingscript, checkcaller, getnamecallmethod, GetFullName
-    = getcallingscript, checkcaller, getnamecallmethod, game.GetFullName
-
-local ExecutorName = identifyexecutor()
-
-local Global  = getgenv()
-local Speaker = game:GetService("Players").LocalPlayer
-
-local OldIsHooked, OldIndex, OldNameCall
-local OldFunction = clonefunction(Speaker.Kick)
-
-local function GetCalling(CallingScript, ExecutorCall)
-    local Calling = CallingScript or ExecutorCall and (`{ExecutorName} LocalScript`)
-
-    if typeof(Calling) == "Instance" then Calling = GetFullName(Calling)
-    elseif not Calling then Calling = "Unknown" end
-
-    return Calling
-end
-
-local function NewAntiKick(Method, Old)
-    return function(self, ...)
-        if Global.SafeRJ then return Old(self, ...) end
-        if Method == "__namecall" and getnamecallmethod() ~= "Kick" then return Old(self, ...) end
-
-        local Calling = GetCalling(getcallingscript(), checkcaller())
-        local Message = not pcall(tostring, ...) and "" or tostring(...)
-
-        warn(`[Anti Kick] Something trying to call 'Player.Kick', calling script: "{Calling}"`)
-        warn(`[Anti Kick] Bypassed kick! Kick message: "{Message}"`)
-        return (function()
-            repeat taskwait(9e9) until nil
-        end)()
-    end
-end
-
-OldNameCall = hookmetamethod(game, "__namecall", function(...)
-    return OldNameCall(...)
-end)
-
-OldIsHooked = hookfunction(isfunctionhooked, function(Function)
-    if Function == Speaker.Kick then return false end
-    return OldIsHooked(Function)
-end)
-
-hookfunction  (Speaker.Kick,       NewAntiKick("hookfunction", OldFunction))
-hookmetamethod(game, "__namecall", NewAntiKick("__namecall",   OldNameCall))
-
-OldIndex = hookmetamethod(game, "__index", function(self, Key)
-    if Global.SafeRJ then return OldIndex(self, Key) end
-    if self ~= Speaker or Key ~= "Kick" then return OldIndex(self, Key) end
-
-    local Calling = GetCalling(getcallingscript(), checkcaller())
-
-    warn(`[Anti Kick] Something trying to index kick, calling script: "{Calling}"`)
-    return OldIndex(self, Key)
-end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Anti%20Kick.txt"))()
