@@ -281,6 +281,34 @@ gn:Toggle("自动抛竿", "", false, function(state)
         print("6")
     end
 end)
+local gdgd = false
+gn:Toggle("固定位置", "", false, function(state)
+    gdgd = state  -- 同步阀门状态
+    
+    if state then
+      while gdgd do
+         local Players = game:GetService("Players")
+         local player = Players.LocalPlayer
+         local character = player.Character
+         if not character then return end
+    
+         local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+         if not humanoidRootPart then return end
+         humanoidRootPart.Anchored = true
+         wait(15)
+      end
+    else
+        
+         local Players = game:GetService("Players")
+         local player = Players.LocalPlayer
+         local character = player.Character
+         if not character then return end
+    
+         local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+         if not humanoidRootPart then return end
+         humanoidRootPart.Anchored = false
+    end
+end)
 -- 脚本由TurtleSpy生成，由Interr#0421制作
         
 local abbaaaa = false
@@ -381,848 +409,189 @@ cus:Button("如果传送失效就点一下这个按钮",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 end)
 cus:Button("亚特兰蒂斯(下面)",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-4264.7900390625, -603.4039916992188, 1829.273681640625)
 end)
 cus:Button("宝藏岛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(8205.4833984375, 230.37974548339844, -17182.251953125)
 end)
 cus:Button("荒凉深渊",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1660.6026611328125, -214.1817626953125, -2844.743896484375)
 end)
 cus:Button("锻造台",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-3160.477294921875, -745.4639892578125, 1674.84423828125)
 end)
 cus:Button("发光洞穴蓝拉杆",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1014.9747924804688, -329.47760009765625, -4428.80859375)
 end)
 cus:Button("发光洞穴入口",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1068.18115234375, -336.73565673828125, -3293.738525390625)
 end)
 cus:Button("发光洞穴红拉杆",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1153.662841796875, -316.111083984375, -4962.30078125)
 end)
 cus:Button("发光洞穴",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1013.4955444335938, -336.7330322265625, -4073.86962890625)
 end)
 cus:Button("雪冒岛隐藏钓点",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(2758.907470703125, 97.53933715820312, 2597.747802734375)
 end)
 cus:Button("出生岛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(382.9505920410156, 134.50051879882812, 237.30938720703125)
 end)
 
 cus:Button("古老岛屿",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(6057.5791015625, 208.15245056152344, 292.3509216308594)
 end)
 
 cus:Button("雪冒岛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(2682.665283203125, 161.4478302001953, 2384.32568359375)
 end)
 
 cus:Button("特拉平岛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-208.1078643798828, 155.8275146484375, 1963.3623046875)
 end)
 
 cus:Button("雪山山脚",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(19642.55078125, 135.83665466308594, 5270.9912109375)
 end)
 
 
 cus:Button("阳光石岛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-974.8106079101562, 240.30027770996094, -981.3389282226562)
 end)
 
 cus:Button("主权雕像",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(13.016674995422363, 167.170166015625, -1056.0355224609375)
 end)
 
 
 cus:Button("附魔祭坛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(1309.8587646484375, -796.2621459960938, -87.50021362304688)
 end)
 
 cus:Button("蘑菇岛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(2508.368408203125, 138.50160217285156, -773.0167846679688)
 end)
 
 
 cus:Button("扔掉山崖",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(664.8042602539062, 170.88531494140625, -1836.387939453125)
 end)
 
 cus:Button("拱门",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(1000.2120361328125, 134.92413330078125, -1242.7337646484375)
 end)
 
 cus:Button("罗斯利特湾",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1473.056884765625, 139.18624877929688, 686.4512939453125)
 end)
 
 
 cus:Button("被遗弃的海岸",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-2497.70361328125, 165.330322265625, 1559.8797607421875)
 end)
 
 
 cus:Button("大珊瑚礁岛",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-3594.52001953125, 177.25526428222656, 505.4884338378906)
 end)
 
 cus:Button("克拉肯池",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-4390.84228515625, -995.4644775390625, 2051.28271484375)
 end)
 cus:Button("被遗弃者的面纱",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-2346.57861328125, -11179.513671875, 7089.8251953125)
 end)
 
 cus:Button("收割者尖刺",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1270.127197265625, 182.394287109375, 1551.2906494140625)
 end)
 
 cus:Button("宙斯之池",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-4297.82275390625, -625.8343505859375, 2680.991943359375)
 end)
 cus:Button("火山通风口",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-3189.4443359375, -2030.4508056640625, 4039.690673828125)
 end)
 cus:Button("深度",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(948.22216796875, -697.5197143554688, 1238.4603271484375)
 end)
 cus:Button("深度钥匙口",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-55.2778205871582, -701.5311889648438, 1229.11083984375)
 end)
 cus:Button("头晕",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-112.0014877319336, -491.4021301269531, 1040.3514404296875)
 end)
 
 cus:Button("深度钥匙钓鱼点",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-26.641450881958008, 142.48489379882812, 710.8816528320312)
 end)
 cus:Button("神秘钓鱼地点",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(993.1201782226562, 123.99878692626953, 9930.18359375)
 end)
 cus:Button("虚空深渊",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-3802.828857421875, -557.940673828125, 1834.17919921875)
 end)
 
 cus:Button("水晶湾",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(1373.1517333984375, -597.0322265625, 2339.449951171875)
 end)
 
 cus:Button("挑战者之深",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(813.7798461914062, -3343.830810546875, -1519.661865234375)
 end)
 
 cus:Button("胡萝卜池",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(3730.94287109375, -1120.4844970703125, -1094.8516845703125)
 end)
 cus:Button("棱镜区",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-4334.701171875, -11165.6005859375, 3699.466796875)
 end)
 
 cus:Button("酸池",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1795.1666259765625, -130.32418823242188, -3402.124755859375)
 end)
 cus:Button("蓝月，第一海",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(2699.353271484375, 132.0272674560547, 2584.4931640625)
 end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Anti%20Kick.txt"))()
