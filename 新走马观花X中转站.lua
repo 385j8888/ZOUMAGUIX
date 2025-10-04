@@ -1935,8 +1935,9 @@ Tab1:AddButton({
     Desc = "执行脚本",   -- 按钮描述（可选）
     Callback = function()
        loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
-        wait(5)
-      --  local zmui = game:GetService("CoreGui").ZOUMAGU
+       if game.PlaceId == 16732694052 then
+          loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/notif.lua")()
+       end
     end
 })
 Tab1:AddButton({
@@ -2036,6 +2037,7 @@ Tab2:AddButton({
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
         loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E9%B1%BC.lua")()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/notif.lua"))()
     end
 })
 Tab2:AddButton({
