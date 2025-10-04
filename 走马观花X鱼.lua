@@ -1,18 +1,8 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/ProtectUI.lua"))()
 local replicatedStorage = game:GetService("ReplicatedStorage")
 local lp = game.Players.LocalPlayer
-local Mouse = lp:GetMouse()
 --local lp = gs("Players").LocalPlayer
-local pos = lp.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
-local Mouse = game:GetService('Players').LocalPlayer:GetMouse()
---local CurrentSlot = game.Players.LocalPlayer:WaitForChild("CurrentSaveSlot").Value
-local ScriptLoadOrSave = false
---local CurrentlySavingOrLoading = game.Players.LocalPlayer:WaitForChild("CurrentlySavingOrLoading")
-local mouse = game.Players.LocalPlayer:GetMouse()
-local tp = function(p)
-    lp.Character:PivotTo(p)
-end
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "走马观花X";
 	Text = "脚本永远免费";
