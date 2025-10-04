@@ -179,6 +179,8 @@ elseif a=="rip_yehenara"then
 _G.white=true
 elseif a=="oppo232368"then
 _G.white=true
+elseif a=="jkri1333"then
+_G.white=true
 end
 if _G.white==true then
     print("验证成功")
