@@ -175,7 +175,7 @@ elseif a=="385jjj11"then
 _G.white=true
 elseif a=="rhddr91"then
 _G.white=true
-elseif a=="rip_yehenara"then
+elseif a=="RIP_Yehenara"then
 _G.white=true
 elseif a=="oppo232368"then
 _G.white=true
