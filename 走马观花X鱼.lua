@@ -232,7 +232,26 @@ gn:Toggle("逆天白条(仅供观赏)", "", false, function(state)
         print("6")
     end
 end)
-
+local nuk = false
+gn:Toggle("出核弹立马退出(帮你保住核弹)", "", false, function(state)
+    nuk = state  -- 同步阀门状态
+    
+    if state then
+      while nuk do
+         local Players = game:GetService("Players")
+         local LocalPlayer = Players.LocalPlayer
+         local nuke = LocalPlayer.PlayerGui.NukeMinigame
+         if nuke.Enabled == true then
+             game:shutdown()
+             game.Players.LocalPlayer:Kick()
+             game.Players.LocalPlayer:Destroy()
+         end
+         wait(0.05)
+      end
+    else
+        print("6")
+    end
+end)
 local abbaaa = false
 gn:Toggle("自动抛竿", "", false, function(state)
     abbaaa = state  -- 同步阀门状态
