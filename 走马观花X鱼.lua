@@ -286,27 +286,14 @@ gn:Toggle("固定位置", "", false, function(state)
     gdgd = state  -- 同步阀门状态
     
     if state then
+      local dangqiangps = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
       while gdgd do
-         local Players = game:GetService("Players")
-         local player = Players.LocalPlayer
-         local character = player.Character
-         if not character then return end
-    
-         local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-         if not humanoidRootPart then return end
-         humanoidRootPart.Anchored = true
-         wait(15)
+         local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+         ME.CFrame = dangqiangps
+         wait(0.03)
       end
     else
-        
-         local Players = game:GetService("Players")
-         local player = Players.LocalPlayer
-         local character = player.Character
-         if not character then return end
-    
-         local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-         if not humanoidRootPart then return end
-         humanoidRootPart.Anchored = false
+      print("6")
     end
 end)
 -- 脚本由TurtleSpy生成，由Interr#0421制作
@@ -396,7 +383,7 @@ end)
 
 local gm = window:Tab("购买")
 local gm = gm:section("购买",true)
-gm:Button("买一块力量石11000CS",function()
+gm:Button("无",function()
 workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power"):InvokeServer()
 end)
 local pl = window:Tab("玩家功能")
@@ -405,9 +392,6 @@ local pl = pl:section("功能",true)
 
 local cus = window:Tab("传送")
 local cus = cus:section("传送",true)
-cus:Button("如果传送失效就点一下这个按钮",function()
-local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
-end)
 cus:Button("亚特兰蒂斯(下面)",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-4264.7900390625, -603.4039916992188, 1829.273681640625)
