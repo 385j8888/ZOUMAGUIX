@@ -267,9 +267,9 @@ gn:Toggle("自动抛竿", "", false, function(state)
                  if tool:IsA("Tool") then
                      local events = tool:FindFirstChild("events")
                      if events then
-                         local castEvent = events:FindFirstChild("cast")
-                         if castEvent and castEvent:IsA("RemoteEvent") then
-                             castEvent:FireServer(unpack(args))
+                         local castEvent = events:FindFirstChild("castAsync")
+                         if castEvent then
+                             castEvent:InvokeServer(100,1)
                          end
                      end
                  end
@@ -281,6 +281,7 @@ gn:Toggle("自动抛竿", "", false, function(state)
         print("6")
     end
 end)
+-- 脚本由TurtleSpy生成，由Interr#0421制作
         
 local abbaaaa = false
 gn:Toggle("自动摇晃", "", false, function(state)
