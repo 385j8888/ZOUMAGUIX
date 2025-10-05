@@ -579,18 +579,3 @@ local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(2699.353271484375, 132.0272674560547, 2584.4931640625)
 end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Anti%20Kick.txt"))()
-local LocalPlayer = game:GetService("Players").LocalPlayer
-local oldhmmi
-local oldhmmnc
-
-oldhmmi = hookmetamethod(game, "__index", function(self, method)
-if self == LocalPlayer and method:lower() == "kick" then
-return error("Expected ':' not '.' calling member function Kick", 2)
-end
-return oldhmmi(self, method)
-end)
-oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
-if self == LocalPlayer and getnamecallmethod():lower() == "kick" then
-return
-end
-return oldhmmnc(self, ...)
