@@ -13,30 +13,6 @@ if not shared.AntiBanLoop then
 end
 local loopData = shared.AntiBanLoop
 
-local function AntiChatLogger()
-    local StarterGui = game:GetService("StarterGui")
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer
-    local PlayerScripts = Player:WaitForChild("PlayerScripts")
-
-    local ChatMain = PlayerScripts:FindFirstChild("ChatMain", true)
-    if ChatMain then
-        local PostMessage = require(ChatMain).MessagePosted
-        if PostMessage then
-            local OldHook
-            OldHook = hookfunction(PostMessage.fire, function(self, Message)
-                if not checkcaller() and self == PostMessage then
-                    return
-                end
-                return OldHook(self, Message)
-            end)
-        end
-    end
-    if setfflag then
-        setfflag("AbuseReportScreenshot", "False")
-        setfflag("AbuseReportScreenshotPercentage", "0")
-    end
-end
 
 local function hookOnce()
     if not loopData.hookedFind then
@@ -95,7 +71,7 @@ local function setFlagsOn()
 end
 
 hookOnce()
-AntiChatLogger()
+--AntiChatLogger()
 setFlagsOff()
 loopData.running = true
 task.spawn(function()
