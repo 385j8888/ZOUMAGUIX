@@ -3,6 +3,108 @@ local replicatedStorage = game:GetService("ReplicatedStorage")
 local lp = game.Players.LocalPlayer
 --local lp = gs("Players").LocalPlayer
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+local LocalCharacter = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+
+if not shared.AntiBanLoop then
+    shared.AntiBanLoop = {running = false, hooked = false}
+end
+local loopData = shared.AntiBanLoop
+
+local function AntiChatLogger()
+    local StarterGui = game:GetService("StarterGui")
+    local Players = game:GetService("Players")
+    local Player = Players.LocalPlayer
+    local PlayerScripts = Player:WaitForChild("PlayerScripts")
+
+    local ChatMain = PlayerScripts:FindFirstChild("ChatMain", true)
+    if ChatMain then
+        local PostMessage = require(ChatMain).MessagePosted
+        if PostMessage then
+            local OldHook
+            OldHook = hookfunction(PostMessage.fire, function(self, Message)
+                if not checkcaller() and self == PostMessage then
+                    return
+                end
+                return OldHook(self, Message)
+            end)
+        end
+    end
+    if setfflag then
+        setfflag("AbuseReportScreenshot", "False")
+        setfflag("AbuseReportScreenshotPercentage", "0")
+    end
+end
+
+local function hookOnce()
+    if not loopData.hookedFind then
+        local oldFind = workspace.FindFirstChild
+        if typeof(oldFind) == "function" and hookfunction then
+            hookfunction(oldFind, function(self, ...)
+                local args = {...}
+                if tostring(args[1]):lower():find("screenshot") then
+                    return nil
+                end
+                return oldFind(self, unpack(args))
+            end)
+            loopData.hookedFind = true
+        end
+    end
+
+    if not loopData.hookedRequest then
+        local oldRequest = (syn and syn.request) or request or http_request
+        if hookfunction and typeof(oldRequest) == "function" then
+            hookfunction(oldRequest, function(req)
+                if req and req.Url and tostring(req.Url):lower():find("abuse") then
+                    return {StatusCode = 200, Body = "Blocked"}
+                end
+                return oldRequest(req)
+            end)
+            loopData.hookedRequest = true
+        end
+    end
+end
+
+local function setFlagsOff()
+    local flags = {
+        "AbuseReportScreenshot",
+        "AbuseReportScreenshotPercentage",
+        "AbuseReportEnabled",
+        "ReportAbuseMenu",
+        "EnableAbuseReportScreenshot"
+    }
+    for _, flag in ipairs(flags) do
+        if typeof(setfflag) == "function" then
+            pcall(function()
+                setfflag(flag, "False")
+            end)
+        end
+    end
+    if typeof(setfflag) == "function" then
+        setfflag("AbuseReportScreenshotPercentage", "0")
+    end
+end
+
+local function setFlagsOn()
+    if typeof(setfflag) == "function" then
+        setfflag("AbuseReportScreenshot", "True")
+        setfflag("AbuseReportScreenshotPercentage", "100")
+    end
+end
+
+hookOnce()
+AntiChatLogger()
+setFlagsOff()
+loopData.running = true
+task.spawn(function()
+    while loopData.running do
+        setFlagsOff()
+        task.wait(0.05)
+    end
+end)
+
+
+
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "走马观花X";
 	Text = "脚本永远免费";
@@ -358,7 +460,59 @@ gn:Toggle("自动摇晃", "", false, function(state)
         print("6")
     end
 end)
+-- 自动摇杆功能
+local a = "b"
+local function autoShake()
+    if a == "b" then
+        task.wait()
+        xpcall(function()
+            local shakeui = PlayerGui:FindFirstChild("shakeui")
+            if not shakeui then return end
+            local safezone = shakeui:FindFirstChild("safezone")
+            local button = safezone and safezone:FindFirstChild("button")
+            task.wait(0.2)
+            game:GetService("GuiService").SelectedObject = button -- 选中按钮
+            if game:GetService("GuiService").SelectedObject == button then
+                VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game) -- 模拟回车键
+                VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
+            end
+            task.wait(0.1)
+            game:GetService("GuiService").SelectedObject = nil
+        end, function(err) end)
+    elseif ShakeMode == "Mouse" then -- 鼠标模式
+        task.wait()
+        xpcall(function()
+            local shakeui = PlayerGui:FindFirstChild("shakeui")
+            if not shakeui then return end
+            local safezone = shakeui:FindFirstChild("safezone")
+            local button = safezone and safezone:FindFirstChild("button")
+            local pos = button.AbsolutePosition
+            local size = button.AbsoluteSize
+            VirtualInputManager:SendMouseButtonEvent(pos.X + size.X / 2, pos.Y + size.Y / 2, 0, true, LocalPlayer, 0) -- 模拟鼠标点击
+            VirtualInputManager:SendMouseButtonEvent(pos.X + size.X / 2, pos.Y + size.Y / 2, 0, false, LocalPlayer, 0)
+        end, function(err) end)
+    end
+end
 
+-- 启动自动摇杆
+--local function startAutoShake()
+--    if autoShakeConnection or not autoShakeEnabled then return end
+--    autoShakeConnection = RunService.RenderStepped:Connect(autoShake)
+--end
+
+local sk = false
+gn:Toggle("自动摇晃2", "", false, function(state)
+    sk = state  -- 同步阀门状态
+    
+    if state then
+      while sk do
+         autoShake()
+         wait(0.001)
+      end
+    else
+        print("6")
+    end
+end)
 local oceanwalk = false
 gn:Toggle("海上行走", "", false, function(state)
     oceanwalk = state  -- 同步阀门状态
@@ -381,17 +535,89 @@ gn:Toggle("海上行走", "", false, function(state)
     end
 end)
 
-local gm = window:Tab("购买")
-local gm = gm:section("购买",true)
-gm:Button("无",function()
-workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power"):InvokeServer()
+local buyandsell = window:Tab("购买和出售")
+local sel = buyandsell:section("出售",true)
+sel:Button("卖手上的鱼",function()
+    game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("Sell"):InvokeServer()
 end)
-local pl = window:Tab("玩家功能")
-local pl = pl:section("功能",true)
-
+local se = false
+sel:Toggle("自动出售手上的鱼", "", false, function(state)
+    se = state  -- 同步阀门状态
+    
+    if state then
+      while se do
+         game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("Sell"):InvokeServer()
+         wait(0.1)
+      end
+    else
+        print("6")
+    end
+end)
+sel:Button("卖全部鱼",function()
+    game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("SellAll"):InvokeServer()
+end)
+sel:Button("评估鱼",function()
+    workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Appraiser"):WaitForChild("appraiser"):WaitForChild("appraise"):InvokeServer()
+end)
 
 local cus = window:Tab("传送")
 local cus = cus:section("传送",true)
+local FishingSection = cus:section("特殊传送",true)
+FishingSection:Button("极光图腾传送", function()
+    HumanoidRootPart.CFrame = CFrame.new(-1811, -137, -3282)
+end)
+
+FishingSection:Button("日晷图腾传送", function()
+    HumanoidRootPart.CFrame = CFrame.new(-1148, 135, -1075)
+end)
+
+FishingSection:Button("风息图腾传送", function()
+    HumanoidRootPart.CFrame = CFrame.new(2849, 178, 2702)
+end)
+
+FishingSection:Button("烟幕图腾传送", function()
+    HumanoidRootPart.CFrame = CFrame.new(2789, 140, -625)
+end)
+
+FishingSection:Button("暴风图腾传送", function()
+    HumanoidRootPart.CFrame = CFrame.new(35, 133, 1943)
+end)
+
+FishingSection:Button("奇异漩涡传送", function()
+    local offset = Vector3.new(25, 135, 25)
+    local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Isonade")
+    if not WorldEvent then return ShowNotification("未找到 奇异漩涡") end
+    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing.Isonade.Position + offset)
+end)
+
+FishingSection:Button("锤头双髻鲨传送", function()
+    local offset = Vector3.new(0, 135, 0)
+    local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Great Hammerhead Shark")
+    if not WorldEvent then return ShowNotification("未找到 锤头双髻鲨") end
+    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["Great Hammerhead Shark"].Position + offset)
+end)
+
+FishingSection:Button("大白鲨传送", function()
+    local offset = Vector3.new(0, 135, 0)
+    local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Great White Shark")
+    if not WorldEvent then return ShowNotification("未找到 大白鲨") end
+    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["Great White Shark"].Position + offset)
+end)
+
+FishingSection:Button("鲸鲨传送", function()
+    local offset = Vector3.new(0, 135, 0)
+    local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Whale Shark")
+    if not WorldEvent then return ShowNotification("未找到 鲸鲨") end
+    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["Whale Shark"].Position + offset)
+end)
+
+FishingSection:Button("深渊-海蛇传送", function()
+    local offset = Vector3.new(0, 50, 0)
+    local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("The Depths - Serpent")
+    if not WorldEvent then return ShowNotification("未找到 深渊-海蛇") end
+    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["The Depths - Serpent"].Position + offset)
+end)
+
 cus:Button("亚特兰蒂斯(下面)",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-4264.7900390625, -603.4039916992188, 1829.273681640625)
