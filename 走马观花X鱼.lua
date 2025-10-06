@@ -7,10 +7,6 @@ local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 local Character = localPlayer.Character
 local LocalCharacter = localPlayer.Character
-
-
-
-
 local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "走马观花X";
