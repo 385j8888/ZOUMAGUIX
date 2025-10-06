@@ -514,12 +514,32 @@ gn:Toggle("海上行走", "", false, function(state)
                   ocean.CanCollide = true
               end
           end
+          for _, docean in pairs(workspace:GetDescendants()) do
+              if docean.Name=="Deep Ocean" then
+                  docean.CanCollide = true
+              end
+          end
+          for _, fishocean in pairs(workspace.zones.fishing:GetDescendants()) do
+              if fishocean:IsA("Part") then
+                  fishocean.CanCollide = true
+              end
+          end
      --    wait(20)
    --   end
     else
           for _, ocean in pairs(workspace:GetDescendants()) do
               if ocean.Name=="Ocean" then
                   ocean.CanCollide = false
+              end
+          end
+          for _, docean in pairs(workspace:GetDescendants()) do
+              if docean.Name=="Deep Ocean" then
+                  docean.CanCollide = false
+              end
+          end
+          for _, fishocean in pairs(workspace.zones.fishing:GetDescendants()) do
+              if fishocean:IsA("Part") then
+                  fishocean.CanCollide = false
               end
           end
     end
