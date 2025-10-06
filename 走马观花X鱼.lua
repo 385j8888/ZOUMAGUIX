@@ -7,6 +7,21 @@ local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 local Character = localPlayer.Character
 local LocalCharacter = localPlayer.Character
+if not shared.AntiBanLoop then
+    shared.AntiBanLoop = {running = false, hooked = false}
+end
+local loopData = shared.AntiBanLoop
+
+
+
+NO_HOOKING = false
+NO_HOOKING = typeof(hookfunction) ~= "function"
+hookfunction = (typeof(hookfunction) == "function" and hookfunction) or function(...) end
+hookmetamethod = (typeof(hookmetamethod) == "function" and hookmetamethod) or function(...) end
+setthreadidentity = (typeof(setthreadidentity) == "function" and setthreadidentity) or function(...) end
+
+
+
 local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "走马观花X";
@@ -45,15 +60,6 @@ local credits = creds:section("UI设置",true)
     end)
 local gn = window:Tab("主要功能")
 local gn = gn:section("主要功能",true)
-gn:Button("卖手上的鱼",function()
-    game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("Sell"):InvokeServer()
-end)
-gn:Button("卖全部鱼",function()
-    game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("SellAll"):InvokeServer()
-end)
-gn:Button("评估鱼",function()
-    workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Appraiser"):WaitForChild("appraiser"):WaitForChild("appraise"):InvokeServer()
-end)
 gn:Toggle("钓鱼区域显示", "", false, function(state)
   --  abbaaa = state  -- 同步阀门状态
     
@@ -363,45 +369,7 @@ gn:Toggle("自动摇晃", "", false, function(state)
         print("6")
     end
 end)
--- 自动摇杆功能
-local a = "b"
-local function autoShake()
-    if a == "b" then
-        task.wait()
-        xpcall(function()
-            local shakeui = PlayerGui:FindFirstChild("shakeui")
-            if not shakeui then return end
-            local safezone = shakeui:FindFirstChild("safezone")
-            local button = safezone and safezone:FindFirstChild("button")
-            task.wait(0.2)
-            game:GetService("GuiService").SelectedObject = button -- 选中按钮
-            if game:GetService("GuiService").SelectedObject == button then
-                VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game) -- 模拟回车键
-                VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
-            end
-            task.wait(0.1)
-            game:GetService("GuiService").SelectedObject = nil
-        end, function(err) end)
-    elseif ShakeMode == "Mouse" then -- 鼠标模式
-        task.wait()
-        xpcall(function()
-            local shakeui = PlayerGui:FindFirstChild("shakeui")
-            if not shakeui then return end
-            local safezone = shakeui:FindFirstChild("safezone")
-            local button = safezone and safezone:FindFirstChild("button")
-            local pos = button.AbsolutePosition
-            local size = button.AbsoluteSize
-            VirtualInputManager:SendMouseButtonEvent(pos.X + size.X / 2, pos.Y + size.Y / 2, 0, true, LocalPlayer, 0) -- 模拟鼠标点击
-            VirtualInputManager:SendMouseButtonEvent(pos.X + size.X / 2, pos.Y + size.Y / 2, 0, false, LocalPlayer, 0)
-        end, function(err) end)
-    end
-end
 
--- 启动自动摇杆
---local function startAutoShake()
---    if autoShakeConnection or not autoShakeEnabled then return end
---    autoShakeConnection = RunService.RenderStepped:Connect(autoShake)
---end
 
 local oceanwalk = false
 gn:Toggle("海上行走", "", false, function(state)
@@ -457,7 +425,7 @@ sel:Toggle("自动出售手上的鱼", "", false, function(state)
     if state then
       while se do
          game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("Sell"):InvokeServer()
-         wait(0.1)
+         wait(0.05)
       end
     else
         print("6")
@@ -518,7 +486,7 @@ FishingSection:Button("巨齿鲨传送", function()
     local offset = Vector3.new(0, 50, 0)
     local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Megalodon Default")
     if not WorldEvent then return end
-    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["The Depths - Serpent"].Position + offset)
+    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["Megalodon Default"].Position + offset)
 end)
 FishingSection:Button("鲸鲨传送", function()
     local offset = Vector3.new(0, 135, 0)
