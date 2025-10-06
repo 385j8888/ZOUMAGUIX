@@ -3,7 +3,10 @@ local replicatedStorage = game:GetService("ReplicatedStorage")
 local lp = game.Players.LocalPlayer
 --local lp = gs("Players").LocalPlayer
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
-local LocalCharacter = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
 
 if not shared.AntiBanLoop then
     shared.AntiBanLoop = {running = false, hooked = false}
@@ -500,19 +503,6 @@ end
 --    autoShakeConnection = RunService.RenderStepped:Connect(autoShake)
 --end
 
-local sk = false
-gn:Toggle("自动摇晃2", "", false, function(state)
-    sk = state  -- 同步阀门状态
-    
-    if state then
-      while sk do
-         autoShake()
-         wait(0.001)
-      end
-    else
-        print("6")
-    end
-end)
 local oceanwalk = false
 gn:Toggle("海上行走", "", false, function(state)
     oceanwalk = state  -- 同步阀门状态
@@ -560,9 +550,9 @@ sel:Button("评估鱼",function()
     workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Appraiser"):WaitForChild("appraiser"):WaitForChild("appraise"):InvokeServer()
 end)
 
-local cus = window:Tab("传送")
-local cus = cus:section("传送",true)
-local FishingSection = cus:section("特殊传送",true)
+local cuss = window:Tab("传送")
+local cus = cuss:section("传送",true)
+local FishingSection = cuss:section("特殊传送",true)
 FishingSection:Button("极光图腾传送", function()
     HumanoidRootPart.CFrame = CFrame.new(-1811, -137, -3282)
 end)
