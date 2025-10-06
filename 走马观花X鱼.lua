@@ -596,35 +596,41 @@ end)
 FishingSection:Button("奇异漩涡传送", function()
     local offset = Vector3.new(25, 135, 25)
     local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Isonade")
-    if not WorldEvent then return ShowNotification("未找到 奇异漩涡") end
+    if not WorldEvent then return end
     HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing.Isonade.Position + offset)
 end)
 
 FishingSection:Button("锤头双髻鲨传送", function()
     local offset = Vector3.new(0, 135, 0)
     local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Great Hammerhead Shark")
-    if not WorldEvent then return ShowNotification("未找到 锤头双髻鲨") end
+    if not WorldEvent then return end
     HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["Great Hammerhead Shark"].Position + offset)
 end)
 
 FishingSection:Button("大白鲨传送", function()
     local offset = Vector3.new(0, 135, 0)
     local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Great White Shark")
-    if not WorldEvent then return ShowNotification("未找到 大白鲨") end
+    if not WorldEvent then return end
     HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["Great White Shark"].Position + offset)
 end)
 
+FishingSection:Button("巨齿鲨传送", function()
+    local offset = Vector3.new(0, 50, 0)
+    local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Megalodon Default")
+    if not WorldEvent then return end
+    HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["The Depths - Serpent"].Position + offset)
+end)
 FishingSection:Button("鲸鲨传送", function()
     local offset = Vector3.new(0, 135, 0)
     local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("Whale Shark")
-    if not WorldEvent then return ShowNotification("未找到 鲸鲨") end
+    if not WorldEvent then return end
     HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["Whale Shark"].Position + offset)
 end)
 
 FishingSection:Button("深渊-海蛇传送", function()
     local offset = Vector3.new(0, 50, 0)
     local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("The Depths - Serpent")
-    if not WorldEvent then return ShowNotification("未找到 深渊-海蛇") end
+    if not WorldEvent then return end
     HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["The Depths - Serpent"].Position + offset)
 end)
 
