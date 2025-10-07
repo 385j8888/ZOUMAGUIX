@@ -193,7 +193,7 @@ end
       drag(Main)
       
       UICornerMain.Parent = Main
-      UICornerMain.CornerRadius = UDim.new(0,3)
+      UICornerMain.CornerRadius = UDim.new(0,25)
       
       DropShadowHolder.Name = "DropShadowHolder"
       DropShadowHolder.Parent = Main
@@ -243,7 +243,7 @@ end
       TabMain.Position = UDim2.new(0.217000037, 0, 0, 3)
       TabMain.Size = UDim2.new(0, 448, 0, 353)
       
-      MainC.CornerRadius = UDim.new(0, 5.5)
+      MainC.CornerRadius = UDim.new(0, 10)
       MainC.Name = "MainC"
       MainC.Parent = Frame
       
@@ -253,7 +253,7 @@ end
       SB.BorderColor3 = MainColor
       SB.Size = UDim2.new(0, 8, 0, 353)
       
-      SBC.CornerRadius = UDim.new(0, 6)
+      SBC.CornerRadius = UDim.new(0, 10)
       SBC.Name = "SBC"
       SBC.Parent = SB
       
@@ -508,7 +508,7 @@ end
           Section.ClipsDescendants = true
           Section.Size = UDim2.new(0.981000006, 0, 0, 36)
           
-          SectionC.CornerRadius = UDim.new(0, 6)
+          SectionC.CornerRadius = UDim.new(0, 10)
           SectionC.Name = "SectionC"
           SectionC.Parent = Section
           
@@ -606,7 +606,7 @@ end
             Btn.TextSize = 16.000
             Btn.TextXAlignment = Enum.TextXAlignment.Left
             
-            BtnC.CornerRadius = UDim.new(0, 6)
+            BtnC.CornerRadius = UDim.new(0, 10)
             BtnC.Name = "BtnC"
             BtnC.Parent = Btn
     
@@ -643,7 +643,7 @@ end
           TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
           TextLabel.TextSize = 14.000
     
-          LabelC.CornerRadius = UDim.new(0, 6)
+          LabelC.CornerRadius = UDim.new(0, 10)
           LabelC.Name = "LabelC"
           LabelC.Parent = TextLabel
           return TextLabel
@@ -670,7 +670,7 @@ end
           TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
           TextLabel.TextSize = 16.000
     
-          LabelC.CornerRadius = UDim.new(0, 6)
+          LabelC.CornerRadius = UDim.new(0, 10)
           LabelC.Name = "LabelC"
           LabelC.Parent = TextLabel
           return TextLabel
@@ -712,7 +712,7 @@ end
             ToggleBtn.TextSize = 16.000
             ToggleBtn.TextXAlignment = Enum.TextXAlignment.Left
             
-            ToggleBtnC.CornerRadius = UDim.new(0, 6)
+            ToggleBtnC.CornerRadius = UDim.new(0, 10)
             ToggleBtnC.Name = "ToggleBtnC"
             ToggleBtnC.Parent = ToggleBtn
             
@@ -728,11 +728,11 @@ end
             ToggleSwitch.BackgroundColor3 = beijingColor
             ToggleSwitch.Size = UDim2.new(0, 24, 0, 22)
             
-            ToggleSwitchC.CornerRadius = UDim.new(0, 6)
+            ToggleSwitchC.CornerRadius = UDim.new(0, 10)
             ToggleSwitchC.Name = "ToggleSwitchC"
             ToggleSwitchC.Parent = ToggleSwitch
             
-            ToggleDisableC.CornerRadius = UDim.new(0, 6)
+            ToggleDisableC.CornerRadius = UDim.new(0, 10)
             ToggleDisableC.Name = "ToggleDisableC"
             ToggleDisableC.Parent = ToggleDisable        
     
@@ -818,7 +818,7 @@ end
             KeybindBtn.TextSize = 16.000
             KeybindBtn.TextXAlignment = Enum.TextXAlignment.Left
             
-            KeybindBtnC.CornerRadius = UDim.new(0, 6)
+            KeybindBtnC.CornerRadius = UDim.new(0, 10)
             KeybindBtnC.Name = "KeybindBtnC"
             KeybindBtnC.Parent = KeybindBtn
             
@@ -834,7 +834,7 @@ end
             KeybindValue.TextColor3 = Color3.fromRGB(255, 255, 255)
             KeybindValue.TextSize = 14.000
             
-            KeybindValueC.CornerRadius = UDim.new(0, 6)
+            KeybindValueC.CornerRadius = UDim.new(0, 10)
             KeybindValueC.Name = "KeybindValueC"
             KeybindValueC.Parent = KeybindValue
             
@@ -915,7 +915,7 @@ end
             TextboxBack.TextSize = 16.000
             TextboxBack.TextXAlignment = Enum.TextXAlignment.Left
             
-            TextboxBackC.CornerRadius = UDim.new(0, 6)
+            TextboxBackC.CornerRadius = UDim.new(0, 10)
             TextboxBackC.Name = "TextboxBackC"
             TextboxBackC.Parent = TextboxBack
             
@@ -931,7 +931,7 @@ end
             BoxBG.TextColor3 = Color3.fromRGB(255, 255, 255)
             BoxBG.TextSize = 14.000
             
-            BoxBGC.CornerRadius = UDim.new(0, 6)
+            BoxBGC.CornerRadius = UDim.new(0, 10)
             BoxBGC.Name = "BoxBGC"
             BoxBGC.Parent = BoxBG
             
@@ -1015,7 +1015,7 @@ end
             SliderBack.TextSize = 16.000
             SliderBack.TextXAlignment = Enum.TextXAlignment.Left
             
-            SliderBackC.CornerRadius = UDim.new(0, 6)
+            SliderBackC.CornerRadius = UDim.new(0, 10)
             SliderBackC.Name = "SliderBackC"
             SliderBackC.Parent = SliderBack
             
@@ -1027,7 +1027,7 @@ end
             SliderBar.Position = UDim2.new(0.369000018, 40, 0.5, 0)
             SliderBar.Size = UDim2.new(0, 140, 0, 12)
             
-            SliderBarC.CornerRadius = UDim.new(0, 4)
+            SliderBarC.CornerRadius = UDim.new(0, 10)
             SliderBarC.Name = "SliderBarC"
             SliderBarC.Parent = SliderBar
             
@@ -1037,7 +1037,7 @@ end
             SliderPart.BorderSizePixel = 0
             SliderPart.Size = UDim2.new(0, 54, 0, 13)
             
-            SliderPartC.CornerRadius = UDim.new(0, 4)
+            SliderPartC.CornerRadius = UDim.new(0, 10)
             SliderPartC.Name = "SliderPartC"
             SliderPartC.Parent = SliderPart
             
@@ -1053,7 +1053,7 @@ end
             SliderValBG.TextColor3 = Color3.fromRGB(255, 255, 255)
             SliderValBG.TextSize = 14.000
             
-            SliderValBGC.CornerRadius = UDim.new(0, 6)
+            SliderValBGC.CornerRadius = UDim.new(0, 10)
             SliderValBGC.Name = "SliderValBGC"
             SliderValBGC.Parent = SliderValBG
             
@@ -1239,7 +1239,7 @@ end
             DropdownTop.TextSize = 16.000
             DropdownTop.TextXAlignment = Enum.TextXAlignment.Left
             
-            DropdownTopC.CornerRadius = UDim.new(0, 6)
+            DropdownTopC.CornerRadius = UDim.new(0, 10)
             DropdownTopC.Name = "DropdownTopC"
             DropdownTopC.Parent = DropdownTop
             
@@ -1352,7 +1352,7 @@ end
               Option.TextColor3 = Color3.fromRGB(255, 255, 255)
               Option.TextSize = 14.000
               
-              OptionC.CornerRadius = UDim.new(0, 6)
+              OptionC.CornerRadius = UDim.new(0, 10)
               OptionC.Name = "OptionC"
               OptionC.Parent = Option
     
