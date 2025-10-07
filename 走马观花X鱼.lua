@@ -603,7 +603,22 @@ FishingSection:Button("深渊-海蛇传送", function()
     if not WorldEvent then return end
     HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["The Depths - Serpent"].Position + offset)
 end)
-
+cus:Button("神庙一号室",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(-5247, -1757, -9624)
+end)
+cus:Button("神庙三号室",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(-5424, -1756, -10227)
+end)
+cus:Button("神庙四号室",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(-5178, -1757, -10361)
+end)
+cus:Button("神庙五号室",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(-4852, -1757, -9540)
+end)
 cus:Button("亚特兰蒂斯(下面)",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-4264.7900390625, -603.4039916992188, 1829.273681640625)
