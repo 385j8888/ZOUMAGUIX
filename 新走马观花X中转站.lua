@@ -1934,10 +1934,7 @@ Tab1:AddButton({
     Title = "加载走马观花X(如果没用请到“选择服务器”那里执行)",           -- 按钮标题
     Desc = "执行脚本",   -- 按钮描述（可选）
     Callback = function()
-       loadstring(game:HttpGet("https://pastebin.com/raw/VgaEhPNa"))()
-       if game.PlaceId == 16732694052 then
-          loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/notif.lua")()
-       end
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E5%88%A4%E6%96%AD%E6%9C%8D%E5%8A%A1%E5%99%A8.lua"))()
     end
 })
 Tab1:AddButton({
