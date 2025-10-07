@@ -12,7 +12,22 @@ if not shared.AntiBanLoop then
 end
 local loopData = shared.AntiBanLoop
 
------bypass Anti Cheat  by yuxingchen   NOL TEAM-Neo-Utopia
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local oldhmmi
+local oldhmmnc
+
+oldhmmi = hookmetamethod(game, "__index", function(self, method)
+if self == LocalPlayer and method:lower() == "kick" then
+return error("Expected ':' not '.' calling member function Kick", 2)
+end
+return oldhmmi(self, method)
+end)
+oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
+if self == LocalPlayer and getnamecallmethod():lower() == "kick" then
+return
+end
+return oldhmmnc(self, ...)
+
 
 
 if not shared.AntiBanLoop then
@@ -826,4 +841,4 @@ zzb:Button("传送到坐标",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(_X, _Y, _Z)
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Anti%20Kick.txt"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Anti%20Kick.txt"))()
