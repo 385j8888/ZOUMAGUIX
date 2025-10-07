@@ -734,6 +734,10 @@ ccs:Button("荒凉深渊三叉戟",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(-1483.62890625, -223.5110321044922, -2197.00439453125)
 end)
+ccs:Button("砖头杆",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(-32090, 10000, -23308)
+end)
 ccs:Button("天堂杆",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(20026.876953125, -467.622314453125, 7143.57470703125)
