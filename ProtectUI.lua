@@ -176,6 +176,7 @@ end
       Main.AnchorPoint = Vector2.new(0.5, 0.5)
       Main.BackgroundColor3 = Background
       Main.BorderColor3 = MainColor
+      Main.BackgroundTransparency = 0.5
       Main.Position = UDim2.new(0.5, 0, 0.5, 0)
       Main.Size = UDim2.new(0, 572, 0, 353)
       Main.ZIndex = 1
@@ -212,7 +213,7 @@ end
       DropShadow.ZIndex = 0
       DropShadow.Image = "rbxassetid://6015897843"
       DropShadow.ImageColor3 = Color3.fromRGB(255,255,255)
-      DropShadow.ImageTransparency = 0.500
+      DropShadow.ImageTransparency = 1
       DropShadow.ScaleType = Enum.ScaleType.Slice
       DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
