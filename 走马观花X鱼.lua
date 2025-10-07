@@ -452,6 +452,10 @@ FishingSection:Button("日晷图腾传送", function()
     HumanoidRootPart.CFrame = CFrame.new(-1148, 135, -1075)
 end)
 
+FishingSection:Button("日食图腾传送", function()
+    HumanoidRootPart.CFrame = CFrame.new(5940, 265, 900)
+end)
+
 FishingSection:Button("风息图腾传送", function()
     HumanoidRootPart.CFrame = CFrame.new(2849, 178, 2702)
 end)
