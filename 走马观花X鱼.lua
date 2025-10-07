@@ -585,6 +585,11 @@ local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(19642.55078125, 135.83665466308594, 5270.9912109375)
 end)
 
+cus:Button("雪山山顶",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(19945, 1142, 5541	)
+end)
+
 
 cus:Button("阳光石岛",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
