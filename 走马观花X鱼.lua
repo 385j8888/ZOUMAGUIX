@@ -688,4 +688,41 @@ cus:Button("蓝月，第一海",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(2699.353271484375, 132.0272674560547, 2584.4931640625)
 end)
+
+local cscs = window:Tab("鱼竿传送")
+local ccs = cscs:section("鱼竿",true)
+ccs:Button("鱼雷杆",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(-1299.6856689453125, -902.9139404296875, -3478.581787109375)
+end)
+ccs:Button("深渊杆",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(1705.9149169921875, -902.5270385742188, 1443.0037841796875)
+end)
+ccs:Button("荒凉深渊三叉戟",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(-1483.62890625, -223.5110321044922, -2197.00439453125)
+end)
+ccs:Button("天堂杆",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(20026.876953125, -467.622314453125, 7143.57470703125)
+end)
+local zb = window:Tab("坐标传送")
+local zzb = zb:section("坐标",true)
+zzb:Textbox("X坐标", "X坐标", "请输入坐标", function(value)
+--print(value)
+_X = value
+end)
+zzb:Textbox("Y坐标", "Y坐标", "请输入坐标", function(value)
+--print(value)
+_Y = value
+end)
+zzb:Textbox("Z坐标", "Z坐标", "请输入坐标", function(value)
+--print(value)
+_Z = value
+end)
+zzb:Button("传送到坐标",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(_X, _Y, _Z)
+end)
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Anti%20Kick.txt"))()
