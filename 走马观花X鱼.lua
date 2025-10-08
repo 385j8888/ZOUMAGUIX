@@ -442,29 +442,57 @@ local cuss = window:Tab("传送")
 local cus = cuss:section("传送",true)
 local FishingSection = cuss:section("特殊传送",true)
 FishingSection:Button("波塞冬图腾传送", function()
-    HumanoidRootPart.CFrame = CFrame.new(-3955, -555, 855	)
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
+    HumanoidRootPart.CFrame = CFrame.new(-3955, -555, 855)
 end)
 FishingSection:Button("极光图腾传送", function()
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
     HumanoidRootPart.CFrame = CFrame.new(-1811, -137, -3282)
 end)
 
 FishingSection:Button("日晷图腾传送", function()
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
     HumanoidRootPart.CFrame = CFrame.new(-1148, 135, -1075)
 end)
 
 FishingSection:Button("日食图腾传送", function()
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
     HumanoidRootPart.CFrame = CFrame.new(5940, 265, 900)
 end)
 
 FishingSection:Button("风息图腾传送", function()
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
     HumanoidRootPart.CFrame = CFrame.new(2849, 178, 2702)
 end)
 
 FishingSection:Button("烟幕图腾传送", function()
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
     HumanoidRootPart.CFrame = CFrame.new(2789, 140, -625)
 end)
 
 FishingSection:Button("暴风图腾传送", function()
+local localPlayer = Players.LocalPlayer
+local Character = localPlayer.Character
+local LocalCharacter = localPlayer.Character
+local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
     HumanoidRootPart.CFrame = CFrame.new(35, 133, 1943)
 end)
 
@@ -507,6 +535,10 @@ FishingSection:Button("深渊-海蛇传送", function()
     local WorldEvent = game.Workspace.zones.fishing:FindFirstChild("The Depths - Serpent")
     if not WorldEvent then return end
     HumanoidRootPart.CFrame = CFrame.new(game.Workspace.zones.fishing["The Depths - Serpent"].Position + offset)
+end)
+cus:Button("鞋子钓点",function()
+local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
+ME.CFrame = CFrame.new(41, 133, 760)
 end)
 cus:Button("马里亚纳海沟第三区",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
