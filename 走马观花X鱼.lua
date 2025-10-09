@@ -116,6 +116,79 @@ gn:Toggle("禁用氧气和气温", "", false, function(state)
         end
     end
 end)
+gn:Button("创建秒上钩按钮",function()
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "DragButtonGui"
+--screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.Parent = game:GetService("CoreGui")
+local button = Instance.new("TextButton")
+button.Name = "DragButton"
+button.Size = UDim2.new(0, 50, 0, 50)
+button.Position = UDim2.new(0.5, -50, 0.5, -50)
+button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+button.Text = "上钩"
+button.TextSize = 20
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Parent = screenGui
+
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0.2, 0)
+corner.Parent = button
+
+
+local isDragging = false
+local dragStartPos
+local buttonStartPos
+local dragThreshold = 5  
+local touchStartTime
+
+
+button.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        isDragging = true
+        dragStartPos = input.Position
+        buttonStartPos = button.Position
+        touchStartTime = tick()
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                isDragging = false
+            end
+        end)
+    end
+end)
+
+button.InputChanged:Connect(function(input)
+    if isDragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
+        local delta = input.Position - dragStartPos
+        button.Position = UDim2.new(
+            buttonStartPos.X.Scale, 
+            buttonStartPos.X.Offset + delta.X,
+            buttonStartPos.Y.Scale,
+            buttonStartPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+
+button.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        isDragging = false
+        
+      
+        local dragDistance = (input.Position - dragStartPos).Magnitude
+        
+    
+        if dragDistance <= dragThreshold and (tick() - touchStartTime) < 0.3 then
+                        local args = {
+	                        100,
+                         	true
+                        }
+                        game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
+        end
+    end
+end)
+end)
 local abba = false
 gn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
     abba = state  -- 同步阀门状态
