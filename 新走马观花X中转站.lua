@@ -1,6 +1,7 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%A1%B6%E9%83%A8%E9%80%9A%E7%9F%A5.lua"))()
 local sound = Instance.new("Sound")
-sound.SoundId = "rbxassetid://4590662766"
+--sound.SoundId = "rbxassetid://4590662766"
+sound.SoundId = "rbxassetid://88457346646245"
 sound.Volume = 2
 sound.Parent = workspace
 
@@ -58,7 +59,7 @@ textLabel.Parent = textContainer
 local subtitleLabel = Instance.new("TextLabel")
 subtitleLabel.Size = UDim2.new(1, 0, 0.2, 0)
 subtitleLabel.Position = UDim2.new(0, 0, 0.6, 0)
-subtitleLabel.Text = "脚本始于2023"
+subtitleLabel.Text = "脚本始于2022"
 subtitleLabel.TextColor3 = Color3.new(1, 1, 1)
 subtitleLabel.TextScaled = true
 subtitleLabel.TextWrapped = true
