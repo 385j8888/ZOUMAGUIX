@@ -342,6 +342,27 @@ gn:Toggle("自动抛竿", "", false, function(state)
     
     if state then
       while abbaaa do
+         
+         local Players = game:GetService("Players")
+         local player = Players.LocalPlayer
+         local character = player.Character or player.CharacterAdded:Wait()
+         local humanoid = character:WaitForChild("Humanoid")
+         local animation = Instance.new("Animation")
+         animation.AnimationId = "rbxassetid://137096064242936"
+         local animTrack = humanoid:LoadAnimation(animation)
+         animTrack.Priority = Enum.AnimationPriority.Action
+         animTrack:Play()
+         wait(0.4)
+         animTrack:Stop()
+         local Players = game:GetService("Players")
+         local player = Players.LocalPlayer
+         local character = player.Character or player.CharacterAdded:Wait()
+         local humanoid = character:WaitForChild("Humanoid")
+         local animation = Instance.new("Animation")
+         animation.AnimationId = "rbxassetid://83011446255336"
+         local animTrack = humanoid:LoadAnimation(animation)
+         animTrack.Priority = Enum.AnimationPriority.Action
+         animTrack:Play()
          local args = {100, 1}
          local player = game:GetService("Players").LocalPlayer
          local character = player.Character
@@ -359,7 +380,8 @@ gn:Toggle("自动抛竿", "", false, function(state)
                  end
              end
          end
-         wait(0.05)
+         
+         wait(0.01)
       end
     else
         print("6")
@@ -865,6 +887,110 @@ zzb:Button("传送到坐标",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(_X, _Y, _Z)
 end)
+
+
+
+
+if not shared.AntiBanLoop then
+    shared.AntiBanLoop = {running = false, hooked = false}
+end
+local loopData = shared.AntiBanLoop
+
+local function AntiChatLogger()
+    local StarterGui = game:GetService("StarterGui")
+    local Players = game:GetService("Players")
+    local Player = Players.LocalPlayer
+    local PlayerScripts = Player:WaitForChild("PlayerScripts")
+
+    local ChatMain = PlayerScripts:FindFirstChild("ChatMain", true)
+    if ChatMain then
+        local PostMessage = require(ChatMain).MessagePosted
+        if PostMessage then
+            local OldHook
+            OldHook = hookfunction(PostMessage.fire, function(self, Message)
+                if not checkcaller() and self == PostMessage then
+                    return
+                end
+                return OldHook(self, Message)
+            end)
+        end
+    end
+    if setfflag then
+        setfflag("AbuseReportScreenshot", "False")
+        setfflag("AbuseReportScreenshotPercentage", "0")
+    end
+end
+
+local function hookOnce()
+    if not loopData.hookedFind then
+        local oldFind = workspace.FindFirstChild
+        if typeof(oldFind) == "function" and hookfunction then
+            hookfunction(oldFind, function(self, ...)
+                local args = {...}
+                if tostring(args[1]):lower():find("screenshot") then
+                    return nil
+                end
+                return oldFind(self, unpack(args))
+            end)
+            loopData.hookedFind = true
+        end
+    end
+
+    if not loopData.hookedRequest then
+        local oldRequest = (syn and syn.request) or request or http_request
+        if hookfunction and typeof(oldRequest) == "function" then
+            hookfunction(oldRequest, function(req)
+                if req and req.Url and tostring(req.Url):lower():find("abuse") then
+                    return {StatusCode = 200, Body = "Blocked"}
+                end
+                return oldRequest(req)
+            end)
+            loopData.hookedRequest = true
+        end
+    end
+end
+
+local function setFlagsOff()
+    local flags = {
+        "AbuseReportScreenshot",
+        "AbuseReportScreenshotPercentage",
+        "AbuseReportEnabled",
+        "ReportAbuseMenu",
+        "EnableAbuseReportScreenshot"
+    }
+    for _, flag in ipairs(flags) do
+        if typeof(setfflag) == "function" then
+            pcall(function()
+                setfflag(flag, "False")
+            end)
+        end
+    end
+    if typeof(setfflag) == "function" then
+        setfflag("AbuseReportScreenshotPercentage", "0")
+    end
+end
+
+local function setFlagsOn()
+    if typeof(setfflag) == "function" then
+        setfflag("AbuseReportScreenshot", "True")
+        setfflag("AbuseReportScreenshotPercentage", "100")
+    end
+end
+
+hookOnce()
+AntiChatLogger()
+setFlagsOff()
+loopData.running = true
+task.spawn(function()
+    while loopData.running do
+        setFlagsOff()
+        task.wait(0.05)
+    end
+end)
+
+
+
+
 
 for _, Value in next, getgc(true) do
     if typeof(Value) == "table" then
