@@ -213,7 +213,7 @@ end
       DropShadow.ZIndex = 0
       DropShadow.Image = "rbxassetid://6015897843"
       DropShadow.ImageColor3 = Color3.fromRGB(255,255,255)
-      DropShadow.ImageTransparency = 1
+      DropShadow.ImageTransparency = 0.5
       DropShadow.ScaleType = Enum.ScaleType.Slice
       DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
