@@ -58,8 +58,9 @@ local credits = creds:section("UI设置",true)
             game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
         end
     end)
-local gn = window:Tab("主要功能")
-local gn = gn:section("主要功能",true)
+local zhuyao = window:Tab("主要功能")
+local fishgn = zhuyao:section("钓鱼",true)
+local gn = zhuyao:section("主要功能",true)
 gn:Toggle("钓鱼区域显示", "", false, function(state)
   --  abbaaa = state  -- 同步阀门状态
     
@@ -116,7 +117,7 @@ gn:Toggle("禁用氧气和气温", "", false, function(state)
         end
     end
 end)
-gn:Button("创建秒上钩按钮",function()
+fishgn:Button("创建秒上钩按钮",function()
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "DragButtonGui"
 --screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -190,17 +191,26 @@ button.InputEnded:Connect(function(input)
 end)
 end)
 local abba = false
-gn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
+fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
     abba = state  -- 同步阀门状态
     
     if state then
       while abba do
-         local args = {
-	        100,
-        	true
-         }
-         game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
-         wait(0.5)
+         local Players = game:GetService("Players")
+         local player = Players.LocalPlayer
+
+         local playerGui = player:WaitForChild("PlayerGui")
+         local reel = playerGui:WaitForChild("reel")
+         local bar = reel:WaitForChild("bar")
+         if bar then
+           local args = {
+	          100,
+        	  true
+           }
+           game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
+           wait(2)
+         end
+         wait(1)
       end
     else
         print("6")
@@ -208,24 +218,34 @@ gn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
 end)
 
 local abbaa = false
-gn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
+fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
     abbaa = state  -- 同步阀门状态
     
     if state then
       while abbaa do
-         local args = {
-	        100,
-        	false
-         }
-         game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
-         wait(0.5)
+        
+         local Players = game:GetService("Players")
+         local player = Players.LocalPlayer
+
+         local playerGui = player:WaitForChild("PlayerGui")
+         local reel = playerGui:WaitForChild("reel")
+         local bar = reel:WaitForChild("bar")
+         if bar then
+           local args = {
+	          100,
+        	  false
+           }
+           game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
+           wait(2)
+         end
+         wait(1)
       end
     else
         print("6")
     end
 end)
 local yg = false
-gn:Toggle("鱼钩快速下水", "", false, function(state)
+gn:Toggle("不知名作用", "", false, function(state)
     yg = state  -- 同步阀门状态
     
     if state then
@@ -267,7 +287,7 @@ gn:Toggle("鱼钩快速下水", "", false, function(state)
     end
 end)
 local bt = false
-gn:Toggle("追踪白条", "", false, function(state)
+fishgn:Toggle("追踪白条", "", false, function(state)
     bt = state  -- 同步阀门状态
     
     if state then
@@ -283,7 +303,7 @@ gn:Toggle("追踪白条", "", false, function(state)
          local playerbar = bar:WaitForChild("playerbar")
 
          playerbar.Position = sbfish.Position
-         wait(0.000000001)
+         wait(0.001)
       end
     else
         print("6")
@@ -337,7 +357,7 @@ gn:Toggle("出核弹立马退出(帮你保住核弹)", "", false, function(state
     end
 end)
 local abbaaa = false
-gn:Toggle("自动抛竿", "", false, function(state)
+fishgn:Toggle("自动抛竿", "", false, function(state)
     abbaaa = state  -- 同步阀门状态
     
     if state then
@@ -351,9 +371,9 @@ gn:Toggle("自动抛竿", "", false, function(state)
          animation.AnimationId = "rbxassetid://137096064242936"
          local animTrack = humanoid:LoadAnimation(animation)
          animTrack.Priority = Enum.AnimationPriority.Action
-         animTrack:Play()
-         wait(0.4)
-         animTrack:Stop()
+       --  animTrack:Play()
+       --  wait(0.4)
+       --  animTrack:Stop()
          local Players = game:GetService("Players")
          local player = Players.LocalPlayer
          local character = player.Character or player.CharacterAdded:Wait()
@@ -362,7 +382,7 @@ gn:Toggle("自动抛竿", "", false, function(state)
          animation.AnimationId = "rbxassetid://83011446255336"
          local animTrack = humanoid:LoadAnimation(animation)
          animTrack.Priority = Enum.AnimationPriority.Action
-         animTrack:Play()
+       --  animTrack:Play()
          local args = {100, 1}
          local player = game:GetService("Players").LocalPlayer
          local character = player.Character
@@ -381,7 +401,7 @@ gn:Toggle("自动抛竿", "", false, function(state)
              end
          end
          
-         wait(0.01)
+         wait(0.1)
       end
     else
         print("6")
@@ -405,7 +425,7 @@ end)
 -- 脚本由TurtleSpy生成，由Interr#0421制作
         
 local abbaaaa = false
-gn:Toggle("自动摇晃", "", false, function(state)
+fishgn:Toggle("自动摇晃", "", false, function(state)
     abbaaaa = state  -- 同步阀门状态
     
     if state then
@@ -888,105 +908,6 @@ local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
 ME.CFrame = CFrame.new(_X, _Y, _Z)
 end)
 
-
-
-
-if not shared.AntiBanLoop then
-    shared.AntiBanLoop = {running = false, hooked = false}
-end
-local loopData = shared.AntiBanLoop
-
-local function AntiChatLogger()
-    local StarterGui = game:GetService("StarterGui")
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer
-    local PlayerScripts = Player:WaitForChild("PlayerScripts")
-
-    local ChatMain = PlayerScripts:FindFirstChild("ChatMain", true)
-    if ChatMain then
-        local PostMessage = require(ChatMain).MessagePosted
-        if PostMessage then
-            local OldHook
-            OldHook = hookfunction(PostMessage.fire, function(self, Message)
-                if not checkcaller() and self == PostMessage then
-                    return
-                end
-                return OldHook(self, Message)
-            end)
-        end
-    end
-    if setfflag then
-        setfflag("AbuseReportScreenshot", "False")
-        setfflag("AbuseReportScreenshotPercentage", "0")
-    end
-end
-
-local function hookOnce()
-    if not loopData.hookedFind then
-        local oldFind = workspace.FindFirstChild
-        if typeof(oldFind) == "function" and hookfunction then
-            hookfunction(oldFind, function(self, ...)
-                local args = {...}
-                if tostring(args[1]):lower():find("screenshot") then
-                    return nil
-                end
-                return oldFind(self, unpack(args))
-            end)
-            loopData.hookedFind = true
-        end
-    end
-
-    if not loopData.hookedRequest then
-        local oldRequest = (syn and syn.request) or request or http_request
-        if hookfunction and typeof(oldRequest) == "function" then
-            hookfunction(oldRequest, function(req)
-                if req and req.Url and tostring(req.Url):lower():find("abuse") then
-                    return {StatusCode = 200, Body = "Blocked"}
-                end
-                return oldRequest(req)
-            end)
-            loopData.hookedRequest = true
-        end
-    end
-end
-
-local function setFlagsOff()
-    local flags = {
-        "AbuseReportScreenshot",
-        "AbuseReportScreenshotPercentage",
-        "AbuseReportEnabled",
-        "ReportAbuseMenu",
-        "EnableAbuseReportScreenshot"
-    }
-    for _, flag in ipairs(flags) do
-        if typeof(setfflag) == "function" then
-            pcall(function()
-                setfflag(flag, "False")
-            end)
-        end
-    end
-    if typeof(setfflag) == "function" then
-        setfflag("AbuseReportScreenshotPercentage", "0")
-    end
-end
-
-local function setFlagsOn()
-    if typeof(setfflag) == "function" then
-        setfflag("AbuseReportScreenshot", "True")
-        setfflag("AbuseReportScreenshotPercentage", "100")
-    end
-end
-
-hookOnce()
-AntiChatLogger()
-setFlagsOff()
-loopData.running = true
-task.spawn(function()
-    while loopData.running do
-        setFlagsOff()
-        task.wait(0.05)
-    end
-end)
 
 
 
