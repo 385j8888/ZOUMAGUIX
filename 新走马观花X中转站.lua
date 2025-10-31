@@ -2031,6 +2031,14 @@ Tab2:AddButton({
     end
 })
 Tab2:AddButton({
+    Title = "Tuantu脑叶公司",           -- 按钮标题
+    Desc = "",   -- 按钮描述（可选）
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaoxiaoxin222/78scripts/refs/heads/main/%E8%84%91%E5%8F%B6%E8%84%9A%E6%9C%AC2.lua"))()
+    end
+})
+
+Tab2:AddButton({
     Title = "Fisch",           -- 按钮标题
     Desc = "",   -- 按钮描述（可选）
     Callback = function()
