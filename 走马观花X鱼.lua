@@ -208,7 +208,7 @@ fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
         	  true
            }
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
-           wait(2)
+           wait(2.1)
          end
          wait(1)
       end
@@ -236,7 +236,7 @@ fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
         	  false
            }
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
-           wait(2)
+           wait(2.1)
          end
          wait(1)
       end
