@@ -192,12 +192,12 @@ if _G.white==true then
     print("验证成功")
 else --验证失败执行↓
 --setclipboard("2586125757")
-   game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:2586125757，找这个人买白名单")
+   --game.Players.LocalPlayer:Kick(a.."你没有白名单，加QQ:2586125757，找这个人买白名单")
    
    wait(0.1)
-   while true do
-       print("eeeeeeeeee")
-   end
+   --while true do
+     --  print("eeeeeeeeee")
+   --end
 end
 
 
@@ -205,88 +205,11 @@ if _G.white==true then
     print("验证成功")
 else --验证失败执行↓
    wait(0.1)
-   while true do
-       wait(0.0001)
-       loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))()
-   end
+  -- while true do
+       --wait(0.0001)
+    --   loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))()
+   --end
 end
-
--- 反HTTP间谍脚本
--- 用于检测和警告HTTP请求劫持行为
-
-local function createProtection()
-    -- 保存原始函数引用
-    local originalFunctions = {
-        HttpGet = game.HttpGet,
-        HttpGetAsync = game.HttpGetAsync,
-        HttpPost = game.HttpPost,
-        HttpPostAsync = game.HttpPostAsync
-    }
-    
-    -- 检查全局环境中的HTTP相关函数
-    local httpFunctionsToCheck = {
-        "http_request", "request", "HttpGet", "HttpGetAsync", 
-        "HttpPost", "HttpPostAsync"
-    }
-    
-    -- 存储原始函数的环境
-    local originalEnv = {}
-    for _, funcName in ipairs(httpFunctionsToCheck) do
-        if _G[funcName] then
-            originalEnv[funcName] = _G[funcName]
-        end
-    end
-    
-    -- 检测函数是否被篡改
-    local function checkFunctionTampering()
-        for _, funcName in ipairs(httpFunctionsToCheck) do
-            if _G[funcName] and originalEnv[funcName] then
-                if tostring(_G[funcName]) ~= tostring(originalEnv[funcName]) then
-                    return true, funcName
-                end
-            elseif _G[funcName] and not originalEnv[funcName] then
-                -- 新添加的函数可能是恶意注入
-                return true, funcName
-            end
-        end
-        return false
-    end
-    
-    -- 创建安全包装函数
-    local function createSafeWrapper(originalFunc, funcName)
-        return function(...)
-            -- 在执行前检查环境
-            local isTampered, tamperedFunc = checkFunctionTampering()
-            if isTampered then
-                game.Players.LocalPlayer:Kick("HttpSpy劫持链接💀Bro Stop")
-            end
-            
-            -- 调用原始函数
-            return originalFunc(...)
-        end
-    end
-    
-    -- 应用安全包装
-    for _, funcName in ipairs(httpFunctionsToCheck) do
-        if _G[funcName] and type(_G[funcName]) == "function" then
-            _G[funcName] = createSafeWrapper(_G[funcName], funcName)
-        end
-    end
-    
-    -- 定期检查环境
-    local checkInterval = 0.01 -- 每5秒检查一次
-    while true do
-        local isTampered, tamperedFunc = checkFunctionTampering()
-        if isTampered then
-            game.Players.LocalPlayer:Kick("HttpSpy劫持链接💀Bro Stop")
-        end
-        
-        wait(checkInterval)
-    end
-end
-
-
-
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
@@ -758,10 +681,10 @@ end
 
 -- 启动保护
 coroutine.wrap(createProtection)()
-while true do
-   loadstring(game:HttpGet("stopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstop"))()
-   wait(0.01)
-end
+--while true do
+   --loadstring(game:HttpGet("stopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstopstop"))()
+ --  wait(0.01)
+--end
 --game:GetService("StarterGui"):SetCore("SendNotification", { 
 --	Title = "脑叶公司";
 --	Text = "已展开聊天框，现在你可以查看聊天框消息啦~";
