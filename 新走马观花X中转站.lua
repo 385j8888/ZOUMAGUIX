@@ -2180,6 +2180,19 @@ Tab3:AddButton({
     end
 })
 
+local sound = Instance.new("Sound")
+--sound.SoundId = "rbxassetid://4590662766"
+sound.SoundId = "rbxassetid://525766022"
+sound.Volume = 10
+sound.Parent = workspace
+
+sound.Loaded:Wait()
+sound:Play()
+
+sound.Ended:Connect(function()
+    sound:Destroy()
+end)
+
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 	Title = "❤️最新QQ交流群❤️";
 	Text = "947178829";
@@ -2187,13 +2200,13 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 Duration = 15})
 
 Window:Dialog({
-    Title = "通知",
-    Text = "执行脚本按钮已移动至“选择服务器”栏",
+    Title = "来着走马观花作者的一封信✉",
+    Text = "走马观花要坚持不住了，需要捐赠😭你的捐赠是我最大的动力，无论多少。😭如果你要捐赠，请加作者微信号Aru385jjj8，感谢您！！😭😭❤️",
     Options = {
         {"好的", function()
 
         end},
-        {"臭傻逼又发癫了是吧", function()
+        {"臭傻逼想啥呢", function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E6%A0%B8%E5%AF%BC%E5%BC%B9%E9%95%BF%E8%BE%BE5000%E5%A4%9A%E6%95%B0%E6%8D%AE%E8%83%BD%E8%AE%A9%E4%BD%A0%E6%94%BE%E4%B8%80%E4%B8%AA%E6%A0%B8%E5%BC%B9.txt"))()
         end}
     }
