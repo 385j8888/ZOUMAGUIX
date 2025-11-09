@@ -100,6 +100,45 @@ gn:Toggle("枪械杀戮光环(鹿)", "", false, function(state)
         print("关闭状态")
     end
 end)
+local runningmmm = false
+gn:Toggle("枪械杀戮光环(野猪)", "", false, function(state)
+    runningmmm = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while runningmmm do  -- 检测阀门状态
+                  local animalsFolder = workspace:WaitForChild("animals")
+                  local bo = animalsFolder:GetChildren()
+                  local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                  local shootEvent = ReplicatedStorage:WaitForChild("remotes"):WaitForChild("shoot")
+                  
+                  for _, boar in ipairs(bo) do
+                      if boar.Name == "boar" and boar:IsA("Model") and boar.PrimaryPart then
+                              local deerbPosition = boar.PrimaryPart.Position
+        
+        -- 动态替换坐标，保留旋转
+                              local args = {
+                                  [1] = CFrame.new(
+                                      deerbPosition.X, deerbPosition.Y, deerbPosition.Z,  deerbPosition.X, deerbPosition.Y, deerbPosition.Z, deerbPosition.X, deerbPosition.Y, deerbPosition.Z, deerbPosition.X, deerbPosition.Y, deerbPosition.Z
+                --unpack(originalRotation1) -- 保留原有旋转参数
+                                  ),
+                                  [2] = CFrame.new(
+                                      deerbPosition.X, deerbPosition.Y, deerbPosition.Z,  deerbPosition.X, deerbPosition.Y, deerbPosition.Z, deerbPosition.X, deerbPosition.Y, deerbPosition.Z, deerbPosition.X, deerbPosition.Y, deerbPosition.Z-- 替换为当前deer的位置
+                --unpack(originalRotation2) -- 保留原有旋转参数
+                                  )
+                              }
+        
+        -- 触发远程事件
+                              shootEvent:FireServer(unpack(args))
+                      end
+                  end
+                  wait(0.1)
+            end
+        --end)
+    else
+        print("关闭状态")
+    end
+end)
 local runningbear = false
 gn:Toggle("枪械杀戮光环(熊)", "", false, function(state)
     runningbear = state  -- 同步阀门状态
@@ -267,49 +306,70 @@ game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("add_f
 
 end)
 gn:Button("收集报废直升机",function()
-local Players = game:GetService("Players")
-local interactFolder = workspace:FindFirstChild("interact")
-
-if not interactFolder then
-    return
-end
-
-local player = Players.LocalPlayer
-if not player.Character then
-    player.CharacterAdded:Wait()
-end
-local character = player.Character
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-
-for _, model in ipairs(interactFolder:GetChildren()) do
-    if model:IsA("Model") and model.Name == "heli_crash" then
-        if model.PrimaryPart then
-            humanoidRootPart.CFrame = model.PrimaryPart.CFrame
-            task.wait(0.1)
-
-            local prompts = {}
-            local function collectPrompts(object)
-                if object:IsA("ProximityPrompt") then
-                    table.insert(prompts, object)
-                end
-                for _, child in ipairs(object:GetChildren()) do
-                    collectPrompts(child)
-                end
-            end
-            collectPrompts(model)
-
-            for _, prompt in ipairs(prompts) do
-                prompt:InputHoldBegin()
-                task.wait(prompt.HoldDuration)
-                prompt:InputHoldEnd()
-            end
-
-            task.wait(2 - #prompts * prompt.HoldDuration)
-        end
-    end
+for _,v in next,workspace.interact:GetChildren() do
+                    if v.Name == "heli" then
+                        fireproximityprompt(v.Body.ProximityPrompt)
+                    end
 end
 end)
+gn:Button("收集废料2.0",function()
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
+local TELEPORT_DELAY = 1.5  -- 传送间隔
+local TRIGGER_DISTANCE = 20 -- 触发距离
+
+local allScraps = Workspace:GetDescendants()
+
+for _, scrap in ipairs(allScraps) do
+    
+    if scrap.Name == "scrap" then
+     
+        if not character or not character.Parent then
+            character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+            humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        end
+        if not scrap then
+       game:GetService("StarterGui"):SetCore("SendNotification", { 
+        	Title = "走马观花X";
+	        Text = "未找到废料，再四处逛逛";
+	        Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
+       Button1 = "明白";
+       Duration = 10})
+       end
+       
+        humanoidRootPart.CFrame = scrap.WorldPivot
+     
+        task.wait(0.15)
+        
+      
+        --local triggeredAny = false
+        for _, descendant in ipairs(Workspace:GetDescendants()) do
+            if descendant:IsA("ProximityPrompt") then
+             
+                --local promptPosition = descendant.Parent:GetAttribute("Position") or descendant.Parent.PrimaryPart.Position
+               -- local distance = (humanoidRootPart.Position - promptPosition).Magnitude
+                
+              --  if distance <= TRIGGER_DISTANCE then
+                   
+                    fireproximityprompt(descendant)
+                    --triggeredAny = true
+               -- end
+            end
+        end
+        
+       
+        
+        
+        task.wait(TELEPORT_DELAY)
+    end
+    
+end
+end)
 local autocllogggg = false
 gn:Toggle("自动砍树", "", false, function(state)
     autocllogggg = state  -- 同步阀门状态
@@ -470,29 +530,6 @@ gn:Toggle("自动拾取肉，骨头，皮革", "", false, function(state)
                         fireproximityprompt(obj)
                      end
                  end
-                 wait(1)
-            end
-        --end)
-    else
-        print("1")
-    end
-end)
-local autocllojggg = false
-gn:Toggle("自动收集零件", "", false, function(state)
-    autocllojggg = state  -- 同步阀门状态
-    
-    if state then
-        --spawn(function()  -- 使用独立协程
-            while autocllojggg do  -- 检测阀门状态
-                  for _, scrap in pairs(workspace.scraps:GetChildren()) do
-                      local materiall = scrap:FindFirstChild("defaultMaterial10")
-                      if materiall then
-                          local promptt = materiall:FindFirstChild("ProximityPrompt")
-                          if promptt then
-                              fireproximityprompt(promptt)
-                          end
-                      end
-                  end
                  wait(1)
             end
         --end)
