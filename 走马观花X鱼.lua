@@ -190,27 +190,30 @@ button.InputEnded:Connect(function(input)
     end
 end)
 end)
-local abba = false
+local abbfia = false
 fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
-    abba = state  -- 同步阀门状态
+    abbfia = state  -- 同步阀门状态
     
     if state then
-      while abba do
+      while abbfia do
          local Players = game:GetService("Players")
          local player = Players.LocalPlayer
 
          local playerGui = player:WaitForChild("PlayerGui")
          local reel = playerGui:WaitForChild("reel")
-         local bar = reel:WaitForChild("bar")
-         if bar then
+         local bara = reel:WaitForChild("bar")
+         
+         local hooksoundd = playerGui:WaitForChild("bounce")
+         
+         if bara and hooksoundd then
            local args = {
 	          100,
         	  true
            }
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
-           wait(2.1)
+         --  wait(2.1)
          end
-         wait(1)
+         wait(1.5)
       end
     else
         print("6")
@@ -229,16 +232,19 @@ fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
 
          local playerGui = player:WaitForChild("PlayerGui")
          local reel = playerGui:WaitForChild("reel")
-         local bar = reel:WaitForChild("bar")
-         if bar then
+         local bara = reel:WaitForChild("bar")
+         
+         local hooksoundd = playerGui:WaitForChild("bounce")
+         
+         if bara and hooksoundd then
            local args = {
 	          100,
         	  false
            }
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
-           wait(2.1)
+           --wait(2.1)
          end
-         wait(1)
+         wait(1.5)
       end
     else
         print("6")
@@ -738,7 +744,7 @@ end)
 
 cus:Button("雪山山顶",function()
 local ME = game.Players.LocalPlayer.Character.HumanoidRootPart
-ME.CFrame = CFrame.new(19945, 1142, 5541	)
+ME.CFrame = CFrame.new(19945, 1142, 5541)
 end)
 
 
