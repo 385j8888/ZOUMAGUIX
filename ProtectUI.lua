@@ -127,10 +127,10 @@ if theme == 'dark' then
     zyColor= Color3.fromRGB(25, 25, 25)
     beijingColor = Color3.fromRGB(25, 25, 25)
     else
-    MainColor = Color3.fromRGB(52, 62, 72)
-    Background = Color3.fromRGB(58, 65, 75)
-    zyColor= Color3.fromRGB(52, 62, 72)
-    beijingColor = Color3.fromRGB(255, 255, 255)
+    MainColor = Color3.fromRGB(255, 0, 0)
+    Background = Color3.fromRGB(255, 0, 0)
+    zyColor= Color3.fromRGB(200, 0, 0)
+    beijingColor = Color3.fromRGB(200, 0, 0)
 end
       local dogent = Instance.new("ScreenGui")
       local Main = Instance.new("Frame")
@@ -176,7 +176,7 @@ end
       Main.AnchorPoint = Vector2.new(0.5, 0.5)
       Main.BackgroundColor3 = Background
       Main.BorderColor3 = MainColor
-      Main.BackgroundTransparency = 0.5
+      Main.BackgroundTransparency = 0
       Main.Position = UDim2.new(0.5, 0, 0.5, 0)
       Main.Size = UDim2.new(0, 572, 0, 353)
       Main.ZIndex = 1
@@ -295,7 +295,7 @@ end
       ScriptTitle.Size = UDim2.new(0, 102, 0, 20)
       ScriptTitle.Font = Enum.Font.GothamSemibold
       ScriptTitle.Text = name
-      ScriptTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+      ScriptTitle.TextColor3 = Color3.fromRGB(0, 0, 0)
       ScriptTitle.TextSize = 14.000
       ScriptTitle.TextScaled = true
       ScriptTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -412,8 +412,8 @@ end
       Open.Position = UDim2.new(0.00829315186, 0, 0.31107837, 0)
       Open.Size = UDim2.new(0, 61, 0, 32)
       Open.Font = Enum.Font.SourceSans
-      Open.Text = "隐藏/打开走马观花X"
-      Open.TextColor3 = Color3.fromRGB(255, 255, 255)
+      Open.Text = "走马观花X"
+      Open.TextColor3 = Color3.fromRGB(0, 0, 0)
       Open.TextSize = 14.000
       Open.Active = true
       Open.Draggable = true
@@ -454,7 +454,7 @@ end
         TabText.Size = UDim2.new(0, 76, 0, 24)
         TabText.Font = Enum.Font.GothamSemibold
         TabText.Text = name
-        TabText.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TabText.TextColor3 = Color3.fromRGB(0, 0, 0)
         TabText.TextSize = 14.000
         TabText.TextXAlignment = Enum.TextXAlignment.Left
         TabText.TextTransparency = 0.2
@@ -520,7 +520,7 @@ end
           SectionText.Size = UDim2.new(0, 401, 0, 36)
           SectionText.Font = Enum.Font.GothamSemibold
           SectionText.Text = name
-          SectionText.TextColor3 = Color3.fromRGB(255, 255, 255)
+          SectionText.TextColor3 = Color3.fromRGB(0, 0, 0)
           SectionText.TextSize = 16.000
           SectionText.TextXAlignment = Enum.TextXAlignment.Left
           
@@ -602,7 +602,7 @@ end
             Btn.AutoButtonColor = false
             Btn.Font = Enum.Font.GothamSemibold
             Btn.Text = "   " .. text
-            Btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Btn.TextColor3 = Color3.fromRGB(0, 0, 0)
             Btn.TextSize = 16.000
             Btn.TextXAlignment = Enum.TextXAlignment.Left
             
@@ -640,7 +640,7 @@ end
           TextLabel.Size = UDim2.new(0, 428, 0, 22)
           TextLabel.Font = Enum.Font.GothamSemibold
           TextLabel.Text = text
-          TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+          TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
           TextLabel.TextSize = 14.000
     
           LabelC.CornerRadius = UDim.new(0, 10)
@@ -667,7 +667,7 @@ end
           TextLabel.Size = UDim2.new(0, 428, 0, 200)
           TextLabel.Font = Enum.Font.GothamSemibold
           TextLabel.Text = text
-          TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+          TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
           TextLabel.TextSize = 16.000
     
           LabelC.CornerRadius = UDim.new(0, 10)
@@ -708,7 +708,7 @@ end
             ToggleBtn.AutoButtonColor = false
             ToggleBtn.Font = Enum.Font.GothamSemibold
             ToggleBtn.Text = "   " .. text
-            ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ToggleBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
             ToggleBtn.TextSize = 16.000
             ToggleBtn.TextXAlignment = Enum.TextXAlignment.Left
             
@@ -814,7 +814,7 @@ end
             KeybindBtn.AutoButtonColor = false
             KeybindBtn.Font = Enum.Font.GothamSemibold
             KeybindBtn.Text = "   " .. text
-            KeybindBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            KeybindBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
             KeybindBtn.TextSize = 16.000
             KeybindBtn.TextXAlignment = Enum.TextXAlignment.Left
             
@@ -831,7 +831,7 @@ end
             KeybindValue.AutoButtonColor = false
             KeybindValue.Font = Enum.Font.Gotham
             KeybindValue.Text = keyTxt
-            KeybindValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+            KeybindValue.TextColor3 = Color3.fromRGB(0, 0, 0)
             KeybindValue.TextSize = 14.000
             
             KeybindValueC.CornerRadius = UDim.new(0, 10)
@@ -911,7 +911,7 @@ end
             TextboxBack.AutoButtonColor = false
             TextboxBack.Font = Enum.Font.GothamSemibold
             TextboxBack.Text = "   " .. text
-            TextboxBack.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextboxBack.TextColor3 = Color3.fromRGB(0, 0, 0)
             TextboxBack.TextSize = 16.000
             TextboxBack.TextXAlignment = Enum.TextXAlignment.Left
             
@@ -928,7 +928,7 @@ end
             BoxBG.AutoButtonColor = false
             BoxBG.Font = Enum.Font.Gotham
             BoxBG.Text = ""
-            BoxBG.TextColor3 = Color3.fromRGB(255, 255, 255)
+            BoxBG.TextColor3 = Color3.fromRGB(0, 0, 0)
             BoxBG.TextSize = 14.000
             
             BoxBGC.CornerRadius = UDim.new(0, 10)
@@ -942,7 +942,7 @@ end
             TextBox.Size = UDim2.new(1, 0, 1, 0)
             TextBox.Font = Enum.Font.Gotham
             TextBox.Text = default
-            TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
             TextBox.TextSize = 14.000
             
             TextboxBackL.Name = "TextboxBackL"
@@ -1011,7 +1011,7 @@ end
             SliderBack.AutoButtonColor = false
             SliderBack.Font = Enum.Font.GothamSemibold
             SliderBack.Text = "   " .. text
-            SliderBack.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderBack.TextColor3 = Color3.fromRGB(0, 0, 0)
             SliderBack.TextSize = 16.000
             SliderBack.TextXAlignment = Enum.TextXAlignment.Left
             
@@ -1050,7 +1050,7 @@ end
             SliderValBG.AutoButtonColor = false
             SliderValBG.Font = Enum.Font.Gotham
             SliderValBG.Text = ""
-            SliderValBG.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderValBG.TextColor3 = Color3.fromRGB(0, 0, 0)
             SliderValBG.TextSize = 14.000
             
             SliderValBGC.CornerRadius = UDim.new(0, 10)
@@ -1065,7 +1065,7 @@ end
             SliderValue.Size = UDim2.new(1, 0, 1, 0)
             SliderValue.Font = Enum.Font.Gotham
             SliderValue.Text = "1000"
-            SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+            SliderValue.TextColor3 = Color3.fromRGB(0, 0, 0)
             SliderValue.TextSize = 14.000
             
             MinSlider.Name = "MinSlider"
@@ -1077,7 +1077,7 @@ end
             MinSlider.Size = UDim2.new(0, 20, 0, 20)
             MinSlider.Font = Enum.Font.Gotham
             MinSlider.Text = "-"
-            MinSlider.TextColor3 = Color3.fromRGB(255, 255, 255)
+            MinSlider.TextColor3 = Color3.fromRGB(0, 0, 0)
             MinSlider.TextSize = 24.000
             MinSlider.TextWrapped = true
             
@@ -1091,7 +1091,7 @@ end
             AddSlider.Size = UDim2.new(0, 20, 0, 20)
             AddSlider.Font = Enum.Font.Gotham
             AddSlider.Text = "+"
-            AddSlider.TextColor3 = Color3.fromRGB(255, 255, 255)
+            AddSlider.TextColor3 = Color3.fromRGB(0, 0, 0)
             AddSlider.TextSize = 24.000
             AddSlider.TextWrapped = true
             
@@ -1235,7 +1235,7 @@ end
             DropdownTop.AutoButtonColor = false
             DropdownTop.Font = Enum.Font.GothamSemibold
             DropdownTop.Text = ""
-            DropdownTop.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownTop.TextColor3 = Color3.fromRGB(0, 0, 0)
             DropdownTop.TextSize = 16.000
             DropdownTop.TextXAlignment = Enum.TextXAlignment.Left
             
@@ -1253,7 +1253,7 @@ end
             DropdownOpen.Size = UDim2.new(0, 20, 0, 20)
             DropdownOpen.Font = Enum.Font.Gotham
             DropdownOpen.Text = "+"
-            DropdownOpen.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownOpen.TextColor3 = Color3.fromRGB(0, 0, 0)
             DropdownOpen.TextSize = 24.000
             DropdownOpen.TextWrapped = true
             
@@ -1268,7 +1268,7 @@ end
             DropdownText.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
             DropdownText.PlaceholderText = text
             DropdownText.Text = ""
-            DropdownText.TextColor3 = Color3.fromRGB(255, 255, 255)
+            DropdownText.TextColor3 = Color3.fromRGB(0, 0, 0)
             DropdownText.TextSize = 16.000
             DropdownText.TextXAlignment = Enum.TextXAlignment.Left
             
@@ -1349,7 +1349,7 @@ end
               Option.AutoButtonColor = false
               Option.Font = Enum.Font.Gotham
               Option.Text = option
-              Option.TextColor3 = Color3.fromRGB(255, 255, 255)
+              Option.TextColor3 = Color3.fromRGB(0, 0, 0)
               Option.TextSize = 14.000
               
               OptionC.CornerRadius = UDim.new(0, 10)
@@ -1390,4 +1390,166 @@ end
       end
       return window
     end
-return library
+--return library
+local window = library:new("走马观花X-通用")
+local creds = window:Tab("基本信息")
+--local creds = window:Tab("基本信息",'3460915131')
+
+local bin = creds:section("信息",true)
+    bin:BigLabel("尊贵的走马观花X用户，感谢您的使用！")
+    bin:Label("你的注入器:"..identifyexecutor())
+    bin:Label("作者:小爱同学")
+    bin:Label("走马观花X交流群:947178829")
+
+local credits = creds:section("UI设置",true)
+
+    credits:Button("摧毁UI",function()
+        game:GetService("CoreGui")["frosty"]:Destroy()
+    end)
+
+    credits:Toggle("彩虹UI", "", false, function(state)
+        if state then
+        game:GetService("CoreGui")["frosty"].Main.Style = "DropShadow"
+        else
+            game:GetService("CoreGui")["frosty"].Main.Style = "Custom"
+        end
+    end)
+local gn = window:Tab("开发用具")
+local gn = gn:section("开发工具",true)
+gn:Button("Dex",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+end)
+gn:Button("Spy",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/SimpleSpyV3/main.lua"))()
+end)
+gn:Button("IY指令",function()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
+gn:Button("f3x工具",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/f3x.lua"))()
+end)
+local playerr = window:Tab("玩家")
+local playerr = playerr:section("玩家功能",true)
+playerr:Button("爬墙走",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/wallwalker.lua"))()
+end)
+playerr:Button("飞行V3",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%A3%9E%E8%A1%8C%E8%84%9A%E6%9C%ACV3(%E5%85%A8%E6%B8%B8%E6%88%8F%E9%80%9A%E7%94%A8).txt"))()
+end)
+gn:Button("绕一些服务器反作弊",function()
+for _, Value in next, getgc(true) do
+    if typeof(Value) == "table" then
+        if rawget(Value, "indexInstance") or rawget(Value, "newindexInstance") or rawget(Value, "newIndexInstance") then
+            Value.tvk = {"kick", function() return task.wait(9e9) end}
+        end
+    end
+end
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local oldIndex, oldNamecall
+oldIndex = hookmetamethod(game, "__index", newcclosure(function(t, k)
+    if t == LocalPlayer and type(k) == "string" and k:lower() == "kick" then
+    return function(...)
+    print("__index 拦截kick 成功")
+    -- return oldIndex(t, k)(...) 原方法 需要去掉注释
+    end
+end
+    return oldIndex(t, k)
+end))
+    oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+    if self == LocalPlayer and getnamecallmethod():lower() == "kick" then print(" __namecall 拦截kick 成功")
+    return
+end
+    return oldNamecall(self, ...)
+end))
+
+print("反 kick 已开启")
+local getinfo = getinfo or debug.getinfo
+local DEBUG = false
+local Hooked = {}
+
+local Detected, Kill
+
+setthreadidentity(2)
+
+for i, v in getgc(true) do
+    if typeof(v) == "table" then
+        local DetectFunc = rawget(v, "Detected")
+        local KillFunc = rawget(v, "Kill")
+    
+        if typeof(DetectFunc) == "function" and not Detected then
+            Detected = DetectFunc
+            
+            local Old; Old = hookfunction(Detected, function(Action, Info, NoCrash)
+                if Action ~= "_" then
+                    if DEBUG then
+                        warn(`Adonis AntiCheat flagged\nMethod: {Action}\nInfo: {Info}`)
+                    end
+                end
+                
+                return true
+            end)
+
+            table.insert(Hooked, Detected)
+        end
+
+        if rawget(v, "Variables") and rawget(v, "Process") and typeof(KillFunc) == "function" and not Kill then
+            Kill = KillFunc
+            local Old; Old = hookfunction(Kill, function(Info)
+                if DEBUG then
+                    warn(`Adonis AntiCheat tried to kill (fallback): {Info}`)
+                end
+            end)
+
+            table.insert(Hooked, Kill)
+        end
+    end
+end
+
+local Old; Old = hookfunction(getrenv().debug.info, newcclosure(function(...)
+    local LevelOrFunc, Info = ...
+
+    if Detected and LevelOrFunc == Detected then
+        if DEBUG then
+            warn(`zins | adonis bypassed`)
+        end
+
+        return coroutine.yield(coroutine.running())
+    end
+    
+    return Old(...)
+end))
+-- setthreadidentity(9)
+setthreadidentity(7)
+end)
+--playerr:Slider("速度", "速度设置", 16, 16, 1000, false, function(value)
+--   lp.Character.Humanoid.WalkSpeed = value
+--end)
+--playerr:Slider("跳高", "跳高设置", 50, 50, 1000, false, function(value)
+--    lp.Character.Humanoid.JumpPower = value
+--end)
+playerr:Textbox("速度", "速度", "请输入速度", function(value)
+    lp.Character.Humanoid.WalkSpeed = value
+end)
+playerr:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
+    lp.Character.Humanoid.JumpPower = value
+end)
+local hhk = false
+playerr:Toggle("触发所有临近显示", "", false, function(state)
+    hhk = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while hhk do  -- 检测阀门状态
+                  for _, descendant in pairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
+                       fireproximityprompt(descendant)
+                    end
+                  end
+                 wait(0.01)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
