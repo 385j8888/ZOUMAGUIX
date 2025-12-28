@@ -213,7 +213,7 @@ fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
          --  wait(2.1)
          end
-         wait(1.5)
+         wait(2)
       end
     else
         print("6")
@@ -244,7 +244,7 @@ fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
            --wait(2.1)
          end
-         wait(1.5)
+         wait(2)
       end
     else
         print("6")
