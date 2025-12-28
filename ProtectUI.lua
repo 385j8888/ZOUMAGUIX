@@ -615,6 +615,9 @@ end
                 sound.SoundId = "rbxassetid://4590662766"
                 sound.Volume = 1
                 sound:Play()
+                wait(1)
+                sound:Destroy()
+                
                 spawn(function()
                     Ripple(Btn)
                 end)
@@ -673,7 +676,7 @@ end
           LabelC.CornerRadius = UDim.new(0, 10)
           LabelC.Name = "LabelC"
           LabelC.Parent = TextLabel
-          return TextLabel
+          return BigLabel
         end
     
           function section.Toggle(section, text, flag, enabled, callback)
