@@ -203,9 +203,13 @@ fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
          local reel = playerGui:WaitForChild("reel")
          local bara = reel:WaitForChild("bar")
          
-         local hooksoundd = playerGui:WaitForChild("bounce")
          
-         if bara and hooksoundd then
+       --  local hooksoundd = playerGui:WaitForChild("bounce")
+       
+          local hooksoundd = playerGui:WaitForChild("popup")
+        -- wait(0.1)
+         if hooksoundd then
+           wait(2)
            local args = {
 	          100,
         	  true
@@ -213,7 +217,7 @@ fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
          --  wait(2.1)
          end
-         wait(2)
+         wait(0.1)
       end
     else
         print("6")
@@ -234,9 +238,10 @@ fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
          local reel = playerGui:WaitForChild("reel")
          local bara = reel:WaitForChild("bar")
          
-         local hooksoundd = playerGui:WaitForChild("bounce")
+         local hooksoundd = playerGui:WaitForChild("popup")
          
-         if bara and hooksoundd then
+         if hooksoundd then
+           wait(2)
            local args = {
 	          100,
         	  false
@@ -244,7 +249,7 @@ fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
            game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
            --wait(2.1)
          end
-         wait(2)
+         wait(0.1)
       end
     else
         print("6")
