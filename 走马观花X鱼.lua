@@ -209,7 +209,7 @@ fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
           local hooksoundd = playerGui:WaitForChild("popup")
         -- wait(0.1)
          if hooksoundd then
-           wait(2)
+           wait(1.85)
            local args = {
 	          100,
         	  true
@@ -241,7 +241,7 @@ fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
          local hooksoundd = playerGui:WaitForChild("popup")
          
          if hooksoundd then
-           wait(2)
+           wait(1.85)
            local args = {
 	          100,
         	  false
@@ -418,6 +418,11 @@ fishgn:Toggle("自动抛竿", "", false, function(state)
         print("6")
     end
 end)
+
+
+
+
+
 local gdgd = false
 gn:Toggle("固定位置", "", false, function(state)
     gdgd = state  -- 同步阀门状态
@@ -495,6 +500,8 @@ fishgn:Toggle("自动摇晃", "", false, function(state)
         print("6")
     end
 end)
+
+
 
 
 local oceanwalk = false
