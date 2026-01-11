@@ -24,18 +24,12 @@ setthreadidentity = (typeof(setthreadidentity) == "function" and setthreadidenti
 
 local HumanoidRootPart = LocalCharacter:FindFirstChild("HumanoidRootPart")
 game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "走马观花X";
-	Text = "脚本永远免费";
+	Title = "走马观花X🐟";
+	Text = "FIsch🐟🐟";
 	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
-Button1 = "明白";
+Button1 = "🐟";
 Duration = 15})
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "走马观花X";
-	Text = "感谢支持走马观花X";
-	Icon = "rbxthumb://type=Asset&id=17366451283&w=150&h=150";
-Button1 = "明白";
-Duration = 15})
-local window = library:new("走马观花X-鱼")
+local window = library:new("走马观花X-鱼Fisch")
 
 local creds = window:Tab("基本信息")
 
@@ -90,7 +84,7 @@ local pcall
     = pcall
 
 for _, SkibidiConnection in getconnections(game:GetService("Players").LocalPlayer.Idled) do
-    pcall(SkibidiConnection.Disable   , SkibidiConnection)
+    pcall(SkibidiConnection.Disable, SkibidiConnection)
     pcall(SkibidiConnection.Disconnect, SkibidiConnection)
 end
 end)
@@ -209,15 +203,11 @@ fishgn:Toggle("秒上钩(完美钓鱼)", "", false, function(state)
           local hooksoundd = playerGui:WaitForChild("popup")
         -- wait(0.1)
          if hooksoundd then
-           wait(1.85)
-           local args = {
-	          100,
-        	  true
-           }
-           game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
+           wait(1.95)
+           game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(100,true)
          --  wait(2.1)
          end
-         wait(0.1)
+         wait(0.15)
       end
     else
         print("6")
@@ -241,15 +231,11 @@ fishgn:Toggle("秒上钩(无完美钓鱼)", "", false, function(state)
          local hooksoundd = playerGui:WaitForChild("popup")
          
          if hooksoundd then
-           wait(1.85)
-           local args = {
-	          100,
-        	  false
-           }
-           game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(unpack(args))
+           wait(1.95)
+           game:GetService("ReplicatedStorage"):WaitForChild("events"):WaitForChild("reelfinished"):FireServer(100,false)
            --wait(2.1)
          end
-         wait(0.1)
+         wait(0.15)
       end
     else
         print("6")
@@ -394,7 +380,7 @@ fishgn:Toggle("自动抛竿", "", false, function(state)
          local animTrack = humanoid:LoadAnimation(animation)
          animTrack.Priority = Enum.AnimationPriority.Action
        --  animTrack:Play()
-         local args = {100, 1}
+        
          local player = game:GetService("Players").LocalPlayer
          local character = player.Character
 
@@ -438,7 +424,6 @@ gn:Toggle("固定位置", "", false, function(state)
       print("6")
     end
 end)
--- 脚本由TurtleSpy生成，由Interr#0421制作
         
 local abbaaaa = false
 fishgn:Toggle("自动摇晃", "", false, function(state)
