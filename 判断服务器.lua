@@ -49,7 +49,6 @@ loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/ref
 --恶魔学
 elseif game.PlaceId == 18794863104 then
 loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E6%81%B6%E9%AD%94%E5%AD%A6.lua")()
-end
 --脑叶分支
 elseif game.PlaceId == 123701320605975 then
 loadstring(game:HttpGet"https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%84%91%E5%8F%B6%E8%84%9A%E6%9C%AC2.lua")()
