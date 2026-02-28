@@ -1,3 +1,4 @@
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/BS58dL/BS/refs/heads/main/BS保护器-防httpSpy.lua"))()
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/ProtectUI.lua"))()
 local xxgd = false
 local bondd = false
@@ -68,8 +69,14 @@ local gn = gn:section("开发工具",true)
 gn:Button("Dex",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
 end)
+gn:Button("Dex++(dex加强版)",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Dex%2B%2B.lua"))()
+end)
 gn:Button("Spy",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/SimpleSpyV3/main.lua"))()
+end)
+gn:Button("海龟Spy汉化版(更高级)",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/Turtle_SPY_Chinese.lua"))()
 end)
 gn:Button("IY指令",function()
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
@@ -77,106 +84,128 @@ end)
 gn:Button("f3x工具",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/f3x.lua"))()
 end)
-local playerr = window:Tab("玩家")
-local playerr = playerr:section("玩家功能",true)
+local Globals = {
+    playernamedied = "", -- 当前选择的目标玩家
+    dropdown = {}, -- 玩家列表下拉菜单内容
+    LoopTeleport = false, -- 循环传送开关
+    message = "",
+    sayCount = 1,
+    sayFast = false,
+    autoSay = false
+}
+
+-- 刷新玩家列表函数
+function RefreshPlayerList(includeLocal)
+    Globals.dropdown = {}
+    if includeLocal == true then
+        for _, player in pairs(game.Players:GetPlayers()) do
+            table.insert(Globals.dropdown, player.Name)
+        end
+    else
+        local localPlayer = game.Players.LocalPlayer
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= localPlayer then
+                table.insert(Globals.dropdown, player.Name)
+            end
+        end
+    end
+end
+RefreshPlayerList(true)
+
+local pla= window:Tab("玩家")
+local playerr = pla:section("玩家功能",true)
+local SectionTeleport = pla:section("传送玩家",true)
+
+local SelectedPlayer = Globals.playernamedied
+local Dropdown = SectionTeleport:Dropdown("选择玩家用户名", "Dropdown", Globals.dropdown, function(Value)
+    Globals.playernamedied = Value
+end)
+
+SectionTeleport:Button("刷新玩家名称", function()
+    RefreshPlayerList(true)
+    Dropdown:SetOptions(Globals.dropdown)
+end)
+
+SectionTeleport:Button("传送到玩家身边", function()
+    local target = game.Players:FindFirstChild(Globals.playernamedied)
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+    end
+end)
+
+SectionTeleport:Toggle("循环锁定传送", "Loop", false, function(Value)
+    Globals.LoopTeleport = Value
+    if Value then
+        while Globals.LoopTeleport do
+             local target = game.Players:FindFirstChild(Globals.playernamedied)
+             if target and target.Character then
+                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+             end
+             wait()
+        end
+    end
+end)
+
+local SectionSpin = pla:section("旋转功能", true)
+
+local SpinSettings = {speed = 100, active = false, connection = nil}
+
+SectionSpin:Textbox("设置旋转速度", "TextBoxFlag", "输入", function(Value)
+    SpinSettings.speed = tonumber(Value) or 100
+    if SpinSettings.active then
+        local spin = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Spinbot")
+        if spin then spin.AngularVelocity = Vector3.new(0, SpinSettings.speed, 0) end
+    end
+end)
+
+SectionSpin:Toggle("开启/关闭旋转", "Spinbot", false, function(Value)
+    SpinSettings.active = Value
+    local char = game.Players.LocalPlayer.Character
+    local root = char:WaitForChild("HumanoidRootPart")
+    char.Humanoid.AutoRotate = not Value
+    
+    if Value then
+        local av = Instance.new("AngularVelocity")
+        av.Name = "Spinbot"
+        av.Attachment0 = root:WaitForChild("RootAttachment")
+        av.MaxTorque = math.huge
+        av.AngularVelocity = Vector3.new(0, SpinSettings.speed, 0)
+        av.Parent = root
+    else
+        if root:FindFirstChild("Spinbot") then root.Spinbot:Destroy() end
+    end
+end)
+
+
+
+playerr:Toggle("通用移除摔落伤害", "state", false, function(Value)
+    _G.AutoSelfDamage = Value
+    if _G.AutoSelfDamage then
+        spawn(function()
+            while _G.AutoSelfDamage do
+                if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Health") then
+                    game.Players.LocalPlayer.Character.Health.ForceSelfDamage:FireServer(0)
+                end
+                wait()
+            end
+        end)
+    end
+end)
+
 playerr:Button("爬墙走",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/wallwalker.lua"))()
 end)
 playerr:Button("飞行V3",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%A3%9E%E8%A1%8C%E8%84%9A%E6%9C%ACV3(%E5%85%A8%E6%B8%B8%E6%88%8F%E9%80%9A%E7%94%A8).txt"))()
 end)
-gn:Button("绕大部分服务器反作弊",function()
-for _, Value in next, getgc(true) do
-    if typeof(Value) == "table" then
-        if rawget(Value, "indexInstance") or rawget(Value, "newindexInstance") or rawget(Value, "newIndexInstance") then
-            Value.tvk = {"kick", function() return task.wait(9e9) end}
+
+playerr:Toggle("穿墙", "", false, function(state)
+    for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CanCollide = not state
         end
     end
-end
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local oldIndex, oldNamecall
-oldIndex = hookmetamethod(game, "__index", newcclosure(function(t, k)
-    if t == LocalPlayer and type(k) == "string" and k:lower() == "kick" then
-    return function(...)
-    print("__index 拦截kick 成功")
-    -- return oldIndex(t, k)(...) 原方法 需要去掉注释
-    end
-end
-    return oldIndex(t, k)
-end))
-    oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-    if self == LocalPlayer and getnamecallmethod():lower() == "kick" then print(" __namecall 拦截kick 成功")
-    return
-end
-    return oldNamecall(self, ...)
-end))
-
-print("反 kick 已开启")
-local getinfo = getinfo or debug.getinfo
-local DEBUG = false
-local Hooked = {}
-
-local Detected, Kill
-
-setthreadidentity(2)
-
-for i, v in getgc(true) do
-    if typeof(v) == "table" then
-        local DetectFunc = rawget(v, "Detected")
-        local KillFunc = rawget(v, "Kill")
-    
-        if typeof(DetectFunc) == "function" and not Detected then
-            Detected = DetectFunc
-            
-            local Old; Old = hookfunction(Detected, function(Action, Info, NoCrash)
-                if Action ~= "_" then
-                    if DEBUG then
-                        warn(`Adonis AntiCheat flagged\nMethod: {Action}\nInfo: {Info}`)
-                    end
-                end
-                
-                return true
-            end)
-
-            table.insert(Hooked, Detected)
-        end
-
-        if rawget(v, "Variables") and rawget(v, "Process") and typeof(KillFunc) == "function" and not Kill then
-            Kill = KillFunc
-            local Old; Old = hookfunction(Kill, function(Info)
-                if DEBUG then
-                    warn(`Adonis AntiCheat tried to kill (fallback): {Info}`)
-                end
-            end)
-
-            table.insert(Hooked, Kill)
-        end
-    end
-end
-
-local Old; Old = hookfunction(getrenv().debug.info, newcclosure(function(...)
-    local LevelOrFunc, Info = ...
-
-    if Detected and LevelOrFunc == Detected then
-        if DEBUG then
-            warn(`zins | adonis bypassed`)
-        end
-
-        return coroutine.yield(coroutine.running())
-    end
-    
-    return Old(...)
-end))
--- setthreadidentity(9)
-setthreadidentity(7)
 end)
---playerr:Slider("速度", "速度设置", 16, 16, 1000, false, function(value)
---   lp.Character.Humanoid.WalkSpeed = value
---end)
---playerr:Slider("跳高", "跳高设置", 50, 50, 1000, false, function(value)
---    lp.Character.Humanoid.JumpPower = value
---end)
 playerr:Textbox("速度", "速度", "请输入速度", function(value)
     lp.Character.Humanoid.WalkSpeed = value
 end)
@@ -184,7 +213,10 @@ playerr:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
     lp.Character.Humanoid.JumpPower = value
 end)
 local hhk = false
-playerr:Toggle("触发所有临近显示", "", false, function(state)
+playerr:Textbox("互动间隔", "互动间隔", "请输入间隔", function(value)
+    _Dhudong = value
+end)
+playerr:Toggle("触发所有互动", "", false, function(state)
     hhk = state  -- 同步阀门状态
     
     if state then
@@ -195,12 +227,19 @@ playerr:Toggle("触发所有临近显示", "", false, function(state)
                        fireproximityprompt(descendant)
                     end
                   end
-                 wait(0.01)
+                 wait(_Dhudong)
             end
         --end)
     else
         print("1")
     end
+end)
+playerr:Button("触发所有互动(一次)",function()
+for _, descendant in pairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
+                       fireproximityprompt(descendant)
+                    end
+end
 end)
 local playeresp = false
 playerr:Toggle("透视玩家", "", false, function(state)
@@ -360,24 +399,33 @@ end)
 playerr:Button("撸管工具R15",function()
 loadstring(game:HttpGet("https://pastefy.app/YZoglOyJ/raw"))()
 end)
-playerr:Button("解锁第三人称",function()
+playerr:Button("解锁第三人称+视野无限大",function()
 game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
 game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
 end)
-local huanjing = window:Tab("环境")
-local huanjing = huanjing:section("环境",true)
-huanjing:Button("全图变亮",function()
-Lighting = game:GetService("Lighting")
-Lighting.Brightness = 2
-	Lighting.ClockTime = 14
-	Lighting.FogEnd = 100000
-	Lighting.GlobalShadows = false
-	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+
+local gaoj = window:Tab("高级功能")
+local gaoj = gaoj:section("高级功能",true)
+gaoj:Button("防客户端踢出",function()
+for _, Value in next, getgc(true) do
+    if typeof(Value) == "table" then
+        if rawget(Value, "indexInstance") or rawget(Value, "newindexInstance") or rawget(Value, "newIndexInstance") then
+            Value.tvk = {"kick", function() return task.wait(9e9) end}
+        end
+    end
+end
 end)
-
-
-
-
+gaoj:Button("关闭所有LocalScript",function()
+for _, a in pairs(game:GetDescendants()) do
+    if a:IsA("LocalScript") then
+        a.Disabled = true
+    end
+end
+end)
+gaoj:Button("展开聊天框",function()
+local chat = game:GetService("TextChatService").ChatWindowConfiguration
+chat.Enabled = true
+end)
 
 
 
@@ -436,4 +484,189 @@ playerr:Toggle("无限跳", "", false, function(state)
     else
         disableInfJump()
     end
+end)
+
+
+
+
+
+
+
+
+
+
+--子弹追踪功能区
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Camera = Workspace.CurrentCamera
+local old
+local main = {
+    enable = false,
+    teamcheck = false,
+    friendcheck = false,
+    enablenpc = false
+}
+
+local function getClosestHead()
+    local closestHead
+    local closestDistance = math.huge
+    
+    if not LocalPlayer.Character then return end
+    if not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then return end
+    
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            local skip = false
+            
+       --     if main.teamcheck and player.Team == LocalPlayer.Team then
+            --    skip = true
+          --  end
+            
+         --   if not skip and main.friendcheck and LocalPlayer:IsFriendsWith(player.UserId) then
+             --   skip = true
+          --  end
+            
+            if not skip then
+                local character = player.Character
+                local root = character:FindFirstChild("HumanoidRootPart")
+                local head = character:FindFirstChild("Head")
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                
+                if root and head and humanoid and humanoid.Health > 0 then
+                    local distance = (root.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                    if distance < closestDistance then
+                        closestHead = head
+                        closestDistance = distance
+                    end
+                end
+            end
+        end
+    end
+    return closestHead
+end
+
+local function getClosestNpcHead()
+    local closestHead
+    local closestDistance = math.huge
+    
+    if not LocalPlayer.Character or not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then return end
+    local localHrp = LocalPlayer.Character.HumanoidRootPart
+    
+    for _, object in ipairs(Workspace:GetDescendants()) do
+        if object:IsA("Model") then
+            local humanoid = object:FindFirstChildOfClass("Humanoid")
+            local hrp = object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart
+            local head = object:FindFirstChild("Head")
+            
+            if humanoid and hrp and humanoid.Health > 0 then
+                local isPlayer = false
+                for _, pl in ipairs(Players:GetPlayers()) do
+                    if pl.Character == object then
+                        isPlayer = true
+                        break
+                    end
+                end
+                
+                if not isPlayer and head then
+                    local distance = (hrp.Position - localHrp.Position).Magnitude
+                    if distance < closestDistance then
+                        closestHead = head
+                        closestDistance = distance
+                    end
+                end
+            end
+        end
+    end
+    return closestHead
+end
+
+old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+    
+    if method == "Raycast" and not checkcaller() then
+        local origin = args[1] or Camera.CFrame.Position
+        
+        if main.enable then
+            local closestHead = getClosestHead()
+            if closestHead then
+                return {
+                    Instance = closestHead,
+                    Position = closestHead.Position,
+                    Normal = (origin - closestHead.Position).Unit,
+                    Material = Enum.Material.Plastic,
+                    Distance = (closestHead.Position - origin).Magnitude
+                }
+            end
+        end
+        
+        if main.enablenpc then
+            local closestNpcHead = getClosestNpcHead()
+            if closestNpcHead then
+                return {
+                    Instance = closestNpcHead,
+                    Position = closestNpcHead.Position,
+                    Normal = (origin - closestNpcHead.Position).Unit,
+                    Material = Enum.Material.Plastic,
+                    Distance = (closestNpcHead.Position - origin).Magnitude
+                }
+            end
+        end
+    end
+    return old(self, ...)
+end))
+
+
+
+
+
+
+
+
+
+
+
+
+local ammo = window:Tab("子弹追踪")
+local ammo = ammo:section("子弹追踪",true)
+ammo:Toggle("开启/关闭子追", "", false, function(state)
+    main.enable = state
+end)
+ammo:Toggle("区分队伍", "", false, function(state)
+    main.teamcheck = state
+end)
+ammo:Toggle("区分好友", "", false, function(state)
+    main.friendcheck = state
+end)
+ammo:Toggle("npc子追", "", false, function(state)
+    main.enablenpc = state
+end)
+
+
+
+
+local aim = window:Tab("自瞄")
+local aim = aim:section("自瞄",true)
+aim:Button("走马观花X自瞄UI",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E8%B5%B0%E9%A9%AC%E8%A7%82%E8%8A%B1X%E8%87%AA%E7%9E%84.lua"))()
+end)
+aim:BigLabel("对于忍者注入器或者一些unc低的注入器没用，会有bug")
+
+
+
+
+
+
+local world = window:Tab("世界")
+local world = world:section("世界",true)
+world:Button("全图高光",function()
+
+local cloneref = cloneref or function(o) return o end
+Lighting = cloneref(game:GetService("Lighting"))
+Lighting.Brightness = 2
+	Lighting.ClockTime = 14
+	Lighting.FogEnd = 100000
+	Lighting.GlobalShadows = false
+	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
 end)
