@@ -83,6 +83,9 @@ end)
 gn:Button("f3x工具",function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/f3x.lua"))()
 end)
+gn:Button("RemoteBrowser远程事件浏览",function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Games1799/Scripts/refs/heads/main/RemoteBrowser"))()
+end)
 gn:Button("位置仪",function()
 -- Made by TheXploiter
  
@@ -650,6 +653,25 @@ end)
 
 local gaoj = window:Tab("高级功能")
 local gaoj = gaoj:section("高级功能",true)
+
+gaoj:Button("绕过Adonis反作弊",function()
+for i, v in pairs(game:GetDescendants()) do
+if v.Name == "__FUNCTION" then
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua'))()
+hi = true
+break
+end
+end
+
+if not hi then
+StarterGui:SetCore("SendNotification", {
+Title = "没有找到Adonis反作弊",
+Text = "这个服务器并没有Adonis反作弊",
+Duration = 5,
+})
+end
+end)
+
 gaoj:Button("反挂机踢出",function()
 
 local pcall
