@@ -239,9 +239,11 @@ function RefreshPlayerList(includeLocal)
 end
 RefreshPlayerList(true)
 
+
 local pla= window:Tab("玩家")
 local playerr = pla:section("玩家功能",true)
 local SectionTeleport = pla:section("传送玩家",true)
+
 
 local SelectedPlayer = Globals.playernamedied
 local Dropdown = SectionTeleport:Dropdown("选择玩家用户名", "Dropdown", Globals.dropdown, function(Value)
@@ -344,41 +346,6 @@ playerr:Toggle("穿墙", "", false, function(state)
             part.CanCollide = not state
         end
     end
-end)
-playerr:Textbox("速度", "速度", "请输入速度", function(value)
-    lp.Character.Humanoid.WalkSpeed = value
-end)
-playerr:Textbox("跳跃", "跳跃", "请输入跳跃", function(value)
-    lp.Character.Humanoid.JumpPower = value
-end)
-local hhk = false
-playerr:Textbox("互动间隔", "互动间隔", "请输入间隔", function(value)
-    _Dhudong = value
-end)
-playerr:Toggle("触发所有互动", "", false, function(state)
-    hhk = state  -- 同步阀门状态
-    
-    if state then
-        --spawn(function()  -- 使用独立协程
-            while hhk do  -- 检测阀门状态
-                  for _, descendant in pairs(workspace:GetDescendants()) do
-                    if descendant:IsA("ProximityPrompt") then
-                       fireproximityprompt(descendant)
-                    end
-                  end
-                 wait(_Dhudong)
-            end
-        --end)
-    else
-        print("1")
-    end
-end)
-playerr:Button("触发所有互动(一次)",function()
-for _, descendant in pairs(workspace:GetDescendants()) do
-                    if descendant:IsA("ProximityPrompt") then
-                       fireproximityprompt(descendant)
-                    end
-end
 end)
 
 playerr:Button("把所有人吸过来(可受伤)",function()
@@ -641,6 +608,45 @@ playerr:Button("解锁第三人称+视野无限大",function()
 game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = 99999
 game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
 end)
+
+
+
+
+local pp = window:Tab("互动功能")
+local ppo = pp:section("互动功能",true)
+
+local hhk = false
+ppo:Textbox("互动间隔", "互动间隔", "请输入间隔", function(value)
+    _Dhudong = value
+end)
+ppo:Toggle("触发所有互动", "", false, function(state)
+    hhk = state  -- 同步阀门状态
+    
+    if state then
+        --spawn(function()  -- 使用独立协程
+            while hhk do  -- 检测阀门状态
+                  for _, descendant in pairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
+                       fireproximityprompt(descendant)
+                    end
+                  end
+                 wait(_Dhudong)
+            end
+        --end)
+    else
+        print("1")
+    end
+end)
+ppo:Button("触发所有互动(一次)",function()
+for _, descendant in pairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
+                       fireproximityprompt(descendant)
+                    end
+end
+end)
+
+
+
 
 local gaoj = window:Tab("高级功能")
 local gaoj = gaoj:section("高级功能",true)
