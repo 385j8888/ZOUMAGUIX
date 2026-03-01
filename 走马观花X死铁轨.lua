@@ -1130,9 +1130,6 @@ espSection:Toggle("透视债券","",false,function(state)
         end
     end
 end)
-local gnj = window:Tab("主要功能",'10723407389')
-local gn = gnj:section("主要",true)
-local gnpp = gnj:section("自动功能",true)
 
 local bondddd = false
 --gnpp:Toggle("自动领债券", "", false, function(state)
