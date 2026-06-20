@@ -1,4 +1,4 @@
-game.Players.LocalPlayer:Kick(a.."您的走马观花X版本过低，获取最新版请加群758776178")
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/385j8888/ZOUMAGUIX/refs/heads/main/%E9%A1%B6%E9%83%A8%E9%80%9A%E7%9F%A5.lua"))()
 local sound = Instance.new("Sound")
 sound.SoundId = "rbxassetid://4590662766"
@@ -105,6 +105,9 @@ coroutine.wrap(function()
     
     gui:Destroy()
 end)()
+
+game.Players.LocalPlayer:Kick("您的走马观花X版本过低，获取最新版请加群758776178")
+
 wait(4.5)
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
